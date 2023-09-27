@@ -1,0 +1,14 @@
+<%- include('./partials/header'); %>
+
+<%- include('./partials/navbar'); %>
+<h1>Delete sua tarefa</h1>
+<p>Deseja realmente deletar essa tarefa?</p>
+<form action="/deletar-tarefa" method="POST">
+    <form action="/deletar-tarefa" method="POST">
+        <input type="hidden" name="id" value="<%= tarefa.id %>">
+        <input type="submit" value="Sim">
+        <a href="/tarefa/<%= tarefa.id %>"><input type="button" value="Não"></a>
+    </form>
+</form>
+
+<%- include('./partials/footer'); %>
