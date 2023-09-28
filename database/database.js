@@ -1,10 +1,11 @@
 const Sequelize = require("sequelize");
+
 const connection = new Sequelize(
- 'todolist',
- 'root',
- '157123',
+  'bd6vxflkis8r477dvxzt',
+  'ugvggxef85iupzhw',
+  'gnTp0oU8HWidecLlVYGB',
   {
-    host: 'localhost',
+    host: 'bd6vxflkis8r477dvxzt-mysql.services.clever-cloud.com',
     dialect: 'mysql'
   }
 );
