@@ -24,6 +24,9 @@ nav {
     gap: 10px;
 }
 
+header {
+    border-bottom: 1px solid gainsboro;
+}
 
 h1, h2, p {
     margin: 10px 0px;
@@ -75,6 +78,7 @@ footer {
 
 a {
     text-decoration: none;
+    color: red;
 }
 
 @media only screen and (max-width: 768px) {
