@@ -1,6 +1,8 @@
 const express = require("express");
 const Sequelize = require("sequelize");
 
+app.set('view engine', 'ejs');
+
 const connection = new Sequelize(
     'bd6vxflkis8r477dvxzt',
     'ugvggxef85iupzhw',
@@ -21,12 +23,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.get("/", async (req, res) => {
-    res.send("Olá, mundo! v0.5");
+    res.render('index');
 });
 
-app.get("/test", async (req, res) => {
-    res.send("Roda de test!");
-});
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}.`);
