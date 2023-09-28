@@ -1,0 +1,10 @@
+<%- include('partils/header') %>
+<h1>Adicionar nova tarefa</h1>
+<form action="/salvarInsercaoTarefa" method="POST">
+    <label for="inputTituloInsercaoTarefa">Título:</label><br>
+    <input type="text" id="inputTituloInsercaoTarefa" name="titulo"><br>
+    <label for="textAreaInsercaoTarefa">Descrição:</label><br>
+    <textarea name="descricao" id="textAreaInsercaoTarefa"></textarea><br>
+    <button type="submit">Salvar</button>
+</form>
+<%- include('partils/footer') %>
