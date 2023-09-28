@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 3000;
 
 // Rota principal para renderizar a página inicial.
 app.get("/", async (req, res) => {
-    res.send("Olá, mundo!");
+    res.send("Olá, mundo! v0.1");
 });
 
 // Iniciando o servidor na porta especificada.
