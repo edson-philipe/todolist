@@ -22,7 +22,10 @@ const PORT = process.env.PORT || 3000;
 
 app.get("/", async (req, res) => {
     res.send("Olá, mundo! v0.4");
-    console.log("test")
+});
+
+app.get("/test", async (req, res) => {
+    res.send("Roda de test!");
 });
 
 app.listen(PORT, () => {
