@@ -6,7 +6,7 @@ const connection = require("./database/database");
 const Tarefa = require("./database/Tarefa");
 
 connection.authenticate().then(() => {
-    console.log('Conectado ao banco de dados!');
+    console.log('Conectado ao banco de dados!!');
 }).catch((error) => {
     console.error(error);
 });
