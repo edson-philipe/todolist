@@ -1,5 +1,7 @@
 const express = require("express");
+const app = express();
 const Sequelize = require("sequelize");
+const PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 
@@ -19,8 +21,6 @@ connection.authenticate().then(() => {
     console.error('Erro ao conectar ao banco de dados:', error);
 });
 
-const app = express();
-const PORT = process.env.PORT || 3000;
 
 app.get("/", async (req, res) => {
     res.render('index');
