@@ -12,7 +12,7 @@ const connection = new Sequelize(
 );
 
 connection.authenticate().then(() => {
-    console.log('Conectado ao banco de dados!');
+    alert('Conectado ao banco de dados!');
 }).catch((error) => {
     console.error(error);
 });
@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 3000;
 
 // Rota principal para renderizar a página inicial.
 app.get("/", async (req, res) => {
-    res.send("Olá, mundo! v0.1");
+    res.send("Olá, mundo! v0.2");
 });
 
 // Iniciando o servidor na porta especificada.
