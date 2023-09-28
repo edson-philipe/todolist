@@ -2,8 +2,12 @@
 <%- include('./partials/navbar'); %>
 <!-- <a href="/tarefa/<%= tarefa.id %>"><button>Voltar para a página de detalhes da tarefa</button></a>
  -->
-<h1>Edite sua tarefa</h1>
-<form action="/editar-tarefa" method="POST">
+ <hr>
+<header>
+    <h1>Edite sua tarefa</h1>
+</header>
+<hr>
+<form action="/editar-tarefa" method="POST" class="formulario-editar-tarefa">
     <label for="titulo">Título:</label>
     <input type="text" id="titulo" name="titulo" value="<%= tarefa.titulo %>">
 
@@ -21,7 +25,7 @@
     </div>
 
     <input type="hidden" name="id" value="<%= tarefa.id %>">
-
+    <hr>
     <footer>
         <input type="submit" value="Salvar">
     </footer>

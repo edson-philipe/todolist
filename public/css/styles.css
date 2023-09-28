@@ -16,19 +16,19 @@ section {
     width: 70%;
     border-radius: 5px;
     padding: 15px;
-    background-color: #fff;
+    background-color: red;
 }
 
 nav {
     display: flex;
     gap: 10px;
+    margin-bottom: 10px;
 }
 
-header {
-    border-bottom: 1px solid gainsboro;
-}
 
-h1, h2, p {
+h1,
+h2,
+p {
     margin: 10px 0px;
 }
 
@@ -36,13 +36,17 @@ h1, h2, p {
     font-weight: normal;
 }
 
-input[type="text"], textarea {
+input[type="text"],
+textarea {
     width: 100%;
     margin-bottom: 10px;
     padding: 10px;
 }
 
-input[type="submit"], input[type="button"], .botao_editar_tarefa, .botao_deletar_tarefa {
+input[type="submit"],
+input[type="button"],
+.botao_editar_tarefa,
+.botao_deletar_tarefa {
     padding: 10px;
     border-radius: 5px;
     border: none;
@@ -50,7 +54,10 @@ input[type="submit"], input[type="button"], .botao_editar_tarefa, .botao_deletar
     font-weight: bold;
 }
 
-input[type="submit"]:hover, input[type="button"]:hover, .botao_editar_tarefa:hover, .botao_deletar_tarefa:hover {
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.botao_editar_tarefa:hover,
+.botao_deletar_tarefa:hover {
     cursor: pointer;
 }
 
@@ -62,27 +69,37 @@ input[type="submit"] {
     background-color: #e4a11b;
 }
 
-.botao_deletar_tarefa, input[type="button"] {
+.botao_deletar_tarefa,
+input[type="button"] {
     background-color: #dc4c64;
 }
-
 
 .area_radio_concluido {
     padding: 10px 0px;
 }
 
+.formulario-editar-tarefa, .formulario_adicionar_tarefa {
+    margin-top: 10px;
+}
+
 footer {
     display: flex;
-    gap: 10px;   
+    gap: 10px;
+    margin-top: 10px;
 }
 
 a {
     text-decoration: none;
-    color: red;
+}
+
+hr {
+    border-color: rgba(220, 220, 220, 0.5);
+    border-width: 1px;
+    border-style: outset;
 }
 
 @media only screen and (max-width: 768px) {
     section {
-      width: 90%; 
+        width: 90%;
     }
-  }
+}

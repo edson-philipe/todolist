@@ -1,14 +1,18 @@
 <%- include('./partials/header'); %>
 <%- include('./partials/navbar'); %>
-    <header>
-        <h1>Suas tarefas</h1>
-    </header>
-    <article>
-        <% tarefas.forEach(function(tarefa) { %>
-            <a href="tarefa/<%= tarefa.id %>">
-                <h2 class="titulo_tarefa"><%= tarefa.titulo %></h2>  
-                <input type="hidden" class="concluido_tarefa" value="<%= tarefa.concluido %>">
-            </a>
+<hr>
+<header>
+    <h1>Suas tarefas</h1>
+</header>
+<hr>
+<article>
+    <% tarefas.forEach(function(tarefa) { %>
+        <a href="tarefa/<%= tarefa.id %>">
+            <h2 class="titulo_tarefa">
+                <%= tarefa.titulo %>
+            </h2>
+            <input type="hidden" class="concluido_tarefa" value="<%= tarefa.concluido %>">
+        </a>
         <% }); %>
-    </article>
+</article>
 <%- include('./partials/footer'); %>

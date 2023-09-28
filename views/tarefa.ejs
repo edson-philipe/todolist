@@ -1,17 +1,24 @@
 <%- include('./partials/header'); %>
-
-    <%- include('./partials/navbar'); %>
+<%- include('./partials/navbar'); %>
+<hr>
+<header>
     <h1>Detalhes da sua tarefa</h1>
-    <h2 class="titulo_tarefa"><%= tarefa.titulo %></h2>  
-    <input type="hidden" class="concluido_tarefa" value="<%= tarefa.concluido %>">
-    <p class="descricao_tarefa"><%= tarefa.descricao %></p>
-    <footer>
-        <a href="/editar-tarefa/<%= tarefa.id %>">
-            <button class="botao_editar_tarefa">Editar</button>
-        </a>
-        <a href="/deletar-tarefa/<%= tarefa.id %>">
-            <button class="botao_deletar_tarefa">Deletar</button>
-        </a>
-    </footer>
-
+</header>
+<hr>
+<h2 class="titulo_tarefa">
+    <%= tarefa.titulo %>
+</h2>
+<input type="hidden" class="concluido_tarefa" value="<%= tarefa.concluido %>">
+<p class="descricao_tarefa">
+    <%= tarefa.descricao %>
+</p>
+<hr>
+<footer>
+    <a href="/editar-tarefa/<%= tarefa.id %>">
+        <button class="botao_editar_tarefa">Editar</button>
+    </a>
+    <a href="/deletar-tarefa/<%= tarefa.id %>">
+        <button class="botao_deletar_tarefa">Deletar</button>
+    </a>
+</footer>
 <%- include('./partials/footer'); %>

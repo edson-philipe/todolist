@@ -1,17 +1,19 @@
 <%- include('./partials/header'); %>
 <%- include('./partials/navbar'); %>
-
-<h1>Adicione uma tarefa</h1>
-
-<form action="/adicionar-tarefa" method="POST">
-
+<hr>
+<header>
+    <h1>Adicione uma tarefa</h1>
+</header>
+<hr>
+<form action="/adicionar-tarefa" method="POST" class="formulario_adicionar_tarefa">
     <label for="titulo">Título:</label>
     <input type="text" id="titulo" name="titulo">
 
     <label for="descricao">Descrição:</label>
     <textarea name="descricao" id="descricao"></textarea>
-
-    <input type="submit" value="Adicionar">
+    <hr>
+    <footer>
+        <input type="submit" value="Adicionar">
+    </footer>
 </form>
-
 <%- include('./partials/footer'); %>
