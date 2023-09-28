@@ -21,7 +21,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.get("/", async (req, res) => {
-    res.send("Olá, mundo! v0.4");
+    res.send("Olá, mundo! v0.5");
 });
 
 app.get("/test", async (req, res) => {
