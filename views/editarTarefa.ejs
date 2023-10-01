@@ -1,0 +1,25 @@
+<%- include('partils/header') %>
+<%- include('partils/navbar') %>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Editar informações da tarefa selecionada
+        </div>
+        <div class="card-body">
+            <form action="/editartarefa" method="POST">
+
+                <label for="inputTituloInsercaoTarefa" class="form-label">Título da tarefa:</label>
+                <input type="text" class="form-control" id="inputTituloInsercaoTarefa" name="titulo" value="<%= tarefa.titulo %>">
+
+                <label for="textAreaInsercaoTarefa" class="form-label">Descrição da tarefa:</label>
+                <textarea class="form-control" id="textAreaInsercaoTarefa" rows="3" name="descricao"><%= tarefa.descricao %></textarea>
+        </div>
+        <div class="card-footer text-muted">
+                <a href="/tarefa/<%= tarefa.id %>" class="btn btn-outline-secondary">Cancelar edições</a>
+                <input type="hidden" value="<%= tarefa.id %>" name="id">
+                <input type="submit" class="btn btn-success" value="Confirmar edições">
+            </form>  
+        </div>
+    </div>
+</div>
+<%- include('partils/footer') %>

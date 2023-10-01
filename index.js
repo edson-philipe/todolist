@@ -85,6 +85,38 @@ app.post("/excluirtarefa", (req, res) => {
     });
 });
 
+app.get("/editartarefa/:id", (req, res) => {
+    const id = req.params.id;
+    Tarefa.findOne({
+        where: {
+            id : id
+        }
+    }).then(tarefa => {
+        res.render("editarTarefa", {
+            tarefa: tarefa,
+        });
+    })
+});
+
+app.post("/editartarefa", (req, res) => {
+    const id = req.body.id;
+    const titulo = req.body.titulo; 
+    const descricao = req.body.descricao; 
+    Tarefa.update(
+        {
+            titulo: titulo,
+            descricao: descricao,
+            concluido: false,
+        },
+        {
+            where: { id: id },
+        }
+    ).then(() => {
+        res.redirect('/');
+    });
+});
+
+
 app.listen(3000, () => {
     console.log("Servidor rodando!");
 });
