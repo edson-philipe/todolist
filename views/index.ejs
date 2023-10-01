@@ -13,10 +13,14 @@
             <!-- Cria uma coluna para cada tarefa -->
             <div class="col">
                 <div class="card">
+                    <div class="card-header">
+                        <p class="card-text statusTarefa">Tarefa pendente</p>
+                    </div>
                     <div class="card-body">
                         <!-- Exibe o título da tarefa -->
-                        <h5 class="card-title"><%= tarefa.titulo %></h5>
+                        <h5 class="card-title tituloTarefa"><%= tarefa.titulo %></h5>
                         <!-- Exibe a descrição da tarefa -->
+                        <input type="hidden" class="inputTarefaConcluida" value="<%= tarefa.concluido %>">
                     </div>
                     <div class="card-footer text-muted">
                         <!-- Cria um link para mais informações sobre a tarefa -->

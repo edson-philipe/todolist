@@ -101,12 +101,13 @@ app.get("/editartarefa/:id", (req, res) => {
 app.post("/editartarefa", (req, res) => {
     const id = req.body.id;
     const titulo = req.body.titulo; 
-    const descricao = req.body.descricao; 
+    const descricao = req.body.descricao;
+    const concluido = req.body.concluido; 
     Tarefa.update(
         {
             titulo: titulo,
             descricao: descricao,
-            concluido: false,
+            concluido: concluido,
         },
         {
             where: { id: id },

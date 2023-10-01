@@ -2,13 +2,17 @@
 <%- include('partils/navbar') %>
     <div class="container">
         <div class="card">
+            <div class="card-header">
+                <p class="card-text statusTarefa">Tarefa pendente</p>
+            </div>
             <div class="card-body">
-                <h5 class="card-title">
+                <h5 class="card-title tituloTarefa">
                     <%= tarefa.titulo %>
                 </h5>
-                <p class="card-text">
+                <p class="card-text descricaoTarefa">
                     <%= tarefa.descricao %>
                 </p>
+                <input type="hidden" class="inputTarefaConcluida" value="<%= tarefa.concluido %>">
             </div>
             <div class="card-footer text-muted">
                 <a href="/editartarefa/<%= tarefa.id %>" class="btn btn-warning">Editar tarefa</a>
