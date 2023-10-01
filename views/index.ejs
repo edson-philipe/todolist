@@ -1,19 +1,35 @@
+<!-- Inclui o conteúdo do arquivo 'header' -->
 <%- include('partils/header') %>
+
+<!-- Inclui o conteúdo do arquivo 'navbar' -->
 <%- include('partils/navbar') %>
-<% tarefas.forEach(tarefa=> { %>
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">
-                    <%= tarefa.titulo %>
-                </h5>
-                <p class="card-text">
-                    <%= tarefa.descricao %>
-                </p>
-                <a href="#" class="btn btn-primary">Mais informações</a>
+
+<!-- Abre um contêiner para organizar o layout -->
+<div class="container">
+    <!-- Cria uma linha com até 3 colunas em cada linha para as tarefas -->
+    <div class="row row-cols-1 row-cols-md-3">
+        <!-- Itera sobre a lista de tarefas -->
+        <% tarefas.forEach(tarefa=> { %>
+            <!-- Cria uma coluna para cada tarefa -->
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Exibe o título da tarefa -->
+                        <h5 class="card-title"><%= tarefa.titulo %></h5>
+                        <!-- Exibe a descrição da tarefa -->
+                        <p class="card-text">
+                            <%= tarefa.descricao %>
+                        </p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <!-- Cria um link para mais informações sobre a tarefa -->
+                        <a href="/tarefa/<%= tarefa.id %>" class="btn btn-primary">Mais informações</a>
+                    </div>
+                </div>
             </div>
-        </div>
+        <% }); %>
     </div>
-    <br>
-<% }); %>
+</div>
+
+<!-- Inclui o conteúdo do arquivo 'footer' -->
 <%- include('partils/footer') %>

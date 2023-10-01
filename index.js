@@ -32,11 +32,24 @@ app.get("/", (req, res) => {
     });
 });
 
+app.get("/tarefa/:id", (req, res) => {
+    const id = req.params.id;
+    Tarefa.findOne({
+        where: {
+            id : id
+        }
+    }).then(tarefa => {
+        res.render("tarefa", {
+            tarefa: tarefa,
+        });
+    })
+});
+
 app.get("/inserirtarefa", (req, res) => {
     res.render("inserirTarefa");
 });
 
-app.post("/salvarInsercaoTarefa", (req, res) => {
+app.post("/inserirtarefa", (req, res) => {
     const titulo = req.body.titulo;
     const descricao = req.body.descricao;
     Tarefa.create({
@@ -48,7 +61,20 @@ app.post("/salvarInsercaoTarefa", (req, res) => {
     });
 });
 
-app.post("/excluirTarefa", (req, res) => {
+app.get("/excluirtarefa/:id", (req, res) => {
+    const id = req.params.id;
+    Tarefa.findOne({
+        where: {
+            id : id
+        }
+    }).then(tarefa => {
+        res.render("excluirTarefa", {
+            tarefa: tarefa,
+        });
+    })
+});
+
+app.post("/excluirtarefa", (req, res) => {
     const id = req.body.id;
     Tarefa.destroy({
         where: {
@@ -58,7 +84,6 @@ app.post("/excluirTarefa", (req, res) => {
         res.redirect('/');
     });
 });
-
 
 app.listen(3000, () => {
     console.log("Servidor rodando!");
