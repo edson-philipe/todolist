@@ -17,6 +17,6 @@ for (let i = 0; i < tituloTarefa.length; i++) {
     }
 }
 
-if (inputTarefaConcluida[0].value == "true" || inputTarefaConcluida[i].value == true) {
+if (inputTarefaConcluida[0].value == "true" || inputTarefaConcluida[0].value == true) {
     radioSimInsercaoTarefa.checked = true;
 }

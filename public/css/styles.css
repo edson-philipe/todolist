@@ -2,8 +2,8 @@
     margin-bottom: 10px;
 }
 
-h6.card-title, p.card-text {
-    margin-bottom: 0px;
+h6.card-title, p.card-text, div.mb-3:last-child {
+    margin-bottom: 0px !important;
 }
 
 .statusTarefa {
