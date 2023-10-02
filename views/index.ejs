@@ -7,29 +7,18 @@
 <!-- Abre um contêiner para organizar o layout -->
 <div class="container">
     <!-- Cria uma linha com até 3 colunas em cada linha para as tarefas -->
-    <div class="row row-cols-1 row-cols-md-3">
         <!-- Itera sobre a lista de tarefas -->
         <% tarefas.forEach(tarefa=> { %>
             <!-- Cria uma coluna para cada tarefa -->
-            <div class="col">
+            <a href="/tarefa/<%= tarefa.id %>" class="text-decoration-none text-dark">
                 <div class="card">
-                    <div class="card-header">
-                        <p class="card-text statusTarefa">Tarefa pendente</p>
-                    </div>
                     <div class="card-body">
-                        <!-- Exibe o título da tarefa -->
-                        <h5 class="card-title tituloTarefa"><%= tarefa.titulo %></h5>
-                        <!-- Exibe a descrição da tarefa -->
-                        <input type="hidden" class="inputTarefaConcluida" value="<%= tarefa.concluido %>">
-                    </div>
-                    <div class="card-footer text-muted">
-                        <!-- Cria um link para mais informações sobre a tarefa -->
-                        <a href="/tarefa/<%= tarefa.id %>" class="btn btn-primary">Mais informações</a>
+                      <h6 class="card-title tituloTarefa"><%= tarefa.titulo %></h6>
+                      <input type="hidden" class="inputTarefaConcluida" value="<%= tarefa.concluido %>">
                     </div>
                 </div>
-            </div>
+            </a>
         <% }); %>
-    </div>
 </div>
 
 <!-- Inclui o conteúdo do arquivo 'footer' -->

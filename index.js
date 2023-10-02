@@ -113,7 +113,7 @@ app.post("/editartarefa", (req, res) => {
             where: { id: id },
         }
     ).then(() => {
-        res.redirect('/');
+        res.redirect('/tarefa/' + id);
     });
 });
 
