@@ -1,9 +1,34 @@
+body {
+    scroll-behavior: smooth;
+}
+
 .navbar, .card {
     margin-bottom: 10px;
 }
 
 h6.card-title, p.card-text, div.mb-3:last-child {
     margin-bottom: 0px !important;
+}
+
+.cardTask {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkBoxArea form {
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+}
+
+.checkBoxArea form button {
+    background-color: transparent;
+    border: none;
+}
+
+.descricaoTarefa {
+    margin-top: 8px !important;
 }
 
 .statusTarefa {

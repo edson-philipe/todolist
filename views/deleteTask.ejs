@@ -1,0 +1,27 @@
+<%- include('partils/header') %>
+<%- include('partils/navbar') %>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="card-title">
+               Excluir tarefa
+            </h6>
+            <p class="card-text descricaoTarefa">
+                Deseja realmente excluir a tarefa selecionada?
+            </p>
+        </div>
+
+        <div class="card-footer text-muted">
+            <form action="/deletetaskconfirm" method="POST">
+                <a href="/task/<%= tarefa.id %>" class="btn btn-outline-secondary btn-sm">Cancelar</a>
+
+                <input type="hidden" value="<%= tarefa.id %>" name="id">
+
+                <input type="submit" class="btn btn-success btn-sm" value="Confirmar exclusão">
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('partils/footer') %>
