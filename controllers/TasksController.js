@@ -54,7 +54,6 @@ async function editTaskConfirm(req, res) {
         {
             titulo: req.body.titulo,
             descricao: req.body.descricao,
-            concluido: req.body.concluido,
         },
         { where: { id: req.body.id } }
     );
@@ -63,18 +62,14 @@ async function editTaskConfirm(req, res) {
 
 async function completedTaskId(req, res) {
     let concluido;
-    if (req.body.concluido == "0") {
-        concluido = 1;
-    } else {
-        concluido = 0;
-    }
+    concluido = req.body.concluido === "0" ? 1 : 0;
     await Task.update(
         {
             concluido: concluido,
         },
         { where: { id: req.body.id } }
     );
-    res.redirect('/#secao' + req.body.id);
+    res.redirect("/");
 }
 
 module.exports = {

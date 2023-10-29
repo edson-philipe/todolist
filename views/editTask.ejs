@@ -12,43 +12,22 @@
             <form action="/edittaskconfirm" method="POST">
 
                 <div class="mb-3">
-                    <label for="inputTituloInsercaoTarefa" class="form-label">Título da tarefa:</label>
-                    <input type="text" class="form-control" id="inputTituloInsercaoTarefa" name="titulo" value="<%= tarefa.titulo %>">
+                    <label for="inputEditTitleTask" class="form-label">Título da tarefa:</label>
+                    <input type="text" class="form-control" id="inputEditTitleTask" name="titulo" value="<%= tarefa.titulo %>">
                 </div>
 
                 <div class="mb-3">
-                    <label for="textAreaInsercaoTarefa" class="form-label">Descrição da tarefa:</label>
-                    <textarea class="form-control" id="textAreaInsercaoTarefa" rows="3" name="descricao"><%= tarefa.descricao %></textarea>
+                    <label for="inputEditDescriptionTask" class="form-label">Descrição da tarefa:</label>
+                    <textarea class="form-control" id="inputEditDescriptionTask" rows="3" name="descricao"><%= tarefa.descricao %></textarea>
                 </div>
 
-                <div class="mb-3">
-                    <label for="" class="form-label">Tarefa concluída:</label>
-                    <input type="hidden" class="inputTarefaConcluida" value="<%= tarefa.concluido %>">
+            </div>
 
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="concluido" id="radioSimInsercaoTarefa" value="1">
-                        <label class="form-check-label" for="radioSimInsercaoTarefa" >
-                            Sim
-                        </label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="concluido" id="radioNaoInsercaoTarefa" value="0" checked>
-                        <label class="form-check-label" for="radioNaoInsercaoTarefa">
-                            Não
-                        </label>
-                    </div>
-                </div>
-
-        </div>
-
-        <div class="card-footer text-muted">
-            <a href="/tarefa/<%= tarefa.id %>" class="btn btn-outline-secondary btn-sm">Cancelar</a>
-
-            <input type="hidden" value="<%= tarefa.id %>" name="id">
-
-            <input type="submit" class="btn btn-success btn-sm" value="Confirmar edições">
-        </div>
+            <div class="card-footer text-muted">
+                <a href="/task/<%= tarefa.id %>" class="btn btn-outline-secondary btn-sm">Cancelar</a>
+                <input type="hidden" value="<%= tarefa.id %>" name="id">
+                <input type="submit" class="btn btn-success btn-sm" value="Confirmar edições">
+            </div>
         </form>
     </div>
 </div>

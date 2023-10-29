@@ -7,22 +7,20 @@
         <!-- Cabeçalho do cartão -->
         <div class="card-header">
             <!-- Status da tarefa -->
-            <p class="card-text statusTarefa">
-                Tarefa pendente
-            </p>
+            <p class="card-text" id="statusTask"></p>
         </div>
         <!-- Corpo do cartão -->
         <div class="card-body">
             <!-- Título da tarefa -->
-            <h6 class="card-title tituloTarefa">
+            <h6 class="card-title titleTask">
                 <%= tarefa.titulo %>
             </h6>
             <!-- Descrição da tarefa -->
-            <p class="card-text descricaoTarefa">
+            <p class="card-text descriptionTask">
                 <%= tarefa.descricao %>
             </p>
             <!-- Input para o status de conclusão -->
-            <input type="hidden" class="inputTarefaConcluida" value="<%= tarefa.concluido %>">
+            <input type="hidden" class="inputStatusTask" value="<%= tarefa.concluido %>">
         </div>
         <!-- Rodapé do cartão -->
         <div class="card-footer text-muted">

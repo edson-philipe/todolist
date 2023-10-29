@@ -1,13 +1,9 @@
-body {
-    scroll-behavior: smooth;
+.navbar {
+    margin-bottom: 15px;
 }
 
-.navbar, .card {
-    margin-bottom: 10px;
-}
-
-h6.card-title, p.card-text, div.mb-3:last-child {
-    margin-bottom: 0px !important;
+.mb-4 {
+    margin-bottom: 15px !important;
 }
 
 .cardTask {
@@ -16,21 +12,12 @@ h6.card-title, p.card-text, div.mb-3:last-child {
     align-items: center;
 }
 
-.checkBoxArea form {
-    display: flex;
-    justify-content: center;
-    align-items: center;  
+.titleTask,
+.descriptionTask {
+    margin-bottom: 0px;
 }
 
-.checkBoxArea form button {
-    background-color: transparent;
+.cardTask button {
     border: none;
-}
-
-.descricaoTarefa {
-    margin-top: 8px !important;
-}
-
-.statusTarefa {
-    color: #DC4C64;
+    background-color: transparent;
 }
