@@ -1,0 +1,156 @@
+<%- include('../../partils/header') %>
+<%- include('../../partils/navbar') %>
+
+<div class="container-fluid mt-3">
+    <div class="card">
+
+        <% if(prediosNumerosConcatenados.length > 1){ %>
+            <div class="card-header">
+                <h5 class="my-1">Inverter racks</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <h6>Selecione as racks a serem invertidas</h6>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="" class="form-label">Selecione a primeira rack:</label>
+                        <select id="localizacaoRack1" class="form-select" onchange="filtrarRacks()">
+                            <% prediosNumerosConcatenados.forEach(rack => { %>
+                                <% if(`${rack1.predio}${rack1.numero}` === rack){ %>
+                                  <option value="<%= rack %>" selected><%= rack %></option>
+                                <% } else { %>
+                                  <option value="<%= rack %>"><%= rack %></option>
+                                <% } %>
+                              <% }); %>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="" class="form-label">Selecione a segunda rack:</label>
+                        <select id="localizacaoRack2" class="form-select" onchange="filtrarRacks()">
+                            <% prediosNumerosConcatenados.forEach(rack => { %>
+                                <% if(`${rack2.predio}${rack2.numero}` === rack){ %>
+                                  <option value="<%= rack %>" selected><%= rack %></option>
+                                <% } else { %>
+                                  <option value="<%= rack %>"><%= rack %></option>
+                                <% } %>
+                              <% }); %>
+                        </select>
+                    </div>
+                    <hr>
+                    <div class="col-12 col-md-6">
+                        <h6>Informações da rack <%= rack1.predio %><%= rack1.numero %></h6>
+                        <div class="table-responsive">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Cliente</th>
+                                        <th scope="col">Descrição</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td><%= rack1.cliente %></td>
+                                    <td><%= rack1.descricao %></td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Informações da rack <%= rack2.predio %><%= rack2.numero %></h6>
+                        <div class="table-responsive">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Cliente</th>
+                                        <th scope="col">Descrição</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td><%= rack2.cliente %></td>
+                                    <td><%= rack2.descricao %></td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <form action="/admin/racks/confirm-racks-inversion" method="post">
+                    <input type="hidden" name="id1" id="" value="<%= rack1.id %>">
+                    <input type="hidden" name="descricao1" id="" value="<%= rack1.descricao %>">
+                    <input type="hidden" name="cliente1" id="" value="<%= rack1.cliente %>">
+                    <input type="hidden" name="id2" id="" value="<%= rack2.id %>">
+                    <input type="hidden" name="descricao2" id="" value="<%= rack2.descricao %>">
+                    <input type="hidden" name="cliente2" id="" value="<%= rack2.cliente %>">
+                    <button type="submit" class="btn btn-success">Confirmar</button>
+                </form>
+            </div>
+          <% } else{ %>  
+                <div class="card-header">
+                    <h5 class="my-1">Inverter racks</h5>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">Para realizar a inversão de racks, é necessário ter no mínimo duas racks cadastradas.</p>
+                </div>
+         <% } %>
+
+    </div>
+</div>
+<script>
+    // Função para ordenar um elemento select pelo texto das opções
+    function ordenarSelect(selectId) {
+        const select = document.getElementById(selectId);
+
+        if(select) {
+            // Converte as opções para um array
+            const options = Array.from(select.options);
+
+            // Ordena as opções pelo texto usando ordenação alfabética, considerando números
+            options.sort((a, b) => a.text.localeCompare(b.text, undefined, { numeric: true }));
+
+            // Adiciona as opções ordenadas de volta ao elemento select
+            options.forEach(option => {
+                select.appendChild(option);
+            });
+        }
+        
+    }
+
+    let localizacaoRack1 = document.querySelector("#localizacaoRack1");
+    let localizacaoRack2 = document.querySelector("#localizacaoRack2");
+
+    ordenarSelect("localizacaoRack1");
+    ordenarSelect("localizacaoRack2");
+
+    // Função para filtrar os racks com base na localização selecionada
+    function filtrarRacks(valorSelecionado, idOutraSelect) {
+        let localizacaoRack1 = document.querySelector("#localizacaoRack1").value;
+        localizacaoRack1 = localizacaoRack1.match(/^([A-Za-z]+)([0-9]+)$/); // Usa expressão regular para extrair predio e numero
+        let localizacaoRack2 = document.querySelector("#localizacaoRack2").value;
+        localizacaoRack2 = localizacaoRack2.match(/^([A-Za-z]+)([0-9]+)$/); // Usa expressão regular para extrair predio e numero
+
+        // Redireciona para a URL com os parâmetros predio1, numero1, predio2 e numero2
+        window.location.href = `/admin/racks/select-racks-inversion?predio1=${localizacaoRack1[1]}&numero1=${parseInt(localizacaoRack1[2], 10)}&predio2=${localizacaoRack2[1]}&numero2=${parseInt(localizacaoRack2[2], 10)}`;
+    }
+
+    function removerOpcao(selectId, outroSelectId) {
+        const select = document.getElementById(selectId);
+        if(select) {
+            
+            const outroSelect = document.getElementById(outroSelectId);
+            const opcaoSelecionada = select.value;
+
+            // Encontrar o índice da opção selecionada no outro select
+            const index = Array.from(outroSelect.options).findIndex(option => option.value === opcaoSelecionada);
+
+            if (index !== -1) {
+            // Remover a opção do outro select
+            outroSelect.remove(index);
+            }
+        }
+    }
+    removerOpcao('localizacaoRack1', 'localizacaoRack2')
+    removerOpcao('localizacaoRack2', 'localizacaoRack1')
+
+  </script>
+<%- include('../../partils/footer') %>

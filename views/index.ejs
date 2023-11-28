@@ -1,49 +1,8 @@
-<%- include('partils/header') %>
-<%- include('partils/navbar') %>
+<h1>Olá, mundo!</h1>
 
-<div class="container">
-    <div class="row">
-        <% tarefas.forEach(tarefa => { %>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
-                <a href="/task/<%= tarefa.id %>" class="text-decoration-none text-dark">
-                    <div class="card">
-                        <div class="card-body cardTask">
-                            <h6 class="card-title titleTask"><%= tarefa.titulo %></h6>
-                            <form action="/completedtask" method="POST">
-                                <input type="hidden" value="<%= tarefa.concluido %>" name="concluido" class="inputStatusTask">
-                                <input type="hidden" value="<%= tarefa.id %>" name="id">
-                                <button type="submit" class="material-symbols-outlined checkBoxStatus">check_box_outline_blank</button>
-                            </form>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        <% }); %>
-    </div>
-</div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-  // Obtém todos os elementos com a classe card-body
-  var cardBodies = document.querySelectorAll('.card-body');
 
-  // Inicializa uma variável para armazenar a maior altura encontrada
-  var maxHeight = 0;
 
-  // Itera sobre os card-bodies para encontrar a maior altura
-  cardBodies.forEach(function(cardBody) {
-    var height = cardBody.clientHeight;
-    if (height > maxHeight) {
-      maxHeight = height;
-    }
-  });
 
-  // Define a maior altura para todos os card-bodies
-  cardBodies.forEach(function(cardBody) {
-    cardBody.style.height = maxHeight + 'px';
-  });
-});
 
-</script>
 
-<%- include('partils/footer') %>

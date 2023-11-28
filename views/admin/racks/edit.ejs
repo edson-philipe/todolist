@@ -1,0 +1,77 @@
+<%- include('../../partils/header') %>
+<%- include('../../partils/navbar') %>
+<div class="container-fluid mt-3">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="my-1">Editar informações da rack <%= rack.predio %><%= rack.numero %></h5>
+        </div>
+        <div class="card-body">
+                <form action="/admin/racks/update" method="POST">
+                    <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <input type="hidden" name="id" id="" name="id" value="<%= rack.id %>">
+                        <label for="" class="form-label">Cliente:</label>
+                        <% if(rack.cliente == "Sem cliente"){ %>
+                            <select class="form-select" name="cliente" id="clienteRack" onchange="verificarCliente()">
+                                <option value="LQS">LQS</option>
+                                <option value="Sem cliente" selected>Sem cliente</option>
+                            </select>
+                        <% } else{ %>  
+                            <select class="form-select" name="cliente" id="clienteRack" onchange="verificarCliente()">
+                                <option value="LQS" selected>LQS</option>
+                                <option value="Sem cliente">Sem cliente</option>
+                            </select>
+                        <% } %>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="" class="form-label">Descrição:</label>
+                        <input type="text" class="form-control" id="descricaoRack" name="descricao" value="<%= rack.descricao %>">
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="" class="form-label">Prédio:</label>
+                        <input type="text" class="form-control" id="" name="predio" value="<%= rack.predio %>">
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="" class="form-label">Número:</label>
+                        <input type="number" class="form-control" id="" name="numero" value="<%= rack.numero %>">
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="" class="form-label">Andar:</label>
+                        <input type="number" class="form-control" id="" name="andar" value="<%= rack.andar %>">
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="" class="form-label">Ocupado:</label>
+                        <% if(rack.ocupado == "false"){ %>
+                            <input type="text" class="form-control" id="ocupadoRack" name="ocupado" value="Não" disabled>
+                        <% } else{ %>  
+                            <input type="text" class="form-control" id="ocupadoRack" name="ocupado" value="Sim" disabled>
+                        <% } %>
+                    </div>  
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            <button type="submit" class="btn btn-success">Confirmar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const clienteRack = document.querySelector("#clienteRack");
+    const ocupadoRack = document.querySelector("#ocupadoRack");
+    const descricaoRack = document.querySelector("#descricaoRack");
+
+    const valorDescricaoBackup = descricaoRack.value;
+
+    function verificarCliente() {
+        if(clienteRack.value == "Sem cliente"){
+            descricaoRack.value = "Espaço vazio";
+            descricaoRack.disabled = true;
+            ocupadoRack.value = "Não";
+        } else {
+            descricaoRack.value = valorDescricaoBackup;
+            descricaoRack.disabled = false;
+            ocupadoRack.value = "Sim";
+        }
+    }
+</script>
+<%- include('../../partils/footer') %>

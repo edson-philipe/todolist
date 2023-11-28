@@ -1,0 +1,102 @@
+<%- include('../../partils/header') %>
+<%- include('../../partils/navbar') %>
+<div class="container-fluid mt-3">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="my-1">Cadastrar nova rack</h5>
+        </div>
+        <div class="card-body">
+            <form action="/admin/racks/save" method="POST" onsubmit="verificarSeRackJaEstaCadastrada(event, this)">
+                <div class="row">
+                    <input type="hidden" class="form-control" value="Sem cliente" name="cliente">
+                    <input type="hidden" class="form-control" value="Espaço vazio" name="descricao">
+                    <input type="hidden" class="form-control" value="false" name="ocupado">
+                    <div class="col-12 col-md-4 mb-3 mb-md-0">
+                        <label for="" class="form-label">Nome do Prédio:</label>
+                        <input type="text" class="form-control" id="predioRack" name="predio" placeholder="Insira o nome do prédio">
+                    </div>
+                    <div class="col-12 col-md-4 mb-3 mb-md-0">
+                        <label for="numeroRack" class="form-label">Número da Rack:</label>
+                        <input type="number" class="form-control" id="numeroRack" name="numero" placeholder="Digite o número da rack">
+                    </div>
+                    <div class="col-12 col-md-4 mb-2">
+                        <label for="andarRack" class="form-label">Andar da Instalação:</label>
+                        <input type="number" class="form-control" id="andarRack" name="andar" placeholder="Indique o andar da instalação">
+                    </div>
+                </div>
+        </div>
+        <div class="card-footer text-muted">
+            <input type="hidden" id="localizacoesRacksCadastradas" value="<%= prediosNumerosConcatenados %>">
+            <button type="submit" class="btn btn-success">Confirmar</button>
+            </form>
+            
+        </div>
+    </div>
+</div>
+<script>
+
+    function validarEntrada(elemento) {
+        const valor = parseInt(elemento.value);
+        const mensagemErro = document.querySelector("#mensagemErro");
+
+        if (isNaN(valor) || valor < 1) {
+            elemento.value = 1;
+            Toastify({
+                text: "Por favor, insira um número inteiro positivo. ",
+                duration: 3000,
+                close: true,
+                gravity: "bottom",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "#fff3cd",
+                    color: "#856404",
+                    boxShadow: "none",
+                }}).showToast();
+        }
+    }
+
+    const predioRack = document.querySelector("#predioRack");
+    const numeroRack = document.querySelector("#numeroRack");
+    numeroRack.addEventListener("change", () => {
+        validarEntrada(numeroRack);
+    });
+
+    const andarRack = document.querySelector("#andarRack");
+    andarRack.addEventListener("change", () => {
+        validarEntrada(andarRack);
+    });
+
+    function verificarSeRackJaEstaCadastrada(event, form) {
+    event.preventDefault(); // Impede o comportamento padrão do formulário
+    let localizacoesRacksConcatenado = `${predioRack.value}${numeroRack.value}`;
+    let localizacoesRacksCadastradas = (document.querySelector("#localizacoesRacksCadastradas").value).split(",");
+    let rackJaCadastrada = false;
+
+    for (let i = 0; i < localizacoesRacksCadastradas.length; i++) {
+            if (localizacoesRacksConcatenado === localizacoesRacksCadastradas[i]) {
+                rackJaCadastrada = true;
+                Toastify({
+                    text: "A rack que está tentando cadastrar já existe. Por favor, escolha outra localização para prosseguir.",
+                    duration: 3000,
+                    close: true,
+                    gravity: "bottom",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "#fff3cd",
+                        color: "#856404",
+                        boxShadow: "none",
+                    }
+                }).showToast();
+                break; // Termina o loop, pois a rack já está cadastrada
+            }
+        }
+
+        if (!rackJaCadastrada) {
+            form.submit(); // Envia o formulário se a rack não estiver cadastrada
+        }
+    }
+
+</script>
+<%- include('../../partils/footer') %>

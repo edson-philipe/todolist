@@ -1,0 +1,69 @@
+<%- include('../../partils/header') %>
+<%- include('../../partils/navbar') %>
+
+<div class="container-fluid mt-3">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="my-1">Visualizar racks cadastradas</h5>
+        </div>
+        <div class="card-body">
+            <% if(racks.length > 0){ %>
+                <div class="table-responsive">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">Prédio</th>
+                                <th scope="col">Número</th>
+                                <th scope="col">Andar</th>
+                                <th scope="col">Ocupado</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% racks.forEach(rack => { %>
+                                <tr>
+                                    <td scope="row"><%= rack.cliente %></td>
+                                    <td><%= rack.descricao %></td>
+                                    <td><%= rack.predio %></td>
+                                    <td><%= rack.numero %></td>
+                                    <td><%= rack.andar %></td>
+                                    <td>
+                                        <% if(rack.ocupado == "false"){ %>
+                                            Não
+                                          <% } else{ %>  
+                                            Sim
+                                         <% } %>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <a href="/admin/racks/edit/<%= rack.id %>" class="btn btn-warning btn-sm">Editar</a>
+                                            <form action="/admin/racks/delete" method="post" style="display: inline;" onsubmit="confirmDelete(event, this)">
+                                                <input type="hidden" name="id" value="<%= rack.id %>">
+                                                <button type="submit" class="btn btn-danger btn-sm">Deletar</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+              <% } else{ %>  
+                <p class="mb-0">Não há nenhuma rack cadastrada para visualização. <a class="link-opacity-100" href="/admin/racks/new"> Por favor, clique aqui para realizar o primeiro cadastro.</a></p>
+             <% } %>
+        </div>
+    </div>
+</div>
+<script>
+    function confirmDelete(event, form) {
+        event.preventDefault(); // Impede o comportamento padrão do formulário
+        var userConfirmed = window.confirm('Deseja realmente excluir a rack selecionada?');
+        if (userConfirmed) {
+            // Se o usuário confirmar, envie o formulário usando o método POST
+            form.submit(); // Envie o formulário
+        }
+    }
+</script>
+<%- include('../../partils/footer') %>
