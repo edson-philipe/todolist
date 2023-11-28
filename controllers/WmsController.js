@@ -88,23 +88,26 @@ async function selectRacksInversion(req, res) {
 
     const { predio1, numero1, predio2, numero2 } = req.query;
 
-    const rack1 = await Racks.findOne({
-        where: { predio: predio1, numero: numero1 }
-    });
-
-    const rack2 = await Racks.findOne({
-        where: { predio: predio2, numero: numero2 }
-    });
-
-    let firstRack = rack1;
-    let secondRack = rack2;
-
-    if (!rack1 || !rack2) {
-        firstRack = racks[0];
-        secondRack = racks[1];
+    // Busca pelo primeiro rack se predio1 e numero1 estiverem presentes
+    let rack1 = null;
+    if (predio1 && numero1) {
+        rack1 = await Racks.findOne({
+            where: { predio: predio1, numero: numero1 }
+        });
+    } else {
+        rack1 = racks[0];
     }
+    let rack2 = null;
+    if (predio2 && numero2) {
+        rack2 = await Racks.findOne({
+            where: { predio: predio2, numero: numero2 }
+        });
+    } else {
+        rack2 = racks[1];
+    }       
 
-    res.render("admin/racks/reverse", { prediosNumerosConcatenados, rack1: firstRack, rack2: secondRack });
+    // Renderiza a página com os dados dos racks
+    res.render("admin/racks/reverse", { prediosNumerosConcatenados, rack1, rack2 });
 }
 
 async function confirmRacksInversion(req, res) {
