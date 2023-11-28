@@ -25,12 +25,12 @@ async function registerNewRack(req, res) {
 
 async function saveNewRack(req, res) {
     await Racks.create({
-        cliente: req.body.cliente,
-        descricao: req.body.descricao,
-        predio: req.body.predio,
+        cliente: "Sem cliente",
+        descricao: "Espaço vazio",
+        predio: ((req.body.predio).trim()).toUpperCase(),
         numero: req.body.numero,
         andar: req.body.andar,
-        ocupado: req.body.ocupado,
+        ocupado: "false",
     });
     res.redirect('/admin/racks/index');
 }
