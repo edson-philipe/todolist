@@ -48,9 +48,6 @@ async function updateRack(req, res) {
             {
                 cliente: req.body.cliente,
                 descricao: "Espaço vazio",
-                predio: req.body.predio,
-                numero: req.body.numero,
-                andar: req.body.andar,
                 ocupado: "false",
             },
             { where: { id: req.body.id } }
@@ -60,9 +57,6 @@ async function updateRack(req, res) {
             {
                 cliente: req.body.cliente,
                 descricao: req.body.descricao,
-                predio: req.body.predio,
-                numero: req.body.numero,
-                andar: req.body.andar,
                 ocupado: "true",
             },
             { where: { id: req.body.id } }

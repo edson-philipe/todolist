@@ -39,7 +39,7 @@
     event.preventDefault(); // Impede o comportamento padrão do formulário
     
     if(!predioRack.value || !numeroRack.value || !andarRack.value){
-        mensagemErro("Desculpe, não foi possível realizar o cadastro. Parece que um dos campos não foi preenchido.");
+        mensagemErro("Não foi possível concluir o cadastro. Por favor, preencha todos os campos.");
     } else {
         let localizacoesRacksDigitados = `${((predioRack.value).trim()).toUpperCase()}${numeroRack.value}`;
     let localizacoesRacksCadastradas = (document.querySelector("#localizacoesRacksCadastradas").value).split(",");
@@ -61,7 +61,7 @@
     function mensagemErro(texto) {
         Toastify({
                 text: texto,
-                duration: 3000,
+                duration: 5000,
                 close: false,
                 gravity: "bottom",
                 position: "right",
