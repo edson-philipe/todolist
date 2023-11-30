@@ -1,6 +1,5 @@
 <%- include('../../partils/header') %>
 <%- include('../../partils/navbar') %>
-
 <div class="container-fluid mt-3">
     <div class="card mb-3">
         <div class="card-header">
@@ -8,19 +7,25 @@
         </div>
         <div class="card-body">
             <div class="row">
+                <% if (totalRacksCadastrados > 0) { %>
                 <div class="col-12">
-                    <input class="form-control mb-3" id="myInput" type="text" placeholder="Pesquise por cliente ou descrição...">
+                    <input class="form-control mb-3" id="myInput" type="text"
+                        placeholder="Pesquise por cliente ou descrição..." />
                 </div>
                 <div class="col-12 col-md-2 d-flex flex-column mb-3">
                     <label for="" class="mb-1">Cliente:</label>
                     <select name="" id="clienteRack" class="form-select">
                         <option value="Todos">Todos</option>
                         <% clienteLista.forEach(cliente => { %>
-                            <% if(clienteSelecionado == cliente){ %>
-                                <option value="<%= cliente %>" selected><%= cliente %></option>
-                              <% } else{ %>  
-                                <option value="<%= cliente %>"><%= cliente %></option>
-                             <% } %>
+                        <% if (clienteSelecionado == cliente) { %>
+                        <option value="<%= cliente %>" selected>
+                            <%= cliente %>
+                        </option>
+                        <% } else { %>
+                        <option value="<%= cliente %>">
+                            <%= cliente %>
+                        </option>
+                        <% } %>
                         <% }); %>
                     </select>
                 </div>
@@ -28,13 +33,17 @@
                     <label for="" class="mb-1">Prédio:</label>
                     <select name="" id="predioRack" class="form-select">
                         <option value="Todos">Todos</option>
-                            <% predioLista.forEach(predio => { %>
-                                <% if(predioSelecionado == predio){ %>
-                                    <option value="<%= predio %>" selected><%= predio %></option>
-                                  <% } else{ %>  
-                                    <option value="<%= predio %>"><%= predio %></option>
-                                 <% } %>
-                            <% }); %>
+                        <% predioLista.forEach(predio => { %>
+                        <% if (predioSelecionado == predio) { %>
+                        <option value="<%= predio %>" selected>
+                            <%= predio %>
+                        </option>
+                        <% } else { %>
+                        <option value="<%= predio %>">
+                            <%= predio %>
+                        </option>
+                        <% } %>
+                        <% }); %>
                     </select>
                 </div>
                 <div class="col-12 col-md-2 d-flex flex-column mb-3">
@@ -42,11 +51,15 @@
                     <select name="" id="numeroRack" class="form-select">
                         <option value="Todos">Todos</option>
                         <% numeroLista.forEach(numero => { %>
-                            <% if(numeroSelecionado == numero){ %>
-                                <option value="<%= numero %>" selected><%= numero %></option>
-                              <% } else{ %>  
-                                <option value="<%= numero %>"><%= numero %></option>
-                             <% } %>
+                        <% if (numeroSelecionado == numero) { %>
+                        <option value="<%= numero %>" selected>
+                            <%= numero %>
+                        </option>
+                        <% } else { %>
+                        <option value="<%= numero %>">
+                            <%= numero %>
+                        </option>
+                        <% } %>
                         <% }); %>
                     </select>
                 </div>
@@ -55,11 +68,15 @@
                     <select name="" id="andarRack" class="form-select">
                         <option value="Todos">Todos</option>
                         <% andarLista.forEach(andar => { %>
-                            <% if(andarSelecionado == andar){ %>
-                                <option value="<%= andar %>" selected><%= andar %></option>
-                              <% } else{ %>  
-                                <option value="<%= andar %>"><%= andar %></option>
-                             <% } %>
+                        <% if (andarSelecionado == andar) { %>
+                        <option value="<%= andar %>" selected>
+                            <%= andar %>
+                        </option>
+                        <% } else { %>
+                        <option value="<%= andar %>">
+                            <%= andar %>
+                        </option>
+                        <% } %>
                         <% }); %>
                     </select>
                 </div>
@@ -67,65 +84,103 @@
                     <label for="" class="mb-1">Ocupado:</label>
                     <select name="" id="ocupadoRack" class="form-select">
                         <option value="Todos">Todos</option>
-                      <% ocupadoLista.forEach(ocupado => { %>
-                        <% if(ocupadoSelecionado == ocupado){ %>
-                            <option value="<%= ocupado %>" selected><%= ocupado %></option>
-                          <% } else{ %>  
-                            <option value="<%= ocupado %>"><%= ocupado %></option>
-                         <% } %>
-                    <% }); %>
+                        <% ocupadoLista.forEach(ocupado => { %>
+                        <% if (ocupadoSelecionado == ocupado) { %>
+                        <option value="<%= ocupado %>" selected>
+                            <%= ocupado %>
+                        </option>
+                        <% } else { %>
+                        <option value="<%= ocupado %>">
+                            <%= ocupado %>
+                        </option>
+                        <% } %>
+                        <% }); %>
                     </select>
                 </div>
-                <div class="col-12 col-md-2 col-md-2 d-flex justify-content-center align-items-end mb-3">
-                    <button type="button" class="btn btn-primary" style="width: 100%;" onclick="filtrarRack()">Filtrar</button>
+                <div
+                    class="col-12 col-md-2 col-md-2 d-flex justify-content-center align-items-end mb-3">
+                    <button type="button" class="btn btn-primary"
+                        style="width: 100%" onclick="filtrarRack()">
+                        Filtrar
+                    </button>
+                </div>
+                <div class="col-12">
+                    <p id="totalItensFiltrados" class="mb-0">
+                        Total de itens filtrados:
+                        <%= racks.length %>
+                    </p>
                 </div>
             </div>
-            <% if(totalRacksCadastrados > 0){ %>
-                <div class="table-responsive">
-                    <table class="table table-responsive">
-                        <thead>
-                            <tr>
-                                <th>Cliente</th>
-                                <th>Descrição</th>
-                                <th>Prédio</th>
-                                <th>Número</th>
-                                <th>Andar</th>
-                                <th>Ocupado</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="myTable">
-                            <% racks.forEach(rack => { %>
-                                <tr>
-                                    <td><%= rack.cliente %></td>
-                                    <td><%= rack.descricao %></td>
-                                    <td><%= rack.predio %></td>
-                                    <td><%= rack.numero %></td>
-                                    <td><%= rack.andar %></td>
-                                    <td>
-                                        <% if(rack.ocupado == "false"){ %>
-                                            Não
-                                          <% } else{ %>  
-                                            Sim
-                                         <% } %>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex gap-2">
-                                            <a href="/admin/racks/edit/<%= rack.id %>" class="btn btn-warning btn-sm"><span class="bi bi-pencil-square px-1"></span></a>
-                                            <form action="/admin/racks/delete" method="post" onsubmit="confirmDelete(event, this)">
-                                                <input type="hidden" name="id" value="<%= rack.id %>">
-                                                <button type="submit" class="btn btn-danger btn-sm"><span class="bi bi-trash3 px-1"></span></button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <% }); %>
-                        </tbody>
-                    </table>
-                </div>
-              <% } else{ %>  
-                <p class="mb-0">Não há nenhuma rack cadastrada para visualização. <a class="link-opacity-100" href="/admin/racks/new">Clique aqui para realizar o primeiro cadastro.</a></p>
-             <% } %>
+            <% if (racks.length >= 1) { %>
+            <div class="table-responsive mt-2">
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Descrição</th>
+                            <th>Prédio</th>
+                            <th>Número</th>
+                            <th>Andar</th>
+                            <th>Ocupado</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        <% racks.forEach(rack => { %>
+                        <tr>
+                            <td class="text-nowrap">
+                                <%= rack.cliente %>
+                            </td>
+                            <td class="text-nowrap">
+                                <%= rack.descricao %>
+                            </td>
+                            <td>
+                                <%= rack.predio %>
+                            </td>
+                            <td>
+                                <%= rack.numero %>
+                            </td>
+                            <td>
+                                <%= rack.andar %>
+                            </td>
+                            <td>
+                                <% if (rack.ocupado == "false") { %>
+                                Não
+                                <% } else { %>Sim                               
+                                <% } %>
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <a href="/admin/racks/edit/<%= rack.id %>"
+                                        class="btn btn-warning btn-sm"><span
+                                            class="bi bi-pencil-square px-1"></span></a>
+                                    <form action="/admin/racks/delete"
+                                        method="post"
+                                        onsubmit="confirmDelete(event, this)">
+                                        <input type="hidden" name="id"
+                                            value="<%= rack.id %>" />
+                                        <button type="submit"
+                                            class="btn btn-danger btn-sm">
+                                            <span
+                                                class="bi bi-trash3 px-1"></span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>               
+                <% } %>
+            </div>
+            <% } else if (totalRacksCadastrados <= 0) { %>
+            <p class="mb-0">
+                Não há nenhuma rack cadastrada para visualização.
+                <a class="link-opacity-100" href="/admin/racks/new">Clique aqui
+                    para realizar o primeiro
+                    cadastro.</a>
+            </p>        
+            <% } %>
         </div>
     </div>
 </div>
@@ -135,7 +190,6 @@
     const numeroRack = document.querySelector("#numeroRack");
     const andarRack = document.querySelector("#andarRack");
     const ocupadoRack = document.querySelector("#ocupadoRack");
-
     for (var i = 0; i < ocupadoRack.options.length; i++) {
         if (ocupadoRack.options[i].value === "true") {
             ocupadoRack.options[i].textContent = "Sim";
@@ -143,34 +197,41 @@
             ocupadoRack.options[i].textContent = "Não";
         }
     }
-
-    function filtrarRack(){
-        window.location.href = `/admin/racks/index?cliente=${clienteRack.value}&predio=${predioRack.value}&numero=${numeroRack.value}&andar=${andarRack.value}&ocupado=${ocupadoRack.value}`;
+    function filtrarRack() {
+        window.location.href =
+            `/admin/racks/index?cliente=${clienteRack.value}&predio=${predioRack.value}&numero=${numeroRack.value}&andar=${andarRack.value}&ocupado=${ocupadoRack.value}`;
     }
-
     function confirmDelete(event, form) {
         event.preventDefault(); // Impede o comportamento padrão do formulário
-        var userConfirmed = window.confirm('Deseja realmente excluir a rack selecionada?');
+        var userConfirmed = window.confirm(
+            "Deseja realmente excluir a rack selecionada?"
+        );
         if (userConfirmed) {
             // Se o usuário confirmar, envie o formulário usando o método POST
             form.submit(); // Envie o formulário
         }
     }
-
+    const totalItensFiltrados = document.querySelector("#totalItensFiltrados");
     document.addEventListener("DOMContentLoaded", function() {
-    var myInput = document.getElementById("myInput");
-    myInput.addEventListener("keyup", function() {
-        var value = this.value.toLowerCase();
-        var rows = document.querySelectorAll("#myTable tr");
-        rows.forEach(function(row) {
-        var text = row.textContent.toLowerCase();
-        if (text.indexOf(value) > -1) {
-            row.style.display = "";
-        } else {
-            row.style.display = "none";
-        }
+        var myInput = document.getElementById("myInput");
+        myInput.addEventListener("keyup", function() {
+            var value = this.value.toLowerCase();
+            var rows = document.querySelectorAll("#myTable tr");
+            var count =
+                0; // Variável para contar os resultados encontrados
+            rows.forEach(function(row) {
+                var text = row.textContent
+                    .toLowerCase();
+                if (text.indexOf(value) > -1) {
+                    row.style.display = "";
+                    count++; // Incrementar o contador se o item for encontrado
+                } else {
+                    row.style.display = "none";
+                }
+            });
+            totalItensFiltrados.innerHTML =
+                "Total de itens filtrados: " + count;
         });
-    });
     });
 </script>
 <%- include('../../partils/footer') %>
