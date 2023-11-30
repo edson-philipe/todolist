@@ -5,11 +5,45 @@ async function showHome(req, res) {
 }
 
 async function showRacks(req, res) {
-    const racks = await Racks.findAll({
+    let racks = await Racks.findAll({
         raw: true,
         order: [['id', 'ASC']],
     });
-    res.render("admin/racks/index", { racks });
+
+    const totalRacksCadastrados = racks.length;
+    const clienteLista = [...new Set(racks.map(rack => rack.cliente))];
+    const predioLista = [...new Set(racks.map(rack => rack.predio))];
+    const numeroLista = [...new Set(racks.map(rack => rack.numero))];
+    const andarLista = [...new Set(racks.map(rack => rack.andar))];
+    const ocupadoLista = [...new Set(racks.map(rack => rack.ocupado))];
+
+    const { cliente, predio, numero, andar, ocupado } = req.query;
+    const clienteSelecionado = cliente || 'Todos';
+    const predioSelecionado = predio || 'Todos';
+    const numeroSelecionado = numero || 'Todos';
+    const andarSelecionado = andar || 'Todos';
+    const ocupadoSelecionado = ocupado || 'Todos';
+
+    racks = racks.filter(rack => {
+        if (cliente && cliente !== 'Todos' && rack.cliente.trim() !== cliente) {
+            return false;
+        }
+        if (predio && predio !== 'Todos' && rack.predio !== predio) {
+            return false;
+        }
+        if (numero && numero !== 'Todos' && rack.numero != numero) {
+            return false;
+        }
+        if (andar && andar !== 'Todos' && rack.andar != andar) {
+            return false;
+        }
+        if (ocupado && ocupado !== 'Todos' && rack.ocupado != ocupado) {
+            return false;
+        }
+        return true;
+    });
+
+    res.render("admin/racks/index", { racks, clienteLista, predioLista, numeroLista, andarLista, ocupadoLista, totalRacksCadastrados, clienteSelecionado, predioSelecionado, numeroSelecionado, andarSelecionado, ocupadoSelecionado });
 }
 
 async function registerNewRack(req, res) {
@@ -98,7 +132,7 @@ async function selectRacksInversion(req, res) {
         });
     } else {
         rack2 = racks[1];
-    }       
+    }
 
     // Renderiza a página com os dados dos racks
     res.render("admin/racks/reverse", { prediosNumerosConcatenados, rack1, rack2 });
@@ -109,6 +143,7 @@ async function confirmRacksInversion(req, res) {
         {
             cliente: req.body.cliente2,
             descricao: req.body.descricao2,
+            ocupado: req.body.ocupado2,
         },
         { where: { id: req.body.id1 } }
     );
@@ -116,6 +151,7 @@ async function confirmRacksInversion(req, res) {
         {
             cliente: req.body.cliente1,
             descricao: req.body.descricao1,
+            ocupado: req.body.ocupado1,
         },
         { where: { id: req.body.id2 } }
     );

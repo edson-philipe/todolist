@@ -3,7 +3,7 @@
 <div class="container-fluid mt-3">
     <div class="card">
         <div class="card-header">
-            <h5 class="my-1">Cadastrar nova rack</h5>
+            <h2 class="my-1 fs-6">Cadastrar nova rack</h2>
         </div>
         <div class="card-body">
             <form action="/admin/racks/save" method="POST" onsubmit="verificarLocalizacaoDisponivel(event, this)">
@@ -24,7 +24,7 @@
         </div>
         <div class="card-footer text-muted">
             <input type="hidden" id="localizacoesRacksCadastradas" value="<%= prediosNumerosConcatenados %>">
-            <button type="submit" class="btn btn-success">Confirmar</button>
+            <button type="submit" class="btn btn-success btn-sm">Confirmar</button>
             </form>
             
         </div>

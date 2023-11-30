@@ -6,7 +6,7 @@
 
         <% if(prediosNumerosConcatenados.length > 1){ %>
             <div class="card-header">
-                <h5 class="my-1">Inverter racks</h5>
+                <h2 class="my-1 fs-6">Inverter racks</h2>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -46,11 +46,18 @@
                                     <tr>
                                         <th scope="col">Cliente</th>
                                         <th scope="col">Descrição</th>
+                                        <th scope="col">Ocupado</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <td><%= rack1.cliente %></td>
                                     <td><%= rack1.descricao %></td>
+                                    <td> <% if(rack1.ocupado == "false"){ %>
+                                        Não
+                                      <% } else{ %>  
+                                        Sim
+                                     <% } %>
+                                    </td>
                                 </tbody>
                             </table>
                         </div>
@@ -63,11 +70,19 @@
                                     <tr>
                                         <th scope="col">Cliente</th>
                                         <th scope="col">Descrição</th>
+                                        <th scope="col">Ocupado</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <td><%= rack2.cliente %></td>
                                     <td><%= rack2.descricao %></td>
+                                    <td>
+                                        <% if(rack2.ocupado == "false"){ %>
+                                            Não
+                                          <% } else{ %>  
+                                            Sim
+                                         <% } %>
+                                    </td>
                                 </tbody>
                             </table>
                         </div>
@@ -79,10 +94,12 @@
                     <input type="hidden" name="id1" id="" value="<%= rack1.id %>">
                     <input type="hidden" name="descricao1" id="" value="<%= rack1.descricao %>">
                     <input type="hidden" name="cliente1" id="" value="<%= rack1.cliente %>">
+                    <input type="hidden" name="ocupado1" id="" value="<%= rack1.ocupado %>">
                     <input type="hidden" name="id2" id="" value="<%= rack2.id %>">
                     <input type="hidden" name="descricao2" id="" value="<%= rack2.descricao %>">
                     <input type="hidden" name="cliente2" id="" value="<%= rack2.cliente %>">
-                    <button type="submit" class="btn btn-success">Confirmar</button>
+                    <input type="hidden" name="ocupado2" id="" value="<%= rack2.ocupado %>">
+                    <button type="submit" class="btn btn-success btn-sm">Confirmar</button>
                 </form>
             </div>
           <% } else{ %>  
