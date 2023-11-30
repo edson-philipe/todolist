@@ -1,7 +1,7 @@
 <%- include('../../partils/header') %>
 <%- include('../../partils/navbar') %>
 <div class="container-fluid mt-3">
-    <div class="card mb-3">
+    <div class="card mb-2">
         <div class="card-header">
             <h2 class="my-1 fs-6">Visualizar racks cadastradas</h2>
         </div>
@@ -9,12 +9,14 @@
             <div class="row">
                 <% if (totalRacksCadastrados > 0) { %>
                 <div class="col-12">
-                    <input class="form-control mb-3" id="myInput" type="text"
+                    <input class="form-control form-control-sm mb-2"
+                        id="myInput" type="text"
                         placeholder="Pesquise por cliente ou descrição..." />
                 </div>
-                <div class="col-12 col-md-2 d-flex flex-column mb-3">
-                    <label for="" class="mb-1">Cliente:</label>
-                    <select name="" id="clienteRack" class="form-select">
+                <div class="col-12 col-md-2 d-flex flex-column mb-2">
+                    <label for="" class="form-label mb-0">Cliente:</label>
+                    <select name="" id="clienteRack"
+                        class="form-select form-select-sm">
                         <option value="Todos">Todos</option>
                         <% clienteLista.forEach(cliente => { %>
                         <% if (clienteSelecionado == cliente) { %>
@@ -25,13 +27,16 @@
                         <option value="<%= cliente %>">
                             <%= cliente %>
                         </option>
+
+                        
                         <% } %>
                         <% }); %>
                     </select>
                 </div>
-                <div class="col-12 col-md-2 d-flex flex-column mb-3">
-                    <label for="" class="mb-1">Prédio:</label>
-                    <select name="" id="predioRack" class="form-select">
+                <div class="col-12 col-md-2 d-flex flex-column mb-2">
+                    <label for="" class="form-label mb-0">Prédio:</label>
+                    <select name="" id="predioRack"
+                        class="form-select form-select-sm">
                         <option value="Todos">Todos</option>
                         <% predioLista.forEach(predio => { %>
                         <% if (predioSelecionado == predio) { %>
@@ -42,13 +47,16 @@
                         <option value="<%= predio %>">
                             <%= predio %>
                         </option>
+
+                        
                         <% } %>
                         <% }); %>
                     </select>
                 </div>
-                <div class="col-12 col-md-2 d-flex flex-column mb-3">
-                    <label for="" class="mb-1">Número:</label>
-                    <select name="" id="numeroRack" class="form-select">
+                <div class="col-12 col-md-2 d-flex flex-column mb-2">
+                    <label for="" class="form-label mb-0">Número:</label>
+                    <select name="" id="numeroRack"
+                        class="form-select form-select-sm">
                         <option value="Todos">Todos</option>
                         <% numeroLista.forEach(numero => { %>
                         <% if (numeroSelecionado == numero) { %>
@@ -59,13 +67,16 @@
                         <option value="<%= numero %>">
                             <%= numero %>
                         </option>
+
+                        
                         <% } %>
                         <% }); %>
                     </select>
                 </div>
-                <div class="col-12 col-md-2 d-flex flex-column mb-3">
-                    <label for="" class="mb-1">Andar:</label>
-                    <select name="" id="andarRack" class="form-select">
+                <div class="col-12 col-md-2 d-flex flex-column mb-2">
+                    <label for="" class="form-label mb-0">Andar:</label>
+                    <select name="" id="andarRack"
+                        class="form-select form-select-sm">
                         <option value="Todos">Todos</option>
                         <% andarLista.forEach(andar => { %>
                         <% if (andarSelecionado == andar) { %>
@@ -76,13 +87,16 @@
                         <option value="<%= andar %>">
                             <%= andar %>
                         </option>
+
+                        
                         <% } %>
                         <% }); %>
                     </select>
                 </div>
-                <div class="col-12 col-md-2 d-flex flex-column mb-3">
-                    <label for="" class="mb-1">Ocupado:</label>
-                    <select name="" id="ocupadoRack" class="form-select">
+                <div class="col-12 col-md-2 d-flex flex-column mb-2">
+                    <label for="" class="form-label mb-0">Ocupado:</label>
+                    <select name="" id="ocupadoRack"
+                        class="form-select form-select-sm">
                         <option value="Todos">Todos</option>
                         <% ocupadoLista.forEach(ocupado => { %>
                         <% if (ocupadoSelecionado == ocupado) { %>
@@ -93,13 +107,15 @@
                         <option value="<%= ocupado %>">
                             <%= ocupado %>
                         </option>
+
+                        
                         <% } %>
                         <% }); %>
                     </select>
                 </div>
                 <div
-                    class="col-12 col-md-2 col-md-2 d-flex justify-content-center align-items-end mb-3">
-                    <button type="button" class="btn btn-primary"
+                    class="col-12 col-md-2 col-md-2 mt-2 d-flex justify-content-center align-items-end mb-2">
+                    <button type="button" class="btn btn-primary btn-sm"
                         style="width: 100%" onclick="filtrarRack()">
                         Filtrar
                     </button>
@@ -113,7 +129,7 @@
             </div>
             <% if (racks.length >= 1) { %>
             <div class="table-responsive mt-2">
-                <table class="table table-responsive">
+                <table class="table table-sm mb-0">
                     <thead>
                         <tr>
                             <th>Cliente</th>
@@ -146,23 +162,22 @@
                             <td>
                                 <% if (rack.ocupado == "false") { %>
                                 Não
-                                <% } else { %>Sim                               
+                                <% } else { %>Sim
+
+                                
                                 <% } %>
                             </td>
                             <td>
-                                <div class="d-flex gap-2">
+                                <div class="d-flex gap-2 p-0">
                                     <a href="/admin/racks/edit/<%= rack.id %>"
-                                        class="btn btn-warning btn-sm"><span
-                                            class="bi bi-pencil-square px-1"></span></a>
+                                        class="btn btn-sm p-0 text-warning"> Editar</a>
                                     <form action="/admin/racks/delete"
                                         method="post"
                                         onsubmit="confirmDelete(event, this)">
                                         <input type="hidden" name="id"
                                             value="<%= rack.id %>" />
                                         <button type="submit"
-                                            class="btn btn-danger btn-sm">
-                                            <span
-                                                class="bi bi-trash3 px-1"></span>
+                                            class="btn btn-sm p-0 text-danger"> Deletar
                                         </button>
                                     </form>
                                 </div>
@@ -170,7 +185,9 @@
                         </tr>
                         <% }); %>
                     </tbody>
-                </table>               
+                </table>
+
+                
                 <% } %>
             </div>
             <% } else if (totalRacksCadastrados <= 0) { %>
@@ -179,7 +196,9 @@
                 <a class="link-opacity-100" href="/admin/racks/new">Clique aqui
                     para realizar o primeiro
                     cadastro.</a>
-            </p>        
+            </p>
+
+            
             <% } %>
         </div>
     </div>
@@ -197,10 +216,12 @@
             ocupadoRack.options[i].textContent = "Não";
         }
     }
+
     function filtrarRack() {
         window.location.href =
             `/admin/racks/index?cliente=${clienteRack.value}&predio=${predioRack.value}&numero=${numeroRack.value}&andar=${andarRack.value}&ocupado=${ocupadoRack.value}`;
     }
+
     function confirmDelete(event, form) {
         event.preventDefault(); // Impede o comportamento padrão do formulário
         var userConfirmed = window.confirm(
@@ -230,7 +251,7 @@
                 }
             });
             totalItensFiltrados.innerHTML =
-                "Total de itens filtrados: " + count;
+                `Total de itens filtrados: ${count}`
         });
     });
 </script>

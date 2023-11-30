@@ -1,93 +1,99 @@
 <%- include('../../partils/header') %>
 <%- include('../../partils/navbar') %>
 <div class="container-fluid mt-3">
-  <div class="card">
-    <div class="card-header">
-      <h5 class="my-1">Editar informações da rack
-        <%= rack.predio %>
-        <%= rack.numero %>
-      </h5>
-    </div>
-    <div class="card-body">
-      <form action="/admin/racks/update" method="POST" onsubmit="verificarLocalizacaoDisponivel(event, this)">
-        <div class="row">
-          <div class="col-12 col-md-6 mb-3">
-            <input type="hidden" name="id" id="" name="id" value="<%= rack.id %>">
-            <label for="" class="form-label">Cliente:</label>
-            <% if (rack.cliente == "Sem cliente") { %>
-            <select class="form-select" name="cliente" id="clienteRack" onchange="verificarCliente()">
-              <option value="LQS">LQS</option>
-              <option value="Sem cliente" selected>Sem cliente
-              </option>
-            </select>
-            <% } else { %><select class="form-select" name="cliente" id="clienteRack" onchange="verificarCliente()">
-              <option value="LQS" selected>LQS</option>
-              <option value="Sem cliente">Sem cliente</option>
-            </select>
-            <% } %>
-          </div>
-          <div class="col-12 col-md-6 mb-3">
-            <label for="" class="form-label">Descrição:</label>
-            <input type="text" class="form-control" id="descricaoRack" name="descricao" value="<%= rack.descricao %>">
-            <% if (rack.ocupado == "false") { %>
-            <input type="hidden" class="form-control" id="ocupadoRack" name="ocupado" value="Não" disabled>
-            <% } else { %><input type="hidden" class="form-control" id="ocupadoRack" name="ocupado" value="Sim" disabled>
-            <% } %>
-          </div>
+    <div class="card">
+        <div class="card-header">
+            <h2 class="my-1 fs-6">Editar informações da rack
+                <%= rack.predio %>
+                <%= rack.numero %></h2>
+        </div>
+        <div class="card-body">
+            <form action="/admin/racks/update" method="POST"
+                onsubmit="verificarDescricaoRack(event, this)">
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-2">
+                        <input type="hidden" name="id" id="" name="id"
+                            value="<%= rack.id %>">
+                        <label for="" class="form-label mb-0">Cliente:</label>
+                        <% if (rack.cliente == "Sem cliente") { %>
+                        <select class="form-select form-select-sm" name="cliente"
+                            id="clienteRack" onchange="verificarCliente()">
+                            <option value="LQS">LQS</option>
+                            <option value="Sem cliente" selected>Sem cliente
+                            </option>
+                        </select>
+                        <% } else { %><select class="form-select form-select-sm"
+                            name="cliente" id="clienteRack"
+                            onchange="verificarCliente()">
+                            <option value="LQS" selected>LQS</option>
+                            <option value="Sem cliente">Sem cliente</option>
+                        </select>
+                        <% } %>
+                    </div>
+                    <div class="col-12 col-md-6 mb-2">
+                        <label for="" class="form-label mb-0">Descrição:</label>
+                        <input type="text" class="form-control form-control-sm"
+                            id="descricaoRack" name="descricao"
+                            value="<%= rack.descricao %>">
+                        <% if (rack.ocupado == "false") { %>
+                        <input type="hidden" class="form-control"
+                            id="ocupadoRack" name="ocupado" value="Não"
+                            disabled>
+                        <% } else { %><input type="hidden"
+                            class="form-control" id="ocupadoRack" name="ocupado"
+                            value="Sim" disabled>
+                        <% } %>
+                    </div>
+                </div>
+        </div>
+        <div class="card-footer text-muted">
+            <button type="submit" class="btn btn-success btn-sm">Confirmar</button>
+            </form>
         </div>
     </div>
-    <div class="card-footer text-muted">
-      <button type="submit" class="btn btn-success">Confirmar</button>
-      </form>
-    </div>
-  </div>
 </div>
 <script>
-  const clienteRack = document.querySelector("#clienteRack");
-  const ocupadoRack = document.querySelector("#ocupadoRack");
-  const descricaoRack = document.querySelector("#descricaoRack");
-
-  const valorDescricaoBackup = descricaoRack.value;
-
-  function verificarLocalizacaoDisponivel(event, form) {
-    event.preventDefault();
-    if (clienteRack.value != "Sem cliente" && (descricaoRack.value)
-      .trim() == "Espaço vazio") {
-      mensagemErro(
-        "Não foi possível concluir o cadastro. Por favor, altere a descrição da rack."
-      );
-    } else {
-      form.submit();
+    const clienteRack = document.querySelector("#clienteRack");
+    const ocupadoRack = document.querySelector("#ocupadoRack");
+    const descricaoRack = document.querySelector("#descricaoRack");
+    const valorDescricaoBackup = descricaoRack.value;
+    function verificarDescricaoRack(event, form) {
+        event.preventDefault();
+        if (clienteRack.value != "Sem cliente" && (descricaoRack.value)
+            .trim() == "Espaço vazio") {
+            mensagemErro(
+                "Não foi possível concluir o cadastro. Por favor, altere a descrição da rack."
+            );
+        } else {
+            form.submit();
+        }
     }
-  }
-
-  function verificarCliente() {
-    if (clienteRack.value == "Sem cliente") {
-      descricaoRack.value = "Espaço vazio";
-      descricaoRack.disabled = true;
-      ocupadoRack.value = "Não";
-    } else {
-      descricaoRack.value = valorDescricaoBackup;
-      descricaoRack.disabled = false;
-      ocupadoRack.value = "Sim";
+    function verificarCliente() {
+        if (clienteRack.value == "Sem cliente") {
+            descricaoRack.value = "Espaço vazio";
+            descricaoRack.disabled = true;
+            ocupadoRack.value = "Não";
+        } else {
+            descricaoRack.value = valorDescricaoBackup;
+            descricaoRack.disabled = false;
+            ocupadoRack.value = "Sim";
+        }
     }
-  }
-  verificarCliente();
-
-  function mensagemErro(texto) {
-    Toastify({
-      text: texto,
-      duration: 5000,
-      close: false,
-      gravity: "bottom",
-      position: "right",
-      stopOnFocus: true,
-      style: {
-        background: "#f8d7da",
-        color: "#721c24",
-        boxShadow: "none",
-      }
-    }).showToast();
-  }
+    verificarCliente();
+    function mensagemErro(texto) {
+        Toastify({
+            text: texto,
+            duration: 5000,
+            close: false,
+            gravity: "bottom",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+                background: "#f8d7da",
+                color: "#721c24",
+                boxShadow: "none",
+            }
+        }).showToast();
+    }
 </script>
 <%- include('../../partils/footer') %>

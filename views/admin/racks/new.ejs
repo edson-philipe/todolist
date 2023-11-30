@@ -9,22 +9,22 @@
             <form action="/admin/racks/save" method="POST"
                 onsubmit="verificarLocalizacaoDisponivel(event, this)">
                 <div class="row">
-                    <div class="col-12 col-md-4 mb-3 mb-md-0">
-                        <label for="" class="form-label">Nome do Prédio:</label>
-                        <input type="text" class="form-control" id="predioRack"
+                    <div class="col-12 col-md-4 mb-2">
+                        <label for="" class="form-label mb-0">Nome do Prédio:</label>
+                        <input type="text" class="form-control form-control-sm" id="predioRack"
                             name="predio" placeholder="Insira o nome do prédio">
                     </div>
-                    <div class="col-12 col-md-4 mb-3 mb-md-0">
-                        <label for="numeroRack" class="form-label">Número da
+                    <div class="col-12 col-md-4 mb-2">
+                        <label for="numeroRack" class="form-label mb-0">Número da
                             Rack:</label>
-                        <input type="number" class="form-control"
+                        <input type="number" class="form-control form-control-sm"
                             id="numeroRack" name="numero"
                             placeholder="Digite o número da rack" min="1">
                     </div>
                     <div class="col-12 col-md-4 mb-2">
-                        <label for="andarRack" class="form-label">Andar da
+                        <label for="andarRack" class="form-label mb-0">Andar da
                             Instalação:</label>
-                        <input type="number" class="form-control" id="andarRack"
+                        <input type="number" class="form-control form-control-sm" id="andarRack"
                             name="andar"
                             placeholder="Indique o andar da instalação" min="1">
                     </div>
@@ -48,7 +48,7 @@
         if (!predioRack.value || !numeroRack.value || !andarRack.value) {
             mensagemErro(
                 "Não foi possível concluir o cadastro. Por favor, preencha todos os campos."
-                );
+            );
         } else {
             let localizacoesRacksDigitados =
                 `${((predioRack.value).trim()).toUpperCase()}${numeroRack.value}`;
@@ -61,13 +61,13 @@
                     rackJaCadastrada = true;
                     mensagemErro(
                         "Não foi possível concluir o cadastro, pois a localização escolhida já está em uso. Por favor, selecione uma localização diferente."
-                        );
+                    );
                     break; // Termina o loop, pois a rack já está cadastrada
                 }
             }
             if (!rackJaCadastrada) {
                 form
-            .submit(); // Envia o formulário se a rack não estiver cadastrada
+                    .submit(); // Envia o formulário se a rack não estiver cadastrada
             }
         }
     }

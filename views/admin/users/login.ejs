@@ -1,0 +1,71 @@
+<%- include('../../partils/header') %>
+<div style="display: flex;">
+    <div id="bgTelaLogin"></div>
+    <div id="secaoLogin" class="p-3">
+        <div>
+            <img src="https://i.imgur.com/AMwryrY.png" class="img-fluid">
+        </div>
+        <div class="card m-3" style="width: 100%;">
+            <div class="card-header">
+                <h2 class="my-1 fs-6">Iniciar sessão</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 mb-2 mb-md-0">
+                        <form action="/admin/authenticatelogin" method="POST" onsubmit="verificarCampos(event, this)">
+                        <label for="email"
+                            class="form-label mb-0"><small>Email:</small></label>
+                        <input type="email" class="form-control form-control-sm"
+                            id="email" name="email" placeholder="">
+                    </div>
+                    <div class="col-12 mb-2 mb-md-0">
+                        <label for="senha"
+                            class="form-label mb-0"><small>Senha:</small></label>
+                        <input type="password" id="senha" name="senha"
+                            class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+                <input type="hidden" name="" id="respostaSistema" value="<%= mensagem.texto %>">
+                <button type="submit"
+                    class="btn btn-success btn-sm">Entrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const respostaSistema = document.querySelector("#respostaSistema");
+    if(respostaSistema.value) {
+        mensagemErro(respostaSistema.value);
+    }
+
+    function verificarCampos(event, form) {
+        event.preventDefault();
+        let email = (document.querySelector("#email").value).trim();
+        let senha = (document.querySelector("#senha").value).trim();
+        if(email && senha){
+            form.submit();
+        } else {
+            mensagemErro("Por favor, preencha todos os campos.")
+        }
+    }
+
+    function mensagemErro(texto) {
+        Toastify({
+            text: texto,
+            duration: 5000,
+            close: false,
+            gravity: "bottom",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+                background: "#f8d7da",
+                color: "#721c24",
+                boxShadow: "none",
+            }
+        }).showToast();
+    }
+</script>
+<%- include('../../partils/footer') %>

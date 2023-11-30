@@ -1,3 +1,30 @@
 body {
     background-color: #E6ECEF;
+    font-size: 14px;
 }
+#bgTelaLogin {
+    width: 60vw;
+    height: 100vh;
+    background-image: url("https://i.imgur.com/yibFeXO.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+#secaoLogin {
+    width: 40vw; 
+    height: 100vh; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    #bgTelaLogin {
+        display: none;
+    }
+    #secaoLogin {
+        width: 100vw;
+    }
+  }

@@ -1,4 +1,5 @@
 const Racks = require("../models/Racks");
+const User = require("../models/User");
 
 async function showHome(req, res) {
   //res.render("index");
@@ -180,6 +181,60 @@ async function confirmRacksInversion(req, res) {
   res.redirect("/admin/racks/index");
 }
 
+async function createUsers(req, res) {
+  res.render("admin/users/create");
+}
+
+async function saveUsers(req, res) {
+
+  let user = await User.findOne({
+      where: { email: req.body.email }
+  });
+
+  if (user == undefined) {
+      await User.create({
+          nome: req.body.nome,
+          email: req.body.email,
+          senha: req.body.senha,
+          hierarquia: req.body.hierarquia,
+      });
+  }
+  res.redirect('/admin/users/create');
+}
+
+async function loginUsers(req, res) {
+  let mensagem = req.session.mensagem || "";
+  req.session.mensagem = null;
+  res.render('admin/users/login', {mensagem});
+}
+
+async function authenticateLogin(req, res) {
+  let user = await User.findOne({
+      where: { email: req.body.email }
+  });
+
+  if (user != undefined) {
+      if (user.senha == req.body.senha) {
+          req.session.user = {
+              id: user.id,
+              email: user.email,
+              hierarquia: user.hierarquia,
+          }
+          res.redirect("/admin/racks/index");
+      } else {
+        req.session.mensagem = {
+          texto: "Oops! A senha está incorreta. Por favor, tente novamente.",
+        }
+          res.redirect('/admin/users/login');
+      }
+  } else {
+    req.session.mensagem = {
+      texto: "Oops! Este email não está cadastrado. Por favor, tente novamente.",
+    }
+    res.redirect('/admin/users/login');
+  }
+}
+
 module.exports = {
   showHome,
 
@@ -191,4 +246,9 @@ module.exports = {
   deleteRack,
   selectRacksInversion,
   confirmRacksInversion,
+
+  createUsers,
+  saveUsers,
+  loginUsers,
+  authenticateLogin,
 };
