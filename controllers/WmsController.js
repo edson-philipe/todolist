@@ -3,10 +3,12 @@ const User = require("../models/User");
 
 async function showHome(req, res) {
   //res.render("index");
-  res.redirect("/admin/racks/index");
+  res.redirect("/admin/users/login");
 }
 
 async function showRacks(req, res) {
+  let hierarquia = req.session.user.hierarquia || "";
+
   let racks = await Racks.findAll({
     raw: true,
     order: [["id", "ASC"]],
@@ -58,10 +60,12 @@ async function showRacks(req, res) {
     numeroSelecionado,
     andarSelecionado,
     ocupadoSelecionado,
+    hierarquia,
   });
 }
 
 async function registerNewRack(req, res) {
+  let hierarquia = req.session.user.hierarquia || "";
   const racks = await Racks.findAll({
     raw: true,
     order: [["id", "ASC"]],
@@ -71,7 +75,10 @@ async function registerNewRack(req, res) {
     (rack) => `${rack.predio}${rack.numero}`
   );
 
-  res.render("admin/racks/new", { prediosNumerosConcatenados });
+  res.render("admin/racks/new", { 
+    prediosNumerosConcatenados, 
+    hierarquia, 
+  });
 }
 
 async function saveNewRack(req, res) {
@@ -87,10 +94,14 @@ async function saveNewRack(req, res) {
 }
 
 async function editRack(req, res) {
+  let hierarquia = req.session.user.hierarquia || "";
   const rack = await Racks.findOne({
     where: { id: req.params.id },
   });
-  res.render("admin/racks/edit", { rack });
+  res.render("admin/racks/edit", { 
+    rack,
+    hierarquia,
+  });
 }
 
 async function updateRack(req, res) {
@@ -124,6 +135,7 @@ async function deleteRack(req, res) {
 }
 
 async function selectRacksInversion(req, res) {
+  let hierarquia = req.session.user.hierarquia || "";
   const racks = await Racks.findAll({
     raw: true,
     order: [["id", "ASC"]],
@@ -158,6 +170,7 @@ async function selectRacksInversion(req, res) {
     prediosNumerosConcatenados,
     rack1,
     rack2,
+    hierarquia,
   });
 }
 
@@ -182,7 +195,13 @@ async function confirmRacksInversion(req, res) {
 }
 
 async function createUsers(req, res) {
-  res.render("admin/users/create");
+  let hierarquia = req.session.user.hierarquia || "";
+  let mensagem = req.session.mensagem || "";
+  req.session.mensagem = null;
+  res.render("admin/users/create", {
+    mensagem,
+    hierarquia,
+  });
 }
 
 async function saveUsers(req, res) {
@@ -198,14 +217,24 @@ async function saveUsers(req, res) {
           senha: req.body.senha,
           hierarquia: req.body.hierarquia,
       });
+      req.session.mensagem = {
+        texto: "A conta foi criada com sucesso!",
+      }
+  } else {
+    req.session.mensagem = {
+      texto: "Não foi possível criar sua conta porque o email já está sendo usado!",
+    };
   }
   res.redirect('/admin/users/create');
 }
 
 async function loginUsers(req, res) {
   let mensagem = req.session.mensagem || "";
+
   req.session.mensagem = null;
-  res.render('admin/users/login', {mensagem});
+  res.render('admin/users/login', {
+    mensagem,
+  });
 }
 
 async function authenticateLogin(req, res) {

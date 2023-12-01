@@ -9,24 +9,24 @@
             <form action="/admin/racks/save" method="POST"
                 onsubmit="verificarLocalizacaoDisponivel(event, this)">
                 <div class="row">
-                    <div class="col-12 col-md-4 mb-2">
-                        <label for="" class="form-label mb-0">Nome do Prédio:</label>
+                    <div class="col-12 col-md-4 mb-3 mb-md-1">
+                        <label for="" class="form-label">Nome do Prédio:</label>
                         <input type="text" class="form-control form-control-sm" id="predioRack"
                             name="predio" placeholder="Insira o nome do prédio">
                     </div>
-                    <div class="col-12 col-md-4 mb-2">
-                        <label for="numeroRack" class="form-label mb-0">Número da
+                    <div class="col-12 col-md-4 mb-3 mb-md-1">
+                        <label for="numeroRack" class="form-label">Número da
                             Rack:</label>
                         <input type="number" class="form-control form-control-sm"
                             id="numeroRack" name="numero"
                             placeholder="Digite o número da rack" min="1">
                     </div>
-                    <div class="col-12 col-md-4 mb-2">
-                        <label for="andarRack" class="form-label mb-0">Andar da
-                            Instalação:</label>
+                    <div class="col-12 col-md-4 mb-2 mb-md-1">
+                        <label for="andarRack" class="form-label">Andar da
+                            rack:</label>
                         <input type="number" class="form-control form-control-sm" id="andarRack"
                             name="andar"
-                            placeholder="Indique o andar da instalação" min="1">
+                            placeholder="Indique o andar da rack" min="1">
                     </div>
                 </div>
         </div>
@@ -70,21 +70,6 @@
                     .submit(); // Envia o formulário se a rack não estiver cadastrada
             }
         }
-    }
-    function mensagemErro(texto) {
-        Toastify({
-            text: texto,
-            duration: 5000,
-            close: false,
-            gravity: "bottom",
-            position: "right",
-            stopOnFocus: true,
-            style: {
-                background: "#f8d7da",
-                color: "#721c24",
-                boxShadow: "none",
-            }
-        }).showToast();
     }
 </script>
 <%- include('../../partils/footer') %>

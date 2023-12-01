@@ -3,28 +3,28 @@
         <div class="container-fluid">
             <div class="card mt-3">
                 <div class="card-header">
-                    <h2 class="my-1 fs-6">Cadastrar usuário</h2>
+                    <h2 class="my-1 fs-6">Cadastrar usuário</h2>      
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12 col-md-3 mb-2">
-                            <form action="/admin/users/save" method="POST">
-                                <label for="nome" class="form-label mb-0">Nome:</label>
+                        <div class="col-12 col-md-3 mb-3 mb-md-1">
+                            <form action="/admin/users/save" method="POST" onsubmit="verificarCampos(event, this)">
+                                <label for="nome" class="form-label">Nome:</label>
                                 <input type="text" class="form-control form-control-sm" id="nome" name="nome"
                                     placeholder="Insira o nome do usuário">
                         </div>
-                        <div class="col-12 col-md-3 mb-2">
-                            <label for="email" class="form-label mb-0">Email:</label>
+                        <div class="col-12 col-md-3 mb-3 mb-md-1">
+                            <label for="email" class="form-label">Email:</label>
                             <input type="email" class="form-control form-control-sm" id="email" name="email"
                                 placeholder="Digite o email do usuário">
                         </div>
-                        <div class="col-12 col-md-3 mb-2">
-                            <label for="senha" class="form-label mb-0">Senha:</label>
+                        <div class="col-12 col-md-3 mb-3 mb-md-1">
+                            <label for="senha" class="form-label">Senha:</label>
                             <input type="password" id="senha" name="senha" class="form-control form-control-sm"
                                 placeholder="Indique a senha do usuário">
                         </div>
-                        <div class="col-12 col-md-3 mb-2">
-                            <label for="hierarquia" class="form-label mb-0">Hierarquia:</label>
+                        <div class="col-12 col-md-3 mb-2 mb-md-1">
+                            <label for="hierarquia" class="form-label">Hierarquia:</label>
                             <select class="form-select form-select-sm" aria-label="Default select example"
                                 name="hierarquia">
                                 <option value="adm">Administrador</option>
@@ -35,9 +35,29 @@
                     </div>
                 </div>
                 <div class="card-footer text-muted">
+                    <input type="hidden" name="" id="respostaSistema" value="<%= mensagem.texto %>">
                     <button type="submit" class="btn btn-success btn-sm">Cadastrar</button>
                     </form>
                 </div>
             </div>
         </div>
+        <script>
+
+        function verificarCampos(event, form) {
+                event.preventDefault();
+                let nome = (document.querySelector("#nome").value).trim();
+                let email = (document.querySelector("#email").value).trim();
+                let senha = (document.querySelector("#senha").value).trim();
+                if(email && senha && nome){
+                    form.submit();
+                } else {
+                    mensagemErro("Por favor, preencha todos os campos.");
+                }
+            }
+
+            const respostaSistema = document.querySelector("#respostaSistema");
+            if(respostaSistema.value) {
+                mensagemErro(respostaSistema.value);
+            }
+        </script>
         <%- include('../../partils/footer') %>

@@ -1,7 +1,12 @@
 body {
-    background-color: #E6ECEF;
+    background-color: hsl(200, 22%, 92%);
     font-size: 14px;
 }
+
+html.sr .load-hidden {
+    visibility: hidden;
+}
+
 #bgTelaLogin {
     width: 60vw;
     height: 100vh;
@@ -12,11 +17,11 @@ body {
 }
 
 #secaoLogin {
-    width: 40vw; 
-    height: 100vh; 
-    display: flex; 
+    width: 40vw;
+    height: 100vh;
+    display: flex;
     flex-direction: column;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
 }
 
@@ -24,7 +29,8 @@ body {
     #bgTelaLogin {
         display: none;
     }
+
     #secaoLogin {
         width: 100vw;
     }
-  }
+}

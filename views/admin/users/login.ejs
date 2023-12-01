@@ -11,16 +11,16 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 mb-2 mb-md-0">
+                    <div class="col-12 mb-3">
                         <form action="/admin/authenticatelogin" method="POST" onsubmit="verificarCampos(event, this)">
                         <label for="email"
-                            class="form-label mb-0"><small>Email:</small></label>
+                            class="form-label"><small>Email:</small></label>
                         <input type="email" class="form-control form-control-sm"
                             id="email" name="email" placeholder="">
                     </div>
-                    <div class="col-12 mb-2 mb-md-0">
+                    <div class="col-12 mb-2 mb-md-1">
                         <label for="senha"
-                            class="form-label mb-0"><small>Senha:</small></label>
+                            class="form-label"><small>Senha:</small></label>
                         <input type="password" id="senha" name="senha"
                             class="form-control form-control-sm">
                     </div>
@@ -36,11 +36,7 @@
     </div>
 </div>
 <script>
-    const respostaSistema = document.querySelector("#respostaSistema");
-    if(respostaSistema.value) {
-        mensagemErro(respostaSistema.value);
-    }
-
+    
     function verificarCampos(event, form) {
         event.preventDefault();
         let email = (document.querySelector("#email").value).trim();
@@ -52,20 +48,9 @@
         }
     }
 
-    function mensagemErro(texto) {
-        Toastify({
-            text: texto,
-            duration: 5000,
-            close: false,
-            gravity: "bottom",
-            position: "right",
-            stopOnFocus: true,
-            style: {
-                background: "#f8d7da",
-                color: "#721c24",
-                boxShadow: "none",
-            }
-        }).showToast();
+    const respostaSistema = document.querySelector("#respostaSistema");
+    if(respostaSistema.value) {
+        mensagemErro(respostaSistema.value);
     }
 </script>
 <%- include('../../partils/footer') %>

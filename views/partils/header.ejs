@@ -20,5 +20,21 @@
     <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     <title>Sistema De Gerenciamento De Armazém.</title>
 </head>
-<body></body>
-</html>
+<body>
+    <script>
+        function mensagemErro(texto) {
+            Toastify({
+                text: texto,
+                duration: 5000,
+                close: false,
+                gravity: "bottom",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "#fff3cd",
+                    color: "#856404",
+                    boxShadow: "none",
+                }
+            }).showToast();
+        }
+    </script>

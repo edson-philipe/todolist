@@ -13,8 +13,8 @@
                     </h6>
                 </div>
                 <div class="col-12 col-md-6 mb-3">
-                    <label for="" class="form-label mb-0">Selecione a
-                            primeira rack:</label>
+                    <label for="" class="form-label">Selecione a
+                        primeira rack:</label>
                     <select id="localizacaoRack1"
                         class="form-select form-select-sm"
                         onchange="filtrarRacks()">
@@ -32,8 +32,8 @@
                     </select>
                 </div>
                 <div class="col-12 col-md-6 mb-3">
-                    <label for="" class="form-label mb-0">Selecione a
-                            segunda rack:</label>
+                    <label for="" class="form-label">Selecione a
+                        segunda rack:</label>
                     <select id="localizacaoRack2"
                         class="form-select form-select-sm"
                         onchange="filtrarRacks()">
@@ -50,44 +50,9 @@
                         <% }); %>
                     </select>
                 </div>
-                <hr class="mb-2">
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-6 mb-3 mb-md-2">
                     <h6>Informações da rack
-                            <%= rack1.predio %>
-                            <%= rack1.numero %>
-                        </h6>
-                    <div class="table-responsive">
-                        <table class="table table-sm mb-3 mb-md-0">
-                            <thead>
-                                <tr>
-                                    <th>Cliente</th>
-                                    <th>Descrição</th>
-                                    <th>Ocupado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <td>
-                                        <%= rack1.cliente %>
-                                    </td>
-                                <td>
-                                        <%= rack1.descricao %>
-                                    </td>
-                                <td>
-                                    
-                                        <% if (rack1.ocupado == "false") { %>
-                                        Não
-                                        <% } else { %>Sim
-                                        <% } %>
-                                    
-                                </td>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <h6>Informações da rack
-                        <%= rack2.predio %>
-                        <%= rack2.numero %>
+                        <%= rack1.predio %><%= rack1.numero %>
                     </h6>
                     <div class="table-responsive">
                         <table class="table table-sm mb-0">
@@ -100,18 +65,46 @@
                             </thead>
                             <tbody>
                                 <td>
-                                        <%= rack2.cliente %>
-                                    </td>
+                                    <%= rack1.cliente %>
+                                </td>
                                 <td>
-                                        <%= rack2.descricao %>
-                                    </td>
+                                    <%= rack1.descricao %>
+                                </td>
                                 <td>
-                                    
-                                        <% if (rack2.ocupado == "false") { %>
-                                        Não
-                                        <% } else { %>Sim
-                                        <% } %>
-                                    
+                                    <% if (rack1.ocupado == "false") { %>
+                                    Não
+                                    <% } else { %>Sim
+                                    <% } %>
+                                </td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 mb-2 mb-md-2">
+                    <h6>Informações da rack
+                        <%= rack2.predio %><%= rack2.numero %>
+                    </h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Descrição</th>
+                                    <th>Ocupado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td>
+                                    <%= rack2.cliente %>
+                                </td>
+                                <td>
+                                    <%= rack2.descricao %>
+                                </td>
+                                <td>
+                                    <% if (rack2.ocupado == "false") { %>
+                                    Não
+                                    <% } else { %>Sim
+                                    <% } %>
                                 </td>
                             </tbody>
                         </table>
@@ -143,10 +136,10 @@
         </div>
         <% } else { %>
         <div class="card-header">
-            <h5 class="my-1">Inverter racks</h5>
+            <h2 class="my-1 fs-6">Inverter racks</h2>
         </div>
         <div class="card-body">
-            <p class="mb-0">Para realizar a inversão de racks, é necessário ter
+            <p>Para realizar a inversão de racks, é necessário ter
                 no mínimo duas racks cadastradas.</p>
         </div>
         <% } %>
@@ -176,13 +169,15 @@
     // Função para filtrar os racks com base na localização selecionada
     function filtrarRacks(valorSelecionado, idOutraSelect) {
         let localizacaoRack1 = document.querySelector("#localizacaoRack1")
-        .value;
+            .value;
         localizacaoRack1 = localizacaoRack1.match(
-        /^([A-Za-z]+)([0-9]+)$/); // Usa expressão regular para extrair predio e numero
+            /^([A-Za-z]+)([0-9]+)$/
+            ); // Usa expressão regular para extrair predio e numero
         let localizacaoRack2 = document.querySelector("#localizacaoRack2")
-        .value;
+            .value;
         localizacaoRack2 = localizacaoRack2.match(
-        /^([A-Za-z]+)([0-9]+)$/); // Usa expressão regular para extrair predio e numero
+            /^([A-Za-z]+)([0-9]+)$/
+            ); // Usa expressão regular para extrair predio e numero
         // Redireciona para a URL com os parâmetros predio1, numero1, predio2 e numero2
         window.location.href =
             `/admin/racks/select-racks-inversion?predio1=${localizacaoRack1[1]}&numero1=${parseInt(localizacaoRack1[2], 10)}&predio2=${localizacaoRack2[1]}&numero2=${parseInt(localizacaoRack2[2], 10)}`;
