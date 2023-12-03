@@ -41,6 +41,7 @@
             if(modoAtual.value == "dark"){
                 document.documentElement.setAttribute('data-bs-theme','dark');
                 document.querySelector(".navbar").style.backgroundColor  = "#272B2F";
+                document.querySelector(".navbar").style.borderBottom = "1px solid #424549";
             } else {
                 document.documentElement.setAttribute('data-bs-theme','light');
                 document.querySelector(".navbar").classList.add("bg-success");
