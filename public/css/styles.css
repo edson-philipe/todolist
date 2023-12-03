@@ -1,36 +1,9 @@
 body {
-    background-color: hsl(200, 22%, 92%);
     font-size: 14px;
 }
-
-html.sr .load-hidden {
-    visibility: hidden;
-}
-
-#bgTelaLogin {
-    width: 60vw;
-    height: 100vh;
-    background-image: url("https://i.imgur.com/yibFeXO.jpg");
+#bgLogin {
+    background-image: radial-gradient(circle at -1% 57.5%, rgb(19, 170, 82) 0%, rgb(0, 102, 43) 90%);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-}
-
-#secaoLogin {
-    width: 40vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-@media screen and (max-width: 768px) {
-    #bgTelaLogin {
-        display: none;
-    }
-
-    #secaoLogin {
-        width: 100vw;
-    }
 }

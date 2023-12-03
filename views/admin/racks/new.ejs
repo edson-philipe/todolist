@@ -31,8 +31,10 @@
                 </div>
         </div>
         <div class="card-footer text-muted">
+            <input type="hidden" name="" id="respostaSistema" value="<%= mensagem.texto %>">
             <input type="hidden" id="localizacoesRacksCadastradas"
                 value="<%= prediosNumerosConcatenados %>">
+                
             <button type="submit"
                 class="btn btn-success btn-sm">Confirmar</button>
             </form>
@@ -43,6 +45,12 @@
     const predioRack = document.querySelector("#predioRack");
     const numeroRack = document.querySelector("#numeroRack");
     const andarRack = document.querySelector("#andarRack");
+
+    const respostaSistema = document.querySelector("#respostaSistema");
+            if(respostaSistema.value) {
+                mensagemErro(respostaSistema.value);
+            }
+
     function verificarLocalizacaoDisponivel(event, form) {
         event.preventDefault(); // Impede o comportamento padrão do formulário
         if (!predioRack.value || !numeroRack.value || !andarRack.value) {

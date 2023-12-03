@@ -17,5 +17,6 @@ router.get("/admin/users/create", checkLogin("adm"), WmsController.createUsers);
 router.post("/admin/users/save", WmsController.saveUsers);
 router.get("/admin/users/login", WmsController.loginUsers);
 router.post("/admin/authenticatelogin", WmsController.authenticateLogin);
+router.post("/admin/users/select-theme", WmsController.selectTheme);
 
 module.exports = router;

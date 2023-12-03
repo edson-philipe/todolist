@@ -8,6 +8,7 @@ async function showHome(req, res) {
 
 async function showRacks(req, res) {
   let hierarquia = req.session.user.hierarquia || "";
+  let theme = req.session.user.informacao1;
 
   let racks = await Racks.findAll({
     raw: true,
@@ -61,11 +62,16 @@ async function showRacks(req, res) {
     andarSelecionado,
     ocupadoSelecionado,
     hierarquia,
+    theme,
   });
 }
 
 async function registerNewRack(req, res) {
   let hierarquia = req.session.user.hierarquia || "";
+  let theme = req.session.user.informacao1;
+  let mensagem = req.session.mensagem || "";
+  req.session.mensagem = null;
+
   const racks = await Racks.findAll({
     raw: true,
     order: [["id", "ASC"]],
@@ -78,10 +84,16 @@ async function registerNewRack(req, res) {
   res.render("admin/racks/new", { 
     prediosNumerosConcatenados, 
     hierarquia, 
+    mensagem,
+    theme,
   });
 }
 
 async function saveNewRack(req, res) {
+  req.session.mensagem = {
+    texto: "Rack cadastrada com sucesso!",
+  }
+
   await Racks.create({
     cliente: "Sem cliente",
     descricao: "Espaço vazio",
@@ -90,17 +102,19 @@ async function saveNewRack(req, res) {
     andar: req.body.andar,
     ocupado: "false",
   });
-  res.redirect("/admin/racks/index");
+  res.redirect("/admin/racks/new");
 }
 
 async function editRack(req, res) {
   let hierarquia = req.session.user.hierarquia || "";
+  let theme = req.session.user.informacao1;
   const rack = await Racks.findOne({
     where: { id: req.params.id },
   });
   res.render("admin/racks/edit", { 
     rack,
     hierarquia,
+    theme,
   });
 }
 
@@ -136,6 +150,7 @@ async function deleteRack(req, res) {
 
 async function selectRacksInversion(req, res) {
   let hierarquia = req.session.user.hierarquia || "";
+  let theme = req.session.user.informacao1;
   const racks = await Racks.findAll({
     raw: true,
     order: [["id", "ASC"]],
@@ -171,6 +186,7 @@ async function selectRacksInversion(req, res) {
     rack1,
     rack2,
     hierarquia,
+    theme,
   });
 }
 
@@ -196,11 +212,13 @@ async function confirmRacksInversion(req, res) {
 
 async function createUsers(req, res) {
   let hierarquia = req.session.user.hierarquia || "";
+  let theme = req.session.user.informacao1;
   let mensagem = req.session.mensagem || "";
   req.session.mensagem = null;
   res.render("admin/users/create", {
     mensagem,
     hierarquia,
+    theme,
   });
 }
 
@@ -216,6 +234,7 @@ async function saveUsers(req, res) {
           email: req.body.email,
           senha: req.body.senha,
           hierarquia: req.body.hierarquia,
+          informacao1 : "light",
       });
       req.session.mensagem = {
         texto: "A conta foi criada com sucesso!",
@@ -248,6 +267,7 @@ async function authenticateLogin(req, res) {
               id: user.id,
               email: user.email,
               hierarquia: user.hierarquia,
+              informacao1: user.informacao1,
           }
           res.redirect("/admin/racks/index");
       } else {
@@ -264,6 +284,25 @@ async function authenticateLogin(req, res) {
   }
 }
 
+async function selectTheme(req, res) { 
+  console.log(req.session.user.informacao1);
+  console.log()
+  if(req.session.user.informacao1 == "light") {
+    req.session.user.informacao1 = "dark"
+  } else {
+    req.session.user.informacao1 = "light";
+  }
+
+  await User.update(
+    {
+      informacao1: req.session.user.informacao1,
+    },
+    { where: { id: req.session.user.id } }
+  );
+
+  let link = req.body.link;
+  res.redirect(link);
+}
 module.exports = {
   showHome,
 
@@ -280,4 +319,5 @@ module.exports = {
   saveUsers,
   loginUsers,
   authenticateLogin,
+  selectTheme,
 };

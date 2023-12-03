@@ -47,7 +47,9 @@ const Racks = connection.define("racks", {
         allowNull: true,
     },
 }, {
-    timestamps: false,
+    timestamps: true,
 });
+
+//Racks.sync({force: true});
 
 module.exports = Racks;

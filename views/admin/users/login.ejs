@@ -1,47 +1,48 @@
 <%- include('../../partils/header') %>
-<div style="display: flex;">
-    <div id="bgTelaLogin"></div>
-    <div id="secaoLogin" class="p-3">
-        <div>
-            <img src="https://i.imgur.com/AMwryrY.png" class="img-fluid">
+<div class="container-fluid" id="bgLogin">
+    <div class="row d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
+        <div class="col-6 col-md-2 d-flex justify-content-center mb-2">
+            <img src="https://i.imgur.com/cTILCjn.png" class="img-fluid">
         </div>
-        <div class="card m-3" style="width: 100%;">
-            <div class="card-header">
-                <h2 class="my-1 fs-6">Iniciar sessão</h2>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12 mb-3">
-                        <form action="/admin/authenticatelogin" method="POST" onsubmit="verificarCampos(event, this)">
-                        <label for="email"
-                            class="form-label"><small>Email:</small></label>
-                        <input type="email" class="form-control form-control-sm"
-                            id="email" name="email" placeholder="">
-                    </div>
-                    <div class="col-12 mb-2 mb-md-1">
-                        <label for="senha"
-                            class="form-label"><small>Senha:</small></label>
-                        <input type="password" id="senha" name="senha"
-                            class="form-control form-control-sm">
+        <div class="col-12 col-md-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="my-1 fs-6">Iniciar sessão</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <form action="/admin/authenticatelogin" method="POST"
+                                onsubmit="verificarCampos(event, this)">
+                                <label for="email"
+                                    class="form-label"><small>Email:</small></label>
+                                <input type="email" class="form-control form-control-sm"
+                                    id="email" name="email" placeholder="">
+                        </div>
+                        <div class="col-12 mb-2 mb-md-1">
+                            <label for="senha"
+                                class="form-label"><small>Senha:</small></label>
+                            <input type="password" id="senha" name="senha"
+                                class="form-control form-control-sm">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer text-muted">
-                <input type="hidden" name="" id="respostaSistema" value="<%= mensagem.texto %>">
-                <button type="submit"
-                    class="btn btn-success btn-sm">Entrar</button>
-                </form>
+                <div class="card-footer text-muted">
+                    <input type="hidden" name="" id="respostaSistema"
+                        value="<%= mensagem.texto %>">
+                    <button type="submit" class="btn btn-success btn-sm">Entrar</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <script>
-    
     function verificarCampos(event, form) {
         event.preventDefault();
         let email = (document.querySelector("#email").value).trim();
         let senha = (document.querySelector("#senha").value).trim();
-        if(email && senha){
+        if (email && senha) {
             form.submit();
         } else {
             mensagemErro("Por favor, preencha todos os campos.")
@@ -49,7 +50,7 @@
     }
 
     const respostaSistema = document.querySelector("#respostaSistema");
-    if(respostaSistema.value) {
+    if (respostaSistema.value) {
         mensagemErro(respostaSistema.value);
     }
 </script>
