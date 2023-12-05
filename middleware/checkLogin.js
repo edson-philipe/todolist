@@ -7,5 +7,4 @@ function checkLogin(hierarquiaNecessaria) {
         }
     };
 }
-
 module.exports = checkLogin;

@@ -37,17 +37,17 @@ async function savePrices(req, res) {
         observacao: req.body.observacao,
     });
     req.session.mensagem = {
-        texto: "O contrato foi criado com sucesso!",
+        texto: "O preço foi cadastrado com sucesso!",
     }
     res.redirect('/admin/prices/new');
 }
 
 async function deletePrice(req, res) {
     await Prices.destroy({
-      where: { id: req.body.id },
+        where: { id: req.body.id },
     });
     res.redirect("/admin/prices/index");
-  }
+}
 
 module.exports = {
     showPrices,

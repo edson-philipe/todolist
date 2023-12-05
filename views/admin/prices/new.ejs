@@ -6,29 +6,31 @@
             <h2 class="my-1 fs-6">Cadastrar contrato de preço</h2>
         </div>
         <div class="card-body">
-            <form action="/admin/prices/save" method="POST">
+            <form action="/admin/prices/save" method="POST"
+                onsubmit="verificarCampos(event, this)">
                 <div class="row">
                     <div class="col-12 col-md-4 mb-3 mb-md-1">
-                        <label for="" class="form-label">Cliente:</label>
+                        <label for="cliente" class="form-label">Cliente:</label>
                         <input type="text" class="form-control form-control-sm"
-                            id="" name="cliente" placeholder="">
+                            id="cliente" name="cliente" placeholder="Insira o nome do cliente">
                     </div>
                     <div class="col-12 col-md-4 mb-3 mb-md-1">
-                        <label for="" class="form-label">Descrição:</label>
+                        <label for="descricao" class="form-label">Descrição:</label>
                         <input type="text" class="form-control form-control-sm"
-                            id="" name="descricao" placeholder="">
+                            id="descricao" name="descricao" placeholder="Digite a descrição do serviço ou produto">
                     </div>
                     <div class="col-12 col-md-4 mb-3">
-                        <label for="numeroRack"
+                        <label for="valor"
                             class="form-label">Valor:</label>
                         <input type="number"
-                            class="form-control form-control-sm" id=""
-                            name="valor" placeholder="" min="1" step=".01">
+                            class="form-control form-control-sm" id="valor"
+                            name="valor" placeholder="Indique o preço do serviço ou produto" min="0.01" step=".01">
                     </div>
                     <div class="col-12 mb-2 mb-md-1">
-                        <label for="" class="form-label">Observação:</label>
-                        <textarea class="form-control form-control-sm" id=""
-                            rows="3" name="observacao"></textarea>
+                        <label for="observacao" class="form-label">Observação:</label>
+                        <textarea class="form-control form-control-sm" id="observacao"
+                            rows="2" maxlength="255"
+                            name="observacao" placeholder="Informe uma observação em até 255 caracteres."></textarea>
                     </div>
                 </div>
         </div>
@@ -45,6 +47,19 @@
     const respostaSistema = document.querySelector("#respostaSistema");
     if (respostaSistema.value) {
         mensagemErro(respostaSistema.value);
+    }
+
+    function verificarCampos(event, form) {
+        event.preventDefault();
+        let cliente = (document.querySelector("#cliente").value).trim();
+        let descricao = (document.querySelector("#descricao").value).trim();
+        let valor = (document.querySelector("#valor").value).trim();
+        let observacao = (document.querySelector("#observacao").value).trim();
+        if (cliente && descricao && valor && observacao) {
+            form.submit();
+        } else {
+            mensagemErro("Por favor, preencha todos os campos.");
+        }
     }
 </script>
 <%- include('../../partils/footer') %>

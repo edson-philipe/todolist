@@ -15,8 +15,10 @@ router.post("/admin/racks/delete", WmsController.deleteRack);
 router.get("/admin/racks/select-racks-inversion", checkLogin("usuario"), WmsController.selectRacksInversion);
 router.post("/admin/racks/confirm-racks-inversion", WmsController.confirmRacksInversion);
 
+router.get("/admin/users/index", checkLogin("adm"), UsersController.showUsers);
 router.get("/admin/users/create", checkLogin("adm"), UsersController.createUsers);
 router.post("/admin/users/save", UsersController.saveUsers);
+router.post("/admin/users/delete", UsersController.deleteUser);
 router.get("/admin/users/login", UsersController.loginUsers);
 router.post("/admin/authenticatelogin", UsersController.authenticateLogin);
 router.post("/admin/users/select-theme", UsersController.selectTheme);

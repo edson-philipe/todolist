@@ -1,5 +1,22 @@
 const User = require("../models/User");
 
+async function showUsers(req, res) {
+  let hierarquia = req.session.user.hierarquia || "";
+  let theme = req.session.user.informacao1;
+
+  let users = await User.findAll({
+      raw: true,
+      order: [["id", "DESC"]],
+  });
+  const totalUsuariosCadastrados = users.length;
+  res.render("admin/users/index", {
+      users,
+      hierarquia,
+      theme,
+      totalUsuariosCadastrados,
+  });
+}
+
 async function createUsers(req, res) {
   let hierarquia = req.session.user.hierarquia || "";
   let theme = req.session.user.informacao1;
@@ -34,6 +51,13 @@ async function saveUsers(req, res) {
     };
   }
   res.redirect('/admin/users/create');
+}
+
+async function deleteUser(req, res) {
+  await User.destroy({
+      where: { id: req.body.id },
+  });
+  res.redirect("/admin/users/index");
 }
 
 async function loginUsers(req, res) {
@@ -90,8 +114,10 @@ async function selectTheme(req, res) {
 }
 
 module.exports = {
+  showUsers,
   createUsers,
   saveUsers,
+  deleteUser,
   loginUsers,
   authenticateLogin,
   selectTheme,
