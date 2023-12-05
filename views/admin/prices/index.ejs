@@ -1,0 +1,152 @@
+<%- include('../../partils/header') %>
+<%- include('../../partils/navbar') %>
+<div class="container-fluid mt-3">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="my-1 fs-6">Visualizar preços cadastrados</h2>
+        </div>
+        <div class="card-body">
+            <% if (totalPrecosCadastrados > 0) { %>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <input class="form-control form-control-sm" id="myInput"
+                        type="text"
+                        placeholder="Pesquise por cliente, descrição ou valor..." />
+                </div>
+                <div class="col-12 mb-0">
+                    <p id="totalItensFiltrados" class="mb-3">
+                        Total de racks encontradas:
+                        <%= prices.length %>
+                    </p>
+                </div>
+            </div>
+            <div class="table-responsive" id="tabelaRacks">
+                <table
+                    class="table table-sm table-striped table-bordered mb-2 mb-md-1">
+                    <thead>
+                        <tr>
+                            <th class="px-2">Cliente</th>
+                            <th class="px-2">Descrição</th>
+                            <th class="px-2">Valor</th>
+                            <th class="px-2">Observação</th>
+                            <th class="px-2">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        <% prices.forEach(price => { %>
+                        <tr>
+                            <td class="text-nowrap px-2 text-nowrap">
+                                <%= price.cliente %>
+                            </td>
+                            <td class="text-nowrap px-2 text-nowrap">
+                                <%= price.descricao %>
+                            </td>
+                            <td class="px-2 precos text-nowrap">
+                                <%= price.valor %>
+                            </td>
+                            <td class="px-2 text-nowrap">
+                                <%= price.observacao %>
+                            </td>
+                            <td class="px-2">
+                                <div class="d-flex gap-2 p-0">
+                                    <a href="#"
+                                        class="btn btn-sm p-0 text-warning text-nowrap">
+                                        <i class="bi bi-pen"></i> Editar</a>
+                                    <form action="/admin/prices/delete"
+                                        method="post"
+                                        onsubmit="confirmDelete(event, this)">
+                                        <input type="hidden" name="id"
+                                            value="<%= price.id %>" />
+                                        <button type="submit"
+                                            class="btn btn-sm p-0 text-danger text-nowrap">
+                                            <i class="bi bi-trash3"></i> Deletar
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <% } else if (totalPrecosCadastrados <= 0) { %>
+            <p class="my-0">
+                Não há nenhum preço cadastrado para visualização.
+                <a class="link-opacity-100" href="/admin/prices/new">Clique aqui
+                    para realizar o primeiro
+                    cadastro.</a>
+            </p>
+
+
+
+
+
+            
+            <% } %>
+        </div>
+    </div>
+</div>
+<script>
+    const totalItensFiltrados = document.querySelector("#totalItensFiltrados");
+    const tabelaRacks = document.querySelector("#tabelaRacks");
+    document.addEventListener("DOMContentLoaded", function() {
+        var myInput = document.getElementById("myInput");
+        myInput.addEventListener("keyup", function() {
+            var value = this.value.toLowerCase();
+            var rows = document.querySelectorAll("#myTable tr");
+            var count =
+                0; // Variável para contar os resultados encontrados
+            rows.forEach(function(row) {
+                var text = row.textContent
+                    .toLowerCase();
+                if (text.indexOf(value) > -1) {
+                    row.style.display = "";
+                    count++; // Incrementar o contador se o item for encontrado
+                } else {
+                    row.style.display = "none";
+                }
+            });
+            totalItensFiltrados.innerHTML =
+                `Total de racks encontradas: ${count}`;
+            if (count == 0) {
+                tabelaRacks.style.display = "none";
+                totalItensFiltrados.style.setProperty(
+                    'margin-bottom', '0px', 'important');
+            } else {
+                tabelaRacks.style.display = "";
+                totalItensFiltrados.style.setProperty(
+                    'margin-bottom', '');
+
+            }
+        });
+    });
+
+    function confirmDelete(event, form) {
+        event.preventDefault(); // Impede o comportamento padrão do formulário
+        var userConfirmed = window.confirm(
+            "Deseja realmente excluir o preço selecionado?"
+        );
+        if (userConfirmed) {
+            // Se o usuário confirmar, envie o formulário usando o método POST
+            form.submit(); // Envie o formulário
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const precos = document.querySelectorAll('.precos');
+
+        function formatarValor(valor) {
+            const numeroFormatado = parseFloat(valor).toFixed(2);
+            const valorFormatado = numeroFormatado.replace('.', ',');
+            const valorComEuro = `€ ${valorFormatado}`;
+            return valorComEuro;
+        }
+
+        precos.forEach((elemento) => {
+            const valorOriginal = elemento.textContent;
+            const valorFormatado = formatarValor(valorOriginal);
+            elemento.textContent = valorFormatado;
+        });
+    });
+</script>
+<%- include('../../partils/footer') %>

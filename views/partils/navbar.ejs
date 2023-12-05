@@ -12,22 +12,34 @@
             <div class="d-flex ms-auto">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active bi bi-building-fill-add" aria-current="page"
-                            href="/admin/racks/new"> Cadastrar rack</a>
+                        <a class="nav-link active" aria-current="page"
+                            href="/admin/racks/new">Cadastrar rack</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active bi bi-eye" aria-current="page"
-                            href="/admin/racks/index"> Visualizar racks</a>
+                        <a class="nav-link active" aria-current="page"
+                            href="/admin/racks/index">Visualizar racks</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active bi bi-arrow-repeat" aria-current="page"
-                            href="/admin/racks/select-racks-inversion"> Inverter
+                        <a class="nav-link active" aria-current="page"
+                            href="/admin/racks/select-racks-inversion">Inverter
                             racks</a>
                     </li>
                     <% if (hierarquia == 'adm') { %>
                         <li class="nav-item">
-                            <a class="nav-link active bi bi-person-add" aria-current="page"
-                                href="/admin/users/create"> Cadastrar usuário</a>
+                            <a class="nav-link active" aria-current="page"
+                                href="/admin/users/create">Cadastrar usuário</a>
+                        </li>
+                    <% } %> 
+                    <% if (hierarquia == 'adm') { %>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                                href="/admin/prices/new">Cadastrar preço</a>
+                        </li>
+                    <% } %> 
+                    <% if (hierarquia == 'adm') { %>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                                href="/admin/prices/index">Visualizar preços</a>
                         </li>
                     <% } %> 
                     <li class="nav-item">

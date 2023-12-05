@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const WmsController = require("../controllers/WmsController");
+const UsersController = require("../controllers/UsersController");
+const PricesController = require("../controllers/PricesController");
 const checkLogin = require("../middleware/checkLogin");
 router.get("/", WmsController.showHome);
 
@@ -13,10 +15,15 @@ router.post("/admin/racks/delete", WmsController.deleteRack);
 router.get("/admin/racks/select-racks-inversion", checkLogin("usuario"), WmsController.selectRacksInversion);
 router.post("/admin/racks/confirm-racks-inversion", WmsController.confirmRacksInversion);
 
-router.get("/admin/users/create", checkLogin("adm"), WmsController.createUsers);
-router.post("/admin/users/save", WmsController.saveUsers);
-router.get("/admin/users/login", WmsController.loginUsers);
-router.post("/admin/authenticatelogin", WmsController.authenticateLogin);
-router.post("/admin/users/select-theme", WmsController.selectTheme);
+router.get("/admin/users/create", checkLogin("adm"), UsersController.createUsers);
+router.post("/admin/users/save", UsersController.saveUsers);
+router.get("/admin/users/login", UsersController.loginUsers);
+router.post("/admin/authenticatelogin", UsersController.authenticateLogin);
+router.post("/admin/users/select-theme", UsersController.selectTheme);
+
+router.get("/admin/prices/index", checkLogin("usuario"), PricesController.showPrices);
+router.get("/admin/prices/new", checkLogin("adm"), PricesController.createPrices);
+router.post("/admin/prices/save", PricesController.savePrices);
+router.post("/admin/prices/delete", PricesController.deletePrice);
 
 module.exports = router;
