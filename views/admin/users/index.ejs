@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-12 mb-0">
                     <p id="totalItensFiltrados" class="mb-3">
-                        Total de racks encontradas:
+                        Total de usuários encontrados:
                         <%= users.length %>
                     </p>
                 </div>
@@ -103,7 +103,7 @@
                 }
             });
             totalItensFiltrados.innerHTML =
-                `Total de racks encontradas: ${count}`;
+                `Total de usuários encontrados: ${count}`;
             if (count == 0) {
                 tabelaRacks.style.display = "none";
                 totalItensFiltrados.style.setProperty(

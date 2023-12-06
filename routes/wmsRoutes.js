@@ -7,8 +7,8 @@ const checkLogin = require("../middleware/checkLogin");
 router.get("/", WmsController.showHome);
 
 router.get("/admin/racks/index", checkLogin("usuario"), WmsController.showRacks);
-router.get("/admin/racks/new", checkLogin("usuario"), WmsController.registerNewRack);
-router.post("/admin/racks/save", WmsController.saveNewRack);
+router.get("/admin/racks/new", checkLogin("usuario"), WmsController.createRack);
+router.post("/admin/racks/save", WmsController.saveRack);
 router.get("/admin/racks/edit/:id", checkLogin("usuario"), WmsController.editRack);
 router.post("/admin/racks/update", WmsController.updateRack);
 router.post("/admin/racks/delete", WmsController.deleteRack);
@@ -16,16 +16,18 @@ router.get("/admin/racks/select-racks-inversion", checkLogin("usuario"), WmsCont
 router.post("/admin/racks/confirm-racks-inversion", WmsController.confirmRacksInversion);
 
 router.get("/admin/users/index", checkLogin("adm"), UsersController.showUsers);
-router.get("/admin/users/create", checkLogin("adm"), UsersController.createUsers);
-router.post("/admin/users/save", UsersController.saveUsers);
+router.get("/admin/users/new", checkLogin("adm"), UsersController.createUser);
+router.post("/admin/users/save", UsersController.saveUser);
 router.post("/admin/users/delete", UsersController.deleteUser);
-router.get("/admin/users/login", UsersController.loginUsers);
+router.get("/admin/users/login", UsersController.loginUser);
 router.post("/admin/authenticatelogin", UsersController.authenticateLogin);
 router.post("/admin/users/select-theme", UsersController.selectTheme);
 
 router.get("/admin/prices/index", checkLogin("usuario"), PricesController.showPrices);
-router.get("/admin/prices/new", checkLogin("adm"), PricesController.createPrices);
-router.post("/admin/prices/save", PricesController.savePrices);
+router.get("/admin/prices/new", checkLogin("adm"), PricesController.createPrice);
+router.post("/admin/prices/save", PricesController.savePrice);
+router.get("/admin/prices/edit/:id", checkLogin("adm"), PricesController.editPrice);
+router.post("/admin/prices/update", PricesController.updatePrice);
 router.post("/admin/prices/delete", PricesController.deletePrice);
 
 module.exports = router;

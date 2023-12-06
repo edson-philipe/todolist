@@ -65,7 +65,7 @@ async function showRacks(req, res) {
   });
 }
 
-async function registerNewRack(req, res) {
+async function createRack(req, res) {
   let hierarquia = req.session.user.hierarquia || "";
   let theme = req.session.user.informacao1;
   let mensagem = req.session.mensagem || "";
@@ -88,7 +88,7 @@ async function registerNewRack(req, res) {
   });
 }
 
-async function saveNewRack(req, res) {
+async function saveRack(req, res) {
   req.session.mensagem = {
     texto: "Rack cadastrada com sucesso!",
   }
@@ -213,8 +213,8 @@ module.exports = {
   showHome,
 
   showRacks,
-  registerNewRack,
-  saveNewRack,
+  createRack,
+  saveRack,
   editRack,
   updateRack,
   deleteRack,

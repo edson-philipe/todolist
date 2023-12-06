@@ -1,35 +1,39 @@
 const User = require("../models/User");
 
 async function showUsers(req, res) {
+  let mensagem = req.session.mensagem || "";
+  req.session.mensagem = null;
   let hierarquia = req.session.user.hierarquia || "";
   let theme = req.session.user.informacao1;
 
   let users = await User.findAll({
-      raw: true,
-      order: [["id", "DESC"]],
+    raw: true,
+    order: [["id", "DESC"]],
   });
   const totalUsuariosCadastrados = users.length;
   res.render("admin/users/index", {
-      users,
-      hierarquia,
-      theme,
-      totalUsuariosCadastrados,
-  });
-}
-
-async function createUsers(req, res) {
-  let hierarquia = req.session.user.hierarquia || "";
-  let theme = req.session.user.informacao1;
-  let mensagem = req.session.mensagem || "";
-  req.session.mensagem = null;
-  res.render("admin/users/create", {
+    users,
+    totalUsuariosCadastrados,
     mensagem,
     hierarquia,
     theme,
   });
 }
 
-async function saveUsers(req, res) {
+async function createUser(req, res) {
+  let mensagem = req.session.mensagem || "";
+  req.session.mensagem = null;
+  let hierarquia = req.session.user.hierarquia || "";
+  let theme = req.session.user.informacao1;
+
+  res.render("admin/users/new", {
+    mensagem,
+    hierarquia,
+    theme,
+  });
+}
+
+async function saveUser(req, res) {
   let user = await User.findOne({
     where: { email: req.body.email }
   });
@@ -50,17 +54,17 @@ async function saveUsers(req, res) {
       texto: "Não foi possível criar sua conta porque o email já está sendo usado!",
     };
   }
-  res.redirect('/admin/users/create');
+  res.redirect('/admin/users/new');
 }
 
 async function deleteUser(req, res) {
   await User.destroy({
-      where: { id: req.body.id },
+    where: { id: req.body.id },
   });
   res.redirect("/admin/users/index");
 }
 
-async function loginUsers(req, res) {
+async function loginUser(req, res) {
   let mensagem = req.session.mensagem || "";
   req.session.mensagem = null;
   res.render('admin/users/login', {
@@ -115,10 +119,10 @@ async function selectTheme(req, res) {
 
 module.exports = {
   showUsers,
-  createUsers,
-  saveUsers,
+  createUser,
+  saveUser,
   deleteUser,
-  loginUsers,
+  loginUser,
   authenticateLogin,
   selectTheme,
 };

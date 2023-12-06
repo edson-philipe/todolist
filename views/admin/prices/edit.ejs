@@ -1,0 +1,66 @@
+<%- include('../../partils/header') %>
+<%- include('../../partils/navbar') %>
+<div class="container-fluid mt-3">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="my-1 fs-6">Cadastrar contrato de preço</h2>
+        </div>
+        <div class="card-body">
+            <form action="/admin/prices/update" method="POST"
+                onsubmit="verificarCampos(event, this)">
+                <div class="row">
+                    <div class="col-12 col-md-4 mb-3 mb-md-1">
+                        <label for="cliente" class="form-label">Cliente:</label>
+                        <input type="text" class="form-control form-control-sm"
+                            id="cliente" name="cliente" placeholder="" value="<%= price.cliente %>">
+                    </div>
+                    <div class="col-12 col-md-4 mb-3 mb-md-1">
+                        <label for="descricao" class="form-label">Descrição:</label>
+                        <input type="text" class="form-control form-control-sm"
+                            id="descricao" name="descricao" placeholder="" value="<%= price.descricao %>">
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <label for="valor"
+                            class="form-label">Valor:</label>
+                        <input type="number"
+                            class="form-control form-control-sm" id="valor"
+                            name="valor" placeholder="" min="0.01" step=".01" value="<%= price.valor %>">
+                    </div>
+                    <div class="col-12 mb-2 mb-md-1">
+                        <label for="observacao" class="form-label">Observação:</label>
+                        <textarea class="form-control form-control-sm" id="observacao"
+                            rows="2" maxlength="255"
+                            name="observacao" placeholder=""><%= price.observacao %></textarea>
+                    </div>
+                </div>
+        </div>
+        <div class="card-footer text-muted">
+            <input type="hidden" name="id" id="" value="<%= price.id %>">
+            <input type="hidden" name="" id="respostaSistema"
+                value="<%= mensagem.texto %>">
+            <button type="submit"
+                class="btn btn-success btn-sm">Confirmar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const respostaSistema = document.querySelector("#respostaSistema");
+    if (respostaSistema.value) {
+        mensagemErro(respostaSistema.value);
+    }
+
+    function verificarCampos(event, form) {
+        event.preventDefault();
+        let cliente = (document.querySelector("#cliente").value).trim();
+        let descricao = (document.querySelector("#descricao").value).trim();
+        let valor = (document.querySelector("#valor").value).trim();
+        let observacao = (document.querySelector("#observacao").value).trim();
+        if (cliente && descricao && valor && observacao) {
+            form.submit();
+        } else {
+            mensagemErro("Por favor, preencha todos os campos.");
+        }
+    }
+</script>
+<%- include('../../partils/footer') %>

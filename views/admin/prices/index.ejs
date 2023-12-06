@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-12 mb-0">
                     <p id="totalItensFiltrados" class="mb-3">
-                        Total de racks encontradas:
+                        Total de preços encontrados:
                         <%= prices.length %>
                     </p>
                 </div>
@@ -49,7 +49,7 @@
                             </td>
                             <td class="px-2">
                                 <div class="d-flex gap-2 p-0">
-                                    <a href="#"
+                                    <a href="/admin/prices/edit/<%= price.id %>"
                                         class="btn btn-sm p-0 text-warning text-nowrap">
                                         <i class="bi bi-pen"></i> Editar</a>
                                     <form action="/admin/prices/delete"
@@ -101,7 +101,7 @@
                 }
             });
             totalItensFiltrados.innerHTML =
-                `Total de racks encontradas: ${count}`;
+                `Total de preços encontrados: ${count}`;
             if (count == 0) {
                 tabelaRacks.style.display = "none";
                 totalItensFiltrados.style.setProperty(
