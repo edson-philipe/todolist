@@ -9,12 +9,12 @@
             <form action="/admin/prices/update" method="POST"
                 onsubmit="verificarCampos(event, this)">
                 <div class="row">
-                    <div class="col-12 col-md-4 mb-3 mb-md-1">
+                    <div class="col-12 col-md-4 mb-3">
                         <label for="cliente" class="form-label">Cliente:</label>
                         <input type="text" class="form-control form-control-sm"
                             id="cliente" name="cliente" placeholder="" value="<%= price.cliente %>">
                     </div>
-                    <div class="col-12 col-md-4 mb-3 mb-md-1">
+                    <div class="col-12 col-md-4 mb-3">
                         <label for="descricao" class="form-label">Descrição:</label>
                         <input type="text" class="form-control form-control-sm"
                             id="descricao" name="descricao" placeholder="" value="<%= price.descricao %>">
@@ -45,22 +45,5 @@
     </div>
 </div>
 <script>
-    const respostaSistema = document.querySelector("#respostaSistema");
-    if (respostaSistema.value) {
-        mensagemErro(respostaSistema.value);
-    }
-
-    function verificarCampos(event, form) {
-        event.preventDefault();
-        let cliente = (document.querySelector("#cliente").value).trim();
-        let descricao = (document.querySelector("#descricao").value).trim();
-        let valor = (document.querySelector("#valor").value).trim();
-        let observacao = (document.querySelector("#observacao").value).trim();
-        if (cliente && descricao && valor && observacao) {
-            form.submit();
-        } else {
-            mensagemErro("Por favor, preencha todos os campos.");
-        }
-    }
 </script>
 <%- include('../../partils/footer') %>

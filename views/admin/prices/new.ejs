@@ -44,22 +44,5 @@
     </div>
 </div>
 <script>
-    const respostaSistema = document.querySelector("#respostaSistema");
-    if (respostaSistema.value) {
-        mensagemErro(respostaSistema.value);
-    }
-
-    function verificarCampos(event, form) {
-        event.preventDefault();
-        let cliente = (document.querySelector("#cliente").value).trim();
-        let descricao = (document.querySelector("#descricao").value).trim();
-        let valor = (document.querySelector("#valor").value).trim();
-        let observacao = (document.querySelector("#observacao").value).trim();
-        if (cliente && descricao && valor && observacao) {
-            form.submit();
-        } else {
-            mensagemErro("Por favor, preencha todos os campos.");
-        }
-    }
 </script>
 <%- include('../../partils/footer') %>

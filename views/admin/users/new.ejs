@@ -40,8 +40,6 @@
             </div>
         </div>
         <div class="card-footer text-muted">
-            <input type="hidden" name="" id="respostaSistema"
-                value="<%= mensagem.texto %>">
             <button type="submit"
                 class="btn btn-success btn-sm">Cadastrar</button>
             </form>
@@ -49,21 +47,5 @@
     </div>
 </div>
 <script>
-    function verificarCampos(event, form) {
-        event.preventDefault();
-        let nome = (document.querySelector("#nome").value).trim();
-        let email = (document.querySelector("#email").value).trim();
-        let senha = (document.querySelector("#senha").value).trim();
-        if (email && senha && nome) {
-            form.submit();
-        } else {
-            mensagemErro("Por favor, preencha todos os campos.");
-        }
-    }
-
-    const respostaSistema = document.querySelector("#respostaSistema");
-    if (respostaSistema.value) {
-        mensagemErro(respostaSistema.value);
-    }
 </script>
 <%- include('../../partils/footer') %>

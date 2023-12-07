@@ -64,6 +64,9 @@ async function editPrice(req, res) {
 }
 
 async function updatePrice(req, res) {
+    req.session.mensagem = {
+        texto: "Informações do preço alteradas com sucesso!",
+    }
     await Prices.update(
         {
             cliente: req.body.cliente,
@@ -77,6 +80,9 @@ async function updatePrice(req, res) {
 }
 
 async function deletePrice(req, res) {
+    req.session.mensagem = {
+        texto: "Preço excluído com sucesso!",
+    }
     await Prices.destroy({
         where: { id: req.body.id },
     });

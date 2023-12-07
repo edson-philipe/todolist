@@ -1,0 +1,62 @@
+<%- include('../../partils/header') %>
+<%- include('../../partils/navbar') %>
+<div class="container-fluid mt-3">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="my-1 fs-6">Cadastrar contrato de preço</h2>
+        </div>
+        <div class="card-body">
+            <form action="/admin/users/update" method="POST"  onsubmit="verificarCampos(event, this)">
+                <div class="row">
+                    <div class="col-12 col-md-3 mb-3 mb-md-1">
+                        <label for="nome" class="form-label">Nome:</label>
+                        <input type="text" class="form-control form-control-sm"
+                            id="nome" name="nome" placeholder=""
+                            value="<%= user.nome %>">
+                    </div>
+                    <div class="col-12 col-md-3 mb-3 mb-md-1">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" class="form-control form-control-sm"
+                            id="email" name="email" placeholder=""
+                            value="<%= user.email %>">
+                    </div>
+                    <div class="col-12 col-md-3 mb-3 mb-md-1">
+                        <label for="senha" class="form-label">Senha:</label>
+                        <input type="password"
+                            class="form-control form-control-sm" id="senha"
+                            name="senha" placeholder=""
+                            value="<%= user.senha %>">
+                    </div>
+                    <div class="col-12 col-md-3 mb-2 mb-md-1">
+                        <label for="hierarquia"
+                            class="form-label">Hierarquia:</label>
+                        <select class="form-select form-select-sm" name="hierarquia">
+                            <% if (user.hierarquia == "adm") { %>
+                            <option value="adm" selected>Administrador</option>
+                            <option value="usuario">Usuário</option>
+                            <option value="cliente">Cliente</option>
+                            <% } else if (user.hierarquia == "usuario") { %>
+                                <option value="adm">Administrador</option>
+                                <option value="usuario" selected>Usuário</option>
+                                <option value="cliente">Cliente</option>
+                            <% } else { %>
+                                <option value="adm">Administrador</option>
+                                <option value="usuario" selected>Usuário</option>
+                                <option value="cliente">Cliente</option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+        </div>
+        <div class="card-footer text-muted">
+            <input type="hidden" name="id" id=""
+                value="<%= user.id %>">
+            <button type="submit"
+                class="btn btn-success btn-sm">Confirmar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+</script>
+<%- include('../../partils/footer') %>

@@ -57,7 +57,43 @@ async function saveUser(req, res) {
   res.redirect('/admin/users/new');
 }
 
+async function editUser(req, res) {
+  let mensagem = req.session.mensagem || "";
+  req.session.mensagem = null;
+  let hierarquia = req.session.user.hierarquia || "";
+  let theme = req.session.user.informacao1;
+
+  const user = await User.findOne({
+    where: { id: req.params.id },
+  });
+  res.render("admin/users/edit", {
+    user,
+    mensagem,
+    hierarquia,
+    theme,
+  });
+}
+
+async function updateUser(req, res) {
+  req.session.mensagem = {
+    texto: "Informações do usuário alteradas com sucesso!",
+  }
+  await User.update(
+    {
+      nome: req.body.nome,
+      email: req.body.email,
+      senha: req.body.senha,
+      hierarquia: req.body.hierarquia,
+    },
+    { where: { id: req.body.id } }
+  );
+  res.redirect("/admin/users/index");
+}
+
 async function deleteUser(req, res) {
+  req.session.mensagem = {
+    texto: "Usuário excluído com sucesso!",
+  }
   await User.destroy({
     where: { id: req.body.id },
   });
@@ -121,6 +157,8 @@ module.exports = {
   showUsers,
   createUser,
   saveUser,
+  editUser,
+  updateUser,
   deleteUser,
   loginUser,
   authenticateLogin,

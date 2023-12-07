@@ -13,7 +13,7 @@
                     </h6>
                 </div>
                 <div class="col-12 col-md-6 mb-3">
-                    <label for="" class="form-label">Selecione a
+                    <label for="localizacaoRack1" class="form-label">Selecione a
                         primeira rack:</label>
                     <select id="localizacaoRack1"
                         class="form-select form-select-sm"
@@ -32,7 +32,7 @@
                     </select>
                 </div>
                 <div class="col-12 col-md-6 mb-3">
-                    <label for="" class="form-label">Selecione a
+                    <label for="localizacaoRack2" class="form-label">Selecione a
                         segunda rack:</label>
                     <select id="localizacaoRack2"
                         class="form-select form-select-sm"
@@ -114,6 +114,8 @@
         </div>
         <div class="card-footer">
             <form action="/admin/racks/confirm-racks-inversion" method="post">
+                <input type="hidden" name="link" id="link"
+                    value="">
                 <input type="hidden" name="id1" id=""
                     value="<%= rack1.id %>">
                 <input type="hidden" name="descricao1" id=""
@@ -146,6 +148,8 @@
     </div>
 </div>
 <script>
+    document.querySelector("#link").value = (window.location.href).split('?')[1];
+
     // Função para ordenar um elemento select pelo texto das opções
     function ordenarSelect(selectId) {
         const select = document.getElementById(selectId);
