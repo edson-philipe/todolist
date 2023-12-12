@@ -121,7 +121,7 @@ async function authenticateLogin(req, res) {
         hierarquia: user.hierarquia,
         informacao1: user.informacao1,
       }
-      res.redirect("/admin/racks/index");
+      res.redirect("/");
     } else {
       req.session.mensagem = {
         texto: "Oops! A senha está incorreta. Por favor, tente novamente.",
