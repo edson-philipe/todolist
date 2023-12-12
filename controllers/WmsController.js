@@ -1,8 +1,16 @@
 const Racks = require("../models/Racks");
 
 async function showHome(req, res) {
+  let mensagem = req.session.mensagem || "";
+  req.session.mensagem = null;
+  let hierarquia = req.session.user.hierarquia || "";
+  let theme = req.session.user.informacao1;
   //res.render("index");
-  res.redirect("/admin/users/login");
+  res.render("index", {
+    mensagem,
+    hierarquia,
+    theme,
+  });
 }
 
 async function showRacks(req, res) {

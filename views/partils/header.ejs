@@ -65,6 +65,25 @@
             if (respostaSistema && respostaSistema.value) {
                 mensagemErro(respostaSistema.value);
             }
+            // Obtém todos os inputs do tipo 'date' na página
+            const inputsDate = document.querySelectorAll(
+                'input[type="date"]');
+            // Função para definir a data atual se o valor estiver vazio
+            function definirDataAtual() {
+                const dataAtual = new Date().toISOString().split('T')[
+                0]; // Obtém a data atual no formato YYYY-MM-DD
+                inputsDate.forEach(input => {
+                    if (!input.value) {
+                        input.value =
+                        dataAtual; // Define a data atual se o valor estiver vazio
+                    }
+                });
+            }
+            // Verifica se os inputs 'date' existem na página antes de tentar definir a data
+            if (inputsDate.length > 0) {
+                // Chama a função para definir a data atual nos inputs 'date'
+                definirDataAtual();
+            }
         });
         function verificarCampos(event, form) {
             event.preventDefault(); // Impede o envio padrão do formulário

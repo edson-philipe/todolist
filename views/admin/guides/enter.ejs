@@ -1,0 +1,230 @@
+<%- include('../../partils/header') %>
+<%- include('../../partils/navbar') %>
+<div class="container-fluid">
+    <div class="card mt-3">
+        <div class="card-header">
+            <h2 class="my-1 fs-6">Cadastrar entrada</h2>
+        </div>
+        <div class="card-body">
+            <form action="/admin/guides/save" method="POST"
+                onsubmit="verificarCampos(event, this)">
+                <div class="row guiaEntrada">
+
+                    <div class="col-12 col-md-4 mb-3">
+                        <label for="tipo" class="form-label">Tipo:</label>
+                        <select class="form-select form-select-sm" name="tipo"
+                            id="tipo">
+                            <option value="Entrada">Entrada</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <label for="totalPaletes" class="form-label">Total de
+                            paletes:</label>
+                        <input type="number"
+                            class="form-control form-control-sm"
+                            id="totalPaletes" name="totalPaletes" placeholder=""
+                            min="1" value="1">
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <label for="expedidor"
+                            class="form-label">Expedidor:</label>
+                        <select class="form-select form-select-sm"
+                            name="expedidor" id="expedidor">
+                            <option value="LQS">LQS</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <label for="destinatario"
+                            class="form-label">Destinatário:</label>
+                        <input type="text" class="form-control form-control-sm"
+                            id="destinatario" name="destinatario" placeholder=""
+                            value="REDA XXI">
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <label for="matricula"
+                            class="form-label">Matrícula:</label>
+                        <input type="text" class="form-control form-control-sm"
+                            id="matricula" name="matricula" placeholder="">
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <label for="data" class="form-label">Data:</label>
+                        <input type="date" class="form-control form-control-sm"
+                            id="data" name="data" placeholder="">
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <label for="horaEntrada" class="form-label">Horário de
+                            entrada:</label>
+                        <input type="time" class="form-control form-control-sm"
+                            id="horaEntrada" name="horaEntrada" placeholder="">
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <label for="horaSaida" class="form-label">Horário de
+                            saída:</label>
+                        <input type="time" class="form-control form-control-sm"
+                            id="horaSaida" name="horaSaida" placeholder="">
+                    </div>
+                    <div class="col-12 mb-3">
+                        <h2 class="fs-6 mb-0">Informações sobre a mercadoria
+                            transportada</h2>
+                    </div>
+                    <div class="col-4 mb-0">
+                        <label for="" class="form-label">Descrição:</label>
+                    </div>
+                    <div class="col-4 mb-0">
+                        <label for="" class="form-label">Localização:</label>
+                    </div>
+                    <div class="col-4 mb-0">
+                        <label for="" class="form-label">Contrato:</label>
+                    </div>
+                    <div id="inputs" class="col-12 mt-0 mb-2">
+                        <div class="row">
+                            <div class="col-4 mt-1 mb-0">
+                                <input type="text"
+                                    class="form-control form-control-sm"
+                                    id="referencia0" name="referencia0"
+                                    placeholder="">
+                            </div>
+                            <div class="col-4 mt-1 mb-0">
+                                <select id="posicionamento0"
+                                    class="form-select form-select-sm"
+                                    name="posicionamento0">
+                                    <% racks.forEach(rack => { %>
+                                    <option
+                                        value="<%= rack.predio %><%= rack.numero %>">
+                                        <%= rack.predio %><%= rack.numero %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                            <div class="col-4 mt-1 mb-0">
+                                <select id="contrato0"
+                                    class="form-select form-select-sm"
+                                    name="contrato0">
+                                    <% prices.forEach(price => { %>
+                                    <option
+                                        value="<%= price.descricao %>;<%= price.valor %>">
+                                        <%= price.descricao %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+        </div>
+        <div class="card-footer text-muted">
+            <input type="hidden" name="" id="totalRacksDisponiveis" value="<%= totalRacksDisponiveis %>">
+            <button type="submit"
+                class="btn btn-success btn-sm">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form .guiaEntrada');
+        const totalRacksDisponiveis = document.querySelector("#totalRacksDisponiveis");
+        const totalPaletesInput = document.getElementById(
+            'totalPaletes');
+            totalPaletesInput.max = totalRacksDisponiveis.value;
+        const inputsDiv = document.getElementById('inputs');
+
+        totalPaletesInput.addEventListener('change', function() {
+            const total = parseInt(this.value);
+            let inputsHTML = '';
+
+            for (let i = 0; i < total; i++) {
+                inputsHTML += `
+                <div class="row">
+                        <div class="col-4 mt-1 mb-0">
+                            <input type="text" class="form-control form-control-sm"
+                            id="referencia${i}" name="referencia${i}" placeholder="">
+                        </div>
+                        <div class="col-4 mt-1 mb-0">
+                            <select id="posicionamento${i}"
+                                    class="form-select form-select-sm"
+                                    name="posicionamento${i}">
+                                    <% racks.forEach(rack => { %>
+                                    <option
+                                        value="<%= rack.predio %><%= rack.numero %>">
+                                        <%= rack.predio %><%= rack.numero %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                        </div>
+                        <div class="col-4 mt-1 mb-0">
+                            <select id="contrato${i}" class="form-select form-select-sm" name="contrato${i}"><% prices.forEach(price => { %><option value="<%= price.descricao %>;<%= price.valor %>"><%= price.descricao %></option><% }); %></select>
+                    </div>
+                </div>  
+            `;
+            }
+
+            inputsDiv.innerHTML = inputsHTML;
+        });
+
+        form.addEventListener('submit', function(event) {
+            event
+                .preventDefault(); // Evita o envio padrão do formulário
+
+            const total = parseInt(totalPaletesInput.value);
+            const referencias = [];
+            const posicionamentos = [];
+            const contratos = [];
+
+            for (let i = 0; i < total; i++) {
+                const referenciaInput = document.getElementById(
+                    `referencia${i}`);
+                const posicionamentoInput = document
+                    .getElementById(`posicionamento${i}`);
+                const contratoSelect = document
+                    .getElementById(`contrato${i}`);
+
+                referencias.push(referenciaInput.value);
+                posicionamentos.push(posicionamentoInput.value);
+                contratos.push(contratoSelect.value);
+            }
+
+            // Agora você pode enviar os arrays referencias e posicionamentos via POST para a página de destino
+            // Exemplo de envio utilizando fetch:
+            fetch('/admin/guides/save', {
+                method: 'POST',
+                body: JSON.stringify({
+                    referencias,
+                    posicionamentos,
+                    contratos,
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        });
+    });
+
+    function removerOpcao(selectId) {
+    const select = document.getElementById(selectId);
+    if (select) {
+        const selects = document.querySelectorAll('.localizacao');
+        selects.forEach(outroSelect => {
+            if (outroSelect.id !== selectId) {
+                const opcaoSelecionada = select.value;
+                const index = Array.from(outroSelect.options).findIndex(option =>
+                    option.value === opcaoSelecionada);
+                if (index !== -1) {
+                    outroSelect.remove(index);
+                }
+            }
+        });
+    }
+}
+
+// Para acionar a função para todos os selects com classe "localizacao"
+const selectsLocalizacao = document.querySelectorAll('.localizacao');
+selectsLocalizacao.forEach(select => {
+    select.addEventListener('change', function() {
+        removerOpcao(select.id);
+    });
+});
+
+</script>
+<%- include('../../partils/footer') %>

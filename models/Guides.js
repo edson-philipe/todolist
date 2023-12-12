@@ -1,54 +1,46 @@
 const DataTypes = require("sequelize");
 const connection = require("../database/database");
 
-const Movements = connection.define("movements", {
+const Guides = connection.define("guides", {
     tipo: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
     },
-    total: {
+    totalPaletes: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true,
     },
     expedidor: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
     },
     destinatario: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
     },
     matricula: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
     },
     data: {
         type: DataTypes.DATEONLY,
         allowNull: false
     },
-    horaEntradaSaida: {
-        type: DataTypes.TEXT,
+    horaEntrada: {
+        type: DataTypes.TIME,
         allowNull: false
     },
-    consumiveis: {
-        type: DataTypes.TEXT,
+    horaSaida: {
+        type: DataTypes.TIME,
         allowNull: false
     },
-    informacoesMercadoria: {
+    mercadorias: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: true,
     },
-    saldosAnterior: {
-        type: DataTypes.TEXT,
-        allowNull: false
-    },
-    saldosPosterior: {
-        type: DataTypes.TEXT,
-        allowNull: false
-    },
-    conferente: {
+    responsavel: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
     },
     informacao1: {
         type: DataTypes.TEXT,
@@ -72,6 +64,6 @@ const Movements = connection.define("movements", {
     },
 });
 
-Movements.sync({force: true});
+// Guides.sync({ force: true });
 
-module.exports = Movements;
+module.exports = Guides;

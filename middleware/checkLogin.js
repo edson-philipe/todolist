@@ -3,7 +3,7 @@ function checkLogin(hierarquiaNecessaria) {
         if (req.session.user != undefined && (req.session.user.hierarquia == hierarquiaNecessaria || req.session.user.hierarquia == "adm")) {
             next();
         } else {
-            res.redirect('/');
+            res.redirect('/admin/users/login');
         }
     };
 }

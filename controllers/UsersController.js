@@ -116,6 +116,7 @@ async function authenticateLogin(req, res) {
     if (user.senha == req.body.senha) {
       req.session.user = {
         id: user.id,
+        nome: user.nome,
         email: user.email,
         hierarquia: user.hierarquia,
         informacao1: user.informacao1,

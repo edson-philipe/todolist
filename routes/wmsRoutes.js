@@ -3,9 +3,10 @@ const router = express.Router();
 const WmsController = require("../controllers/WmsController");
 const UsersController = require("../controllers/UsersController");
 const PricesController = require("../controllers/PricesController");
-const MovementsController = require("../controllers/MovementsController");
+const SalesController = require("../controllers/SalesController");
+const GuidesController = require("../controllers/GuidesController");
 const checkLogin = require("../middleware/checkLogin");
-router.get("/", WmsController.showHome);
+router.get("/", checkLogin("usuario"), WmsController.showHome);
 
 router.get("/admin/racks/index", checkLogin("usuario"), WmsController.showRacks);
 router.get("/admin/racks/new", checkLogin("usuario"), WmsController.createRack);
@@ -33,7 +34,12 @@ router.get("/admin/prices/edit/:id", checkLogin("adm"), PricesController.editPri
 router.post("/admin/prices/update", PricesController.updatePrice);
 router.post("/admin/prices/delete", PricesController.deletePrice);
 
-router.get("/admin/movements/enter", checkLogin("adm"), MovementsController.createEnterMovement);
-router.post("/admin/movements/save-enter", MovementsController.saveEnterMovement);
+router.get("/admin/sales/index", checkLogin("usuario"), SalesController.showSales);
+router.get("/admin/sales/new", checkLogin("adm"), SalesController.createSale);
+router.post("/admin/sales/save", SalesController.saveSale);
+router.post("/admin/sales/delete", SalesController.deleteSale);
+
+router.get("/admin/guides/new/enter", checkLogin("adm"), GuidesController.enterGuide);
+router.post("/admin/guides/save", GuidesController.saveEnterGuide);
 
 module.exports = router;
