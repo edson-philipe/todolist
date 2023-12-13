@@ -1,6 +1,5 @@
 const DataTypes = require("sequelize");
 const connection = require("../database/database");
-
 const Racks = connection.define("racks", {
     cliente: {
         type: DataTypes.STRING,
@@ -26,6 +25,14 @@ const Racks = connection.define("racks", {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    contrato: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    valorMensal: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
     informacao1: {
         type: DataTypes.TEXT,
         allowNull: true,
@@ -49,7 +56,5 @@ const Racks = connection.define("racks", {
 }, {
     timestamps: true,
 });
-
-//Racks.sync({force: true});
-
+// Racks.sync({force: true});
 module.exports = Racks;

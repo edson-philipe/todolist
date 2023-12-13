@@ -71,11 +71,11 @@
             // Função para definir a data atual se o valor estiver vazio
             function definirDataAtual() {
                 const dataAtual = new Date().toISOString().split('T')[
-                0]; // Obtém a data atual no formato YYYY-MM-DD
+                    0]; // Obtém a data atual no formato YYYY-MM-DD
                 inputsDate.forEach(input => {
                     if (!input.value) {
                         input.value =
-                        dataAtual; // Define a data atual se o valor estiver vazio
+                            dataAtual; // Define a data atual se o valor estiver vazio
                     }
                 });
             }
@@ -102,4 +102,19 @@
                 }
             }
         }
+        function formatarValor(valor) {
+            const numeroFormatado = parseFloat(valor).toFixed(2);
+            const valorFormatado = numeroFormatado.replace('.', ',');
+            const valorComEuro = `€ ${valorFormatado}`;
+            return valorComEuro;
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const precos = document.querySelectorAll('.precos');
+            precos.forEach((elemento) => {
+                const valorOriginal = elemento.textContent;
+                const valorFormatado = formatarValor(
+                    valorOriginal);
+                elemento.textContent = valorFormatado;
+            });
+        });
     </script>

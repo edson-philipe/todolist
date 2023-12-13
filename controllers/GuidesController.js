@@ -55,6 +55,8 @@ async function saveEnterGuide(req, res) {
                 cliente: expedidor,
                 descricao: referencias[i],
                 ocupado: "true",
+                contrato: contratoValorConcatenado[0].trim(),
+                valorMensal: contratoValorConcatenado[1].trim(),
             },
             { where: { predio: predioSeparado, numero: numeroSeparado } }
         );

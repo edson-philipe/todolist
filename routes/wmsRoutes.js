@@ -27,14 +27,14 @@ router.get("/admin/users/login", UsersController.loginUser);
 router.post("/admin/authenticatelogin", UsersController.authenticateLogin);
 router.post("/admin/users/select-theme", UsersController.selectTheme);
 
-router.get("/admin/prices/index", checkLogin("usuario"), PricesController.showPrices);
+router.get("/admin/prices/index", checkLogin("adm"), PricesController.showPrices);
 router.get("/admin/prices/new", checkLogin("adm"), PricesController.createPrice);
 router.post("/admin/prices/save", PricesController.savePrice);
 router.get("/admin/prices/edit/:id", checkLogin("adm"), PricesController.editPrice);
 router.post("/admin/prices/update", PricesController.updatePrice);
 router.post("/admin/prices/delete", PricesController.deletePrice);
 
-router.get("/admin/sales/index", checkLogin("usuario"), SalesController.showSales);
+router.get("/admin/sales/index", checkLogin("adm"), SalesController.showSales);
 router.get("/admin/sales/new", checkLogin("adm"), SalesController.createSale);
 router.post("/admin/sales/save", SalesController.saveSale);
 router.post("/admin/sales/delete", SalesController.deleteSale);

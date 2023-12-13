@@ -10,6 +10,7 @@
                         <h2 class="my-1 fs-6">Visualizar racks cadastradas</h2>
                     </div>
                     <div>
+                        <% if (totalRacksCadastrados > 0) { %>
                         <button class="btn btn-secondary btn-sm text-nowrap"
                             type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseExample"
@@ -17,6 +18,7 @@
                             aria-controls="collapseExample">
                             <i class="bi bi-funnel"></i> Opções de filtro
                         </button>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -24,7 +26,6 @@
         <div class="card-body">
             <% if (totalRacksCadastrados > 0) { %>
             <div class="row">
-                
                 <div class="col-12 mb-3">
                     <input class="form-control form-control-sm" id="myInput"
                         type="text"
@@ -33,7 +34,8 @@
                 <div class="col-12 collapse show" id="collapseExample">
                     <div class="row">
                         <div class="col-12 col-md-2 d-flex flex-column mb-3">
-                            <label for="clienteRack" class="form-label">Cliente:</label>
+                            <label for="clienteRack"
+                                class="form-label">Cliente:</label>
                             <select name="" id="clienteRack"
                                 class="form-select form-select-sm">
                                 <option value="Todos">Todos</option>
@@ -47,14 +49,13 @@
                                 <option value="<%= cliente %>">
                                     <%= cliente %>
                                 </option>
-
-                                
                                 <% } %>
                                 <% }); %>
                             </select>
                         </div>
                         <div class="col-12 col-md-2 d-flex flex-column mb-3">
-                            <label for="predioRack" class="form-label">Prédio:</label>
+                            <label for="predioRack"
+                                class="form-label">Prédio:</label>
                             <select name="" id="predioRack"
                                 class="form-select form-select-sm">
                                 <option value="Todos">Todos</option>
@@ -68,14 +69,13 @@
                                 <option value="<%= predio %>">
                                     <%= predio %>
                                 </option>
-
-                                
                                 <% } %>
                                 <% }); %>
                             </select>
                         </div>
                         <div class="col-12 col-md-2 d-flex flex-column mb-3">
-                            <label for="numeroRack" class="form-label">Número:</label>
+                            <label for="numeroRack"
+                                class="form-label">Número:</label>
                             <select name="" id="numeroRack"
                                 class="form-select form-select-sm">
                                 <option value="Todos">Todos</option>
@@ -89,14 +89,13 @@
                                 <option value="<%= numero %>">
                                     <%= numero %>
                                 </option>
-
-                                
                                 <% } %>
                                 <% }); %>
                             </select>
                         </div>
                         <div class="col-12 col-md-2 d-flex flex-column mb-3">
-                            <label for="andarRack" class="form-label">Andar:</label>
+                            <label for="andarRack"
+                                class="form-label">Andar:</label>
                             <select name="" id="andarRack"
                                 class="form-select form-select-sm">
                                 <option value="Todos">Todos</option>
@@ -110,14 +109,13 @@
                                 <option value="<%= andar %>">
                                     <%= andar %>
                                 </option>
-
-                                
                                 <% } %>
                                 <% }); %>
                             </select>
                         </div>
                         <div class="col-12 col-md-2 d-flex flex-column mb-3">
-                            <label for="ocupadoRack" class="form-label">Ocupado:</label>
+                            <label for="ocupadoRack"
+                                class="form-label">Ocupado:</label>
                             <select name="" id="ocupadoRack"
                                 class="form-select form-select-sm">
                                 <option value="Todos">Todos</option>
@@ -131,8 +129,6 @@
                                 <option value="<%= ocupado %>">
                                     <%= ocupado %>
                                 </option>
-
-                                
                                 <% } %>
                                 <% }); %>
                             </select>
@@ -165,6 +161,8 @@
                             <th class="px-2">Número</th>
                             <th class="px-2">Andar</th>
                             <th class="px-2">Ocupado</th>
+                            <th class="px-2">Contrato</th>
+                            <th class="px-2">Valor</th>
                             <th class="px-2">Ações</th>
                         </tr>
                     </thead>
@@ -190,9 +188,13 @@
                                 <% if (rack.ocupado == "false") { %>
                                 Não
                                 <% } else { %>Sim
-
-                                
                                 <% } %>
+                            </td>
+                            <td class="px-2 text-nowrap">
+                                <%= rack.contrato %>
+                            </td>
+                            <td class="px-2 text-nowrap precos">
+                                <%= rack.valorMensal %>
                             </td>
                             <td class="px-2">
                                 <div class="d-flex gap-2 p-0">
@@ -210,8 +212,6 @@
                                             <i class="bi bi-trash3"></i> Deletar
                                         </button>
                                     </form>
-
-                                    
                                     <% } %>
                                 </div>
                             </td>
@@ -219,8 +219,6 @@
                         <% }); %>
                     </tbody>
                 </table>
-
-                
                 <% } %>
             </div>
             <% } else if (totalRacksCadastrados <= 0) { %>
@@ -229,7 +227,7 @@
                 <a class="link-opacity-100" href="/admin/racks/new">Clique aqui
                     para realizar o primeiro
                     cadastro.</a>
-            </p>      
+            </p>
             <% } %>
         </div>
     </div>
@@ -247,12 +245,10 @@
             ocupadoRack.options[i].textContent = "Não";
         }
     }
-
     function filtrarRack() {
         window.location.href =
             `/admin/racks/index?cliente=${clienteRack.value}&predio=${predioRack.value}&numero=${numeroRack.value}&andar=${andarRack.value}&ocupado=${ocupadoRack.value}`;
     }
-
     function confirmDelete(event, form) {
         event.preventDefault(); // Impede o comportamento padrão do formulário
         var userConfirmed = window.confirm(
@@ -292,7 +288,6 @@
                 tabelaRacks.style.display = "";
                 totalItensFiltrados.style.setProperty(
                     'margin-bottom', '');
-
             }
         });
     });

@@ -1,16 +1,14 @@
 const Sales = require("../models/Sales");
 const Prices = require("../models/Prices");
-
 async function showSales(req, res) {
     let mensagem = req.session.mensagem || "";
     req.session.mensagem = null;
     let hierarquia = req.session.user.hierarquia || "";
     let theme = req.session.user.informacao1;
-
     const { datainicial, datafinal } = req.query;
     let sales = await Sales.findAll({
         raw: true,
-        order: [["id", "ASC"]],
+        order: [["data", "ASC"]],
     });
     const totalVendasCadastrados = sales.length;
     sales = sales.filter((sale) => {
@@ -40,13 +38,11 @@ async function showSales(req, res) {
         theme,
     });
 }
-
 async function createSale(req, res) {
     let mensagem = req.session.mensagem || "";
     req.session.mensagem = null;
     let hierarquia = req.session.user.hierarquia || "";
     let theme = req.session.user.informacao1;
-
     const { cliente } = req.query;
     let prices = await Prices.findAll({
         raw: true,
@@ -65,7 +61,6 @@ async function createSale(req, res) {
         theme,
     });
 }
-
 async function saveSale(req, res) {
     await Sales.create({
         data: req.body.data,
@@ -81,7 +76,6 @@ async function saveSale(req, res) {
     }
     res.redirect('/admin/sales/new');
 }
-
 async function deleteSale(req, res) {
     req.session.mensagem = {
         texto: "Venda excluída com sucesso!",
@@ -91,7 +85,6 @@ async function deleteSale(req, res) {
     });
     res.redirect("/admin/sales/index");
 }
-
 module.exports = {
     showSales,
     createSale,

@@ -111,6 +111,8 @@ async function saveRack(req, res) {
     numero: req.body.numero,
     andar: req.body.andar,
     ocupado: "false",
+    contrato: "Sem contrato",
+    valorMensal: 0,
   });
   res.redirect("/admin/racks/new");
 }
@@ -142,6 +144,8 @@ async function updateRack(req, res) {
         cliente: req.body.cliente,
         descricao: "Espaço vazio",
         ocupado: "false",
+        contrato: "Sem contrato",
+        valorMensal: 0,
       },
       { where: { id: req.body.id } }
     );
@@ -220,6 +224,8 @@ async function confirmRacksInversion(req, res) {
       cliente: req.body.cliente2,
       descricao: req.body.descricao2,
       ocupado: req.body.ocupado2,
+      contrato: req.body.contrato2,
+      valorMensal: req.body.valorMensal2,
     },
     { where: { id: req.body.id1 } }
   );
@@ -228,6 +234,8 @@ async function confirmRacksInversion(req, res) {
       cliente: req.body.cliente1,
       descricao: req.body.descricao1,
       ocupado: req.body.ocupado1,
+      contrato: req.body.contrato1,
+      valorMensal: req.body.valorMensal1,
     },
     { where: { id: req.body.id2 } }
   );
