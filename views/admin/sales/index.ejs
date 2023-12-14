@@ -3,7 +3,7 @@
 <div class="container-fluid mt-3">
     <div class="card">
         <div class="card-header">
-            <h2 class="my-1 fs-6">Visualizar vendas cadastradas</h2>
+            <h2 class="my-1 fs-6">Visualizar histórico de vendas realizadas</h2>
         </div>
         <div class="card-body">
             <% if (totalVendasCadastrados > 0) { %>
@@ -188,20 +188,5 @@
         totalGeral.innerHTML =
             `Total geral: € ${total.toFixed(2).replace('.', ',')}`;
     }
-    document.addEventListener('DOMContentLoaded', function() {
-    const datas = document.querySelectorAll('.datas');
-    function formatarData(data) {
-        const partesData = data.split('-');
-        const dia = partesData[2].trim();
-        const mes = partesData[1].trim();
-        const ano = partesData[0].trim();
-        return `${dia}/${mes}/${ano}`;
-    }
-    datas.forEach((elemento) => {
-        const dataOriginal = elemento.textContent;
-        const dataFormatada = formatarData(dataOriginal);
-        elemento.textContent = dataFormatada;
-    });
-});
 </script>
 <%- include('../../partils/footer') %>

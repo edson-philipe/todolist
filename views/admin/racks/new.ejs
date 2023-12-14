@@ -3,30 +3,26 @@
 <div class="container-fluid mt-3">
     <div class="card">
         <div class="card-header">
-            <h2 class="my-1 fs-6">Cadastrar nova rack</h2>
+            <h2 class="my-1 fs-6">Cadastrar espaço de armazenagem</h2>
         </div>
         <div class="card-body">
             <form action="/admin/racks/save" method="POST"
                 onsubmit="verificarLocalizacaoDisponivel(event, this)">
                 <div class="row">
                     <div class="col-12 col-md-4 mb-3 mb-md-1">
-                        <label for="predioRack" class="form-label">Nome do Prédio:</label>
+                        <label for="predioRack" class="form-label">Prédio:</label>
                         <input type="text" class="form-control form-control-sm" id="predioRack"
-                            name="predio" placeholder="Insira o nome do prédio">
+                            name="predio">
                     </div>
                     <div class="col-12 col-md-4 mb-3 mb-md-1">
-                        <label for="numeroRack" class="form-label">Número da
-                            Rack:</label>
+                        <label for="numeroRack" class="form-label">Número:</label>
                         <input type="number" class="form-control form-control-sm"
-                            id="numeroRack" name="numero"
-                            placeholder="Digite o número da rack" min="1">
+                            id="numeroRack" name="numero" min="1">
                     </div>
                     <div class="col-12 col-md-4 mb-2 mb-md-1">
-                        <label for="andarRack" class="form-label">Andar da
-                            rack:</label>
+                        <label for="andarRack" class="form-label">Andar:</label>
                         <input type="number" class="form-control form-control-sm" id="andarRack"
-                            name="andar"
-                            placeholder="Indique o andar da rack" min="1">
+                            name="andar" min="1">
                     </div>
                 </div>
         </div>

@@ -39,6 +39,7 @@ router.get("/admin/sales/new", checkLogin("adm"), SalesController.createSale);
 router.post("/admin/sales/save", SalesController.saveSale);
 router.post("/admin/sales/delete", SalesController.deleteSale);
 
+router.get("/admin/guides/index", checkLogin("adm"), GuidesController.showGuides);
 router.get("/admin/guides/new/enter", checkLogin("adm"), GuidesController.enterGuide);
 router.post("/admin/guides/save", GuidesController.saveEnterGuide);
 

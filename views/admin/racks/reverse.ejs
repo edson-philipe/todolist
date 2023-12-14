@@ -4,14 +4,10 @@
     <div class="card">
         <% if (prediosNumerosConcatenados.length > 1) { %>
         <div class="card-header">
-            <h2 class="my-1 fs-6">Inverter racks</h2>
+            <h2 class="my-1 fs-6">Inverter mercadorias armazenadas</h2>
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-12">
-                    <h6>Selecione as racks a serem invertidas
-                    </h6>
-                </div>
                 <div class="col-12 col-md-6 mb-3">
                     <label for="localizacaoRack1" class="form-label">Selecione a
                         primeira rack:</label>
@@ -51,9 +47,10 @@
                     </select>
                 </div>
                 <div class="col-12 col-md-6 mb-3 mb-md-2">
-                    <h6>Informações da rack
+                    <label for="" class="form-label">
+                        Informações da rack
                         <%= rack1.predio %><%= rack1.numero %>
-                    </h6>
+                    </label>
                     <div class="table-responsive">
                         <table class="table table-sm mb-0">
                             <thead>
@@ -89,9 +86,9 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-6 mb-2 mb-md-2">
-                    <h6>Informações da rack
-                        <%= rack2.predio %><%= rack2.numero %>
-                    </h6>
+                    <label for="" class="form-label">
+                        Informações da rack <%= rack2.predio %><%= rack2.numero %>
+                    </label>
                     <div class="table-responsive">
                         <table class="table table-sm mb-0">
                             <thead>

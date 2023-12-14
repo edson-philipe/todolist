@@ -1,0 +1,161 @@
+<%- include('../../partils/header') %>
+<%- include('../../partils/navbar') %>
+<div class="container-fluid mt-3">
+    <div class="card" id="invoice">
+        <div class="card-header">
+            <h2 class="my-1 fs-6">Visualizar histórico de movimentações
+                realizadas</h2>
+            <button id="download-button">Download as PDF</button>
+        </div>
+        <div class="card-body">
+            <% if (totalGuiasCadastradas > 0) { %>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <input class="form-control form-control-sm" id="myInput"
+                        type="text"
+                        placeholder="Pesquise por nome ou email..." />
+                </div>
+                <div class="col-12 mb-0">
+                    <p id="totalItensFiltrados" class="mb-3">
+                        Total de guias encontradas:
+                        <%= guides.length %>
+                    </p>
+                </div>
+            </div>
+            <div class="table-responsive" id="tabelaRacks">
+                <table
+                    class="table table-sm table-striped table-bordered mb-2 mb-md-1">
+                    <thead>
+                        <tr>
+                            <th class="px-2 text-nowrap">Tipo</th>
+                            <th class="px-2 text-nowrap">Total de paletes</th>
+                            <th class="px-2 text-nowrap">Expedidor</th>
+                            <th class="px-2 text-nowrap">Destinatário</th>
+                            <th class="px-2 text-nowrap">Matrícula</th>
+                            <th class="px-2 text-nowrap">Data</th>
+                            <th class="px-2 text-nowrap">Hora de saída</th>
+                            <th class="px-2 text-nowrap">Hora de saída</th>
+                            <th class="px-2 text-nowrap">Responsável</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        <% guides.forEach(guide => { %>
+                        <tr>
+                            <td class="text-nowrap px-2">
+                                <%= guide.tipo %>
+                            </td>
+                            <td class="text-nowrap px-2">
+                                <%= guide.totalPaletes %>
+                            </td>
+                            <td class="text-nowrap px-2">
+                                <%= guide.expedidor %>
+                            </td>
+                            <td class="text-nowrap px-2">
+                                <%= guide.destinatario %>
+                            </td>
+                            <td class="text-nowrap px-2">
+                                <%= guide.matricula %>
+                            </td>
+                            <td class="text-nowrap px-2 datas">
+                                <%= guide.data %>
+                            </td>
+                            <td class="text-nowrap px-2 horas">
+                                <%= guide.horaEntrada %>
+                            </td>
+                            <td class="text-nowrap px-2 horas">
+                                <%= guide.horaSaida %>
+                            </td>
+                            <td class="text-nowrap px-2">
+                                <%= guide.responsavel %>
+                            </td>
+                            <!-- <td class="px-2">
+                                <div class="d-flex gap-2 p-0">
+                                    <a href="/admin/guides/edit/<%= guide.id %>"
+                                        class="btn btn-sm p-0 text-warning text-nowrap">
+                                        <i class="bi bi-pen"></i> Editar</a>
+                                    <form action="/admin/guides/delete"
+                                        method="post"
+                                        onsubmit="confirmDelete(event, this)">
+                                        <input type="hidden" name="id"
+                                            value="<%= guide.id %>" />
+                                        <button type="submit"
+                                            class="btn btn-sm p-0 text-danger text-nowrap">
+                                            <i class="bi bi-trash3"></i> Deletar
+                                        </button>
+                                    </form>
+                                </div>
+                            </td> -->
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <% } else if (totalGuiasCadastradas <= 0) { %>
+            <p class="my-0">
+                Não há nenhuma movimentação cadastrada para visualização.
+                <a class="link-opacity-100"
+                    href="/admin/guides/new/enter">Clique aqui
+                    para realizar o primeiro
+                    cadastro.</a>
+            </p>
+
+            
+            <% } %>
+        </div>
+    </div>
+</div>
+<script>
+    const totalItensFiltrados = document.querySelector("#totalItensFiltrados");
+    const tabelaRacks = document.querySelector("#tabelaRacks");
+    document.addEventListener("DOMContentLoaded", function() {
+        var myInput = document.getElementById("myInput");
+        myInput.addEventListener("keyup", function() {
+            var value = this.value.toLowerCase();
+            var rows = document.querySelectorAll("#myTable tr");
+            var count =
+                0; // Variável para contar os resultados encontrados
+            rows.forEach(function(row) {
+                var text = row.textContent
+                    .toLowerCase();
+                if (text.indexOf(value) > -1) {
+                    row.style.display = "";
+                    count++; // Incrementar o contador se o item for encontrado
+                } else {
+                    row.style.display = "none";
+                }
+            });
+            totalItensFiltrados.innerHTML =
+                `Total de guias encontradas: ${count}`;
+            if (count == 0) {
+                tabelaRacks.style.display = "none";
+                totalItensFiltrados.style.setProperty(
+                    'margin-bottom', '0px', 'important');
+            } else {
+                tabelaRacks.style.display = "";
+                totalItensFiltrados.style.setProperty(
+                    'margin-bottom', '');
+            }
+        });
+    });
+    // function confirmDelete(event, form) {
+    //     event.preventDefault(); // Impede o comportamento padrão do formulário
+    //     var guideConfirmed = window.confirm(
+    //         "Deseja realmente excluir o usuário selecionado?"
+    //     );
+    //     if (guideConfirmed) {
+    //         // Se o usuário confirmar, envie o formulário usando o método POST
+    //         form.submit(); // Envie o formulário
+    //     }
+    // }
+    const button = document.getElementById('download-button');
+
+    function generatePDF() {
+        // Choose the element that your content will be rendered to.
+        const element = document.getElementById('invoice');
+        // Choose the element and save the PDF for your user.
+        html2pdf().from(element).save();
+    }
+
+    button.addEventListener('click', generatePDF);
+</script>
+<%- include('../../partils/footer') %>

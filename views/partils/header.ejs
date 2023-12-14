@@ -18,7 +18,13 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/styles.css" />
-    <title>Sistema De Gerenciamento De Armazém.</title>
+    <script
+			src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+			integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+    <title>Sistema De Gerenciamento De Armazém</title>
 </head>
 <body>
     <script>
@@ -108,6 +114,17 @@
             const valorComEuro = `€ ${valorFormatado}`;
             return valorComEuro;
         }
+        function formatarData(data) {
+            const partesData = data.split('-');
+            const dia = partesData[2].trim();
+            const mes = partesData[1].trim();
+            const ano = partesData[0].trim();
+            return `${dia}/${mes}/${ano}`;
+        }
+        function formatarHora(hora) {
+            return (hora.trim()).slice(0, -3);
+            alert(hora)
+        }
         document.addEventListener('DOMContentLoaded', function() {
             const precos = document.querySelectorAll('.precos');
             precos.forEach((elemento) => {
@@ -115,6 +132,20 @@
                 const valorFormatado = formatarValor(
                     valorOriginal);
                 elemento.textContent = valorFormatado;
+            });
+            const datas = document.querySelectorAll('.datas');
+            datas.forEach((elemento) => {
+                const dataOriginal = elemento.textContent;
+                const dataFormatada = formatarData(
+                    dataOriginal);
+                elemento.textContent = dataFormatada;
+            });
+            const horas = document.querySelectorAll('.horas');
+            horas.forEach((elemento) => {
+                const horaOriginal = elemento.textContent;
+                const horaFormatado = formatarHora(
+                    horaOriginal);
+                elemento.textContent = horaFormatado;
             });
         });
     </script>

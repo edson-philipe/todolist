@@ -2,6 +2,26 @@ const Guides = require("../models/Guides");
 const Racks = require("../models/Racks");
 const Prices = require("../models/Prices");
 
+async function showGuides(req, res) {
+    let mensagem = req.session.mensagem || "";
+    req.session.mensagem = null;
+    let hierarquia = req.session.user.hierarquia || "";
+    let theme = req.session.user.informacao1;
+  
+    let guides = await Guides.findAll({
+      raw: true,
+      order: [["id", "DESC"]],
+    });
+    const totalGuiasCadastradas = guides.length;
+    res.render("admin/guides/index", {
+      guides,
+      totalGuiasCadastradas,
+      mensagem,
+      hierarquia,
+      theme,
+    });
+  }
+
 async function enterGuide(req, res) {
     let mensagem = req.session.mensagem || "";
     req.session.mensagem = null;
@@ -89,6 +109,7 @@ async function saveEnterGuide(req, res) {
 
 
 module.exports = {
+    showGuides,
     enterGuide,
     saveEnterGuide,
 };
