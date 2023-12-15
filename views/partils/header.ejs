@@ -149,6 +149,8 @@
             function generatePDF() {
                 window.print();
             }
-            button.addEventListener('click', generatePDF);
+            if(button){
+                button.addEventListener('click', generatePDF);
+            }
         });
     </script>
