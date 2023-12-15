@@ -17,8 +17,6 @@ a .card img {
     transition: all 0.2s ease-in-out
 }
 
-
-
 @media only screen and (min-width: 768px) {
     a .card img {
         transform: scale(0.9, 0.9);
@@ -31,7 +29,7 @@ a .card img:hover {
 
 @media print {
     @page {
-        size: landscape;
+        size: A3;
         margin: 0;
     }
     .ignore-print {
