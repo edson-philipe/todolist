@@ -10,8 +10,12 @@
                         <h2 class="my-1 fs-6">Visualizar espaços de armazenagem cadastrados</h2>
                     </div>
                     <div>
+                        <button id="download-to-pdf"
+                            class="btn btn-secondary btn-sm text-nowrap ignore-print mb-2 mb-md-0"><i
+                                class="bi bi-printer-fill"></i>
+                            Imprimir</button>
                         <% if (totalRacksCadastrados > 0) { %>
-                        <button class="btn btn-secondary btn-sm text-nowrap"
+                        <button class="btn btn-secondary btn-sm text-nowrap ignore-print"
                             type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseExample"
                             aria-expanded="false"
@@ -26,14 +30,14 @@
         <div class="card-body">
             <% if (totalRacksCadastrados > 0) { %>
             <div class="row">
-                <div class="col-12 mb-3">
+                <div class="col-12 mb-3 ignore-print">
                     <input class="form-control form-control-sm" id="myInput"
                         type="text"
                         placeholder="Pesquise por cliente ou descrição..." />
                 </div>
                 <div class="col-12 collapse show" id="collapseExample">
                     <div class="row">
-                        <div class="col-12 col-md-2 d-flex flex-column mb-3">
+                        <div class="col-4 col-md-2 d-flex flex-column mb-3">
                             <label for="clienteRack"
                                 class="form-label">Cliente:</label>
                             <select name="" id="clienteRack"
@@ -53,7 +57,7 @@
                                 <% }); %>
                             </select>
                         </div>
-                        <div class="col-12 col-md-2 d-flex flex-column mb-3">
+                        <div class="col-4 col-md-2 d-flex flex-column mb-3">
                             <label for="predioRack"
                                 class="form-label">Prédio:</label>
                             <select name="" id="predioRack"
@@ -73,7 +77,7 @@
                                 <% }); %>
                             </select>
                         </div>
-                        <div class="col-12 col-md-2 d-flex flex-column mb-3">
+                        <div class="col-4 col-md-2 d-flex flex-column mb-3">
                             <label for="numeroRack"
                                 class="form-label">Número:</label>
                             <select name="" id="numeroRack"
@@ -93,7 +97,7 @@
                                 <% }); %>
                             </select>
                         </div>
-                        <div class="col-12 col-md-2 d-flex flex-column mb-3">
+                        <div class="col-4 col-md-2 d-flex flex-column mb-3">
                             <label for="andarRack"
                                 class="form-label">Andar:</label>
                             <select name="" id="andarRack"
@@ -113,7 +117,7 @@
                                 <% }); %>
                             </select>
                         </div>
-                        <div class="col-12 col-md-2 d-flex flex-column mb-3">
+                        <div class="col-4 col-md-2 d-flex flex-column mb-3">
                             <label for="ocupadoRack"
                                 class="form-label">Ocupado:</label>
                             <select name="" id="ocupadoRack"
@@ -134,8 +138,8 @@
                             </select>
                         </div>
                         <div
-                            class="col-12 col-md-2 col-md-2 mt-2 d-flex justify-content-center align-items-end mb-3">
-                            <button type="button" class="btn btn-primary btn-sm"
+                            class="col-4 col-md-2 mt-2 d-flex justify-content-center align-items-end mb-3">
+                            <button type="button" class="btn btn-primary btn-sm ignore-print"
                                 style="width: 100%" onclick="filtrarRack()">
                                 <i class="bi bi-funnel"></i> Filtrar
                             </button>

@@ -29,7 +29,7 @@
         function mensagemErro(texto) {
             Toastify({
                 text: texto,
-                duration: 5000,
+                duration: 10000,
                 close: false,
                 gravity: "bottom",
                 position: "right",
@@ -149,8 +149,19 @@
             function generatePDF() {
                 window.print();
             }
-            if(button){
+            if (button) {
                 button.addEventListener('click', generatePDF);
             }
         });
+        function cofirmEndSession(event, form) {
+            event
+        .preventDefault(); // Impede o comportamento padrão do formulário
+            var userConfirmed = window.confirm(
+                "Deseja realmente terminar a sessão?"
+            );
+            if (userConfirmed) {
+                // Se o usuário confirmar, envie o formulário usando o método POST
+                form.submit(); // Envie o formulário
+            }
+        }
     </script>

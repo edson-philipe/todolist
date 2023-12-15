@@ -41,17 +41,17 @@ async function saveUser(req, res) {
   if (user == undefined) {
     await User.create({
       nome: req.body.nome,
-      email: req.body.email,
+      email: (req.body.email).toLowerCase(),
       senha: req.body.senha,
       hierarquia: req.body.hierarquia,
       informacao1: "light",
     });
     req.session.mensagem = {
-      texto: "A conta foi criada com sucesso!",
+      texto: "Usuário criado com sucesso!",
     }
   } else {
     req.session.mensagem = {
-      texto: "Não foi possível criar sua conta porque o email já está sendo usado!",
+      texto: "Não foi possível criar o usuário porque o email já está sendo usado!",
     };
   }
   res.redirect('/admin/users/new');
@@ -121,6 +121,9 @@ async function authenticateLogin(req, res) {
         hierarquia: user.hierarquia,
         informacao1: user.informacao1,
       }
+      req.session.mensagem = {
+        texto: `${req.session.user.nome}, seja bem-vindo(a) ao nosso novo sistema de gerenciamento de armazém!`,
+      };
       res.redirect("/");
     } else {
       req.session.mensagem = {
@@ -154,6 +157,11 @@ async function selectTheme(req, res) {
   res.redirect(link);
 }
 
+async function logoutUser(req, res) {
+  req.session.destroy();
+  res.redirect('/');
+}
+
 module.exports = {
   showUsers,
   createUser,
@@ -164,4 +172,5 @@ module.exports = {
   loginUser,
   authenticateLogin,
   selectTheme,
+  logoutUser,
 };

@@ -13,6 +13,22 @@ body {
     background-size: cover;
 }
 
+a .card img {
+    transition: all 0.2s ease-in-out
+}
+
+
+
+@media only screen and (min-width: 768px) {
+    a .card img {
+        transform: scale(0.9, 0.9);
+    }
+  }
+
+a .card img:hover {
+    transform: scale(1, 1)
+}
+
 @media print {
     @page {
         size: landscape;
@@ -21,4 +37,7 @@ body {
     .ignore-print {
         display: none;
     }
+    /* .logo, .navbar {
+        filter: invert(100%);
+    } */
 }

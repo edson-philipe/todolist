@@ -12,10 +12,8 @@
 
                     <div class="col-12 col-md-4 mb-3">
                         <label for="tipo" class="form-label">Tipo:</label>
-                        <select class="form-select form-select-sm" name="tipo"
-                            id="tipo">
-                            <option value="Entrada">Entrada</option>
-                        </select>
+                        <input type="hidden" value="Entrada" name="tipo">
+                        <p>Entrada</p>
                     </div>
                     <div class="col-12 col-md-4 mb-3">
                         <label for="totalPaletes" class="form-label">Total de
@@ -36,9 +34,10 @@
                     <div class="col-12 col-md-4 mb-3">
                         <label for="destinatario"
                             class="form-label">Destinatário:</label>
-                        <input type="text" class="form-control form-control-sm"
+                        <input type="hidden" class="form-control form-control-sm"
                             id="destinatario" name="destinatario" placeholder=""
                             value="REDA XXI">
+                            <p>REDA XXI</p>
                     </div>
                     <div class="col-12 col-md-4 mb-3">
                         <label for="matricula"

@@ -55,30 +55,30 @@
                         <table class="table table-sm mb-0">
                             <thead>
                                 <tr>
-                                    <th>Cliente</th>
-                                    <th>Descrição</th>
-                                    <th>Ocupado</th>
-                                    <th>Contrato</th>
-                                    <th>Valor</th>
+                                    <th class="text-nowrap">Cliente</th>
+                                    <th class="text-nowrap">Descrição</th>
+                                    <th class="text-nowrap">Ocupado</th>
+                                    <th class="text-nowrap">Contrato</th>
+                                    <th class="text-nowrap">Valor</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <td>
+                                <td class="text-nowrap">
                                     <%= rack1.cliente %>
                                 </td>
-                                <td>
+                                <td class="text-nowrap">
                                     <%= rack1.descricao %>
                                 </td>
-                                <td>
+                                <td class="text-nowrap">
                                     <% if (rack1.ocupado == "false") { %>
                                     Não
                                     <% } else { %>Sim
                                     <% } %>
                                 </td>
-                                <td>
+                                <td class="text-nowrap">
                                     <%= rack1.contrato %>
                                 </td>
-                                <td class="precos">
+                                <td class="precos text-nowrap">
                                     <%= rack1.valorMensal %>
                                 </td>
                             </tbody>
@@ -93,30 +93,30 @@
                         <table class="table table-sm mb-0">
                             <thead>
                                 <tr>
-                                    <th>Cliente</th>
-                                    <th>Descrição</th>
-                                    <th>Ocupado</th>
-                                    <th>Contrato</th>
-                                    <th>Valor</th>
+                                    <th class="text-nowrap">Cliente</th>
+                                    <th class="text-nowrap">Descrição</th>
+                                    <th class="text-nowrap">Ocupado</th>
+                                    <th class="text-nowrap">Contrato</th>
+                                    <th class="text-nowrap">Valor</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <td>
+                                <td class="text-nowrap">
                                     <%= rack2.cliente %>
                                 </td>
-                                <td>
+                                <td class="text-nowrap">
                                     <%= rack2.descricao %>
                                 </td>
-                                <td>
+                                <td class="text-nowrap">
                                     <% if (rack2.ocupado == "false") { %>
                                     Não
                                     <% } else { %>Sim
                                     <% } %>
                                 </td>
-                                <td>
+                                <td class="text-nowrap">
                                     <%= rack2.contrato %>
                                 </td>
-                                <td class="precos">
+                                <td class="precos text-nowrap">
                                     <%= rack2.valorMensal %>
                                 </td>
                             </tbody>

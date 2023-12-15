@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-xl navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
-            <img src="https://i.imgur.com/cTILCjn.png" alt="" height="40">
+            <img src="https://i.imgur.com/cTILCjn.png" alt="" height="40" class="logo">
           </a>
         <button class="navbar-toggler ignore-print" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarBasic" aria-controls="navbarBasic"
@@ -74,8 +74,10 @@
                         </form>
                     </li> 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="#">Terminar sessão</a>
+                        <form action="/admin/users/logout" method="post" onclick="cofirmEndSession(event, this)">
+                            <button class="nav-link active" type="submit">Terminar sessão</button>
+                        </form>
+                        
                     </li>
                 </ul>
             </div>

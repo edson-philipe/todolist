@@ -26,6 +26,7 @@ router.post("/admin/users/delete", UsersController.deleteUser);
 router.get("/admin/users/login", UsersController.loginUser);
 router.post("/admin/authenticatelogin", UsersController.authenticateLogin);
 router.post("/admin/users/select-theme", UsersController.selectTheme);
+router.post('/admin/users/logout', UsersController.logoutUser);
 
 router.get("/admin/prices/index", checkLogin("adm"), PricesController.showPrices);
 router.get("/admin/prices/new", checkLogin("adm"), PricesController.createPrice);
@@ -37,6 +38,8 @@ router.post("/admin/prices/delete", PricesController.deletePrice);
 router.get("/admin/sales/index", checkLogin("adm"), SalesController.showSales);
 router.get("/admin/sales/new", checkLogin("adm"), SalesController.createSale);
 router.post("/admin/sales/save", SalesController.saveSale);
+router.get("/admin/sales/edit/:id", checkLogin("adm"), SalesController.editSale);
+router.post("/admin/sales/update", SalesController.updateSale);
 router.post("/admin/sales/delete", SalesController.deleteSale);
 
 router.get("/admin/guides/index", checkLogin("adm"), GuidesController.showGuides);

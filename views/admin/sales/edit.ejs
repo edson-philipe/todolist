@@ -1,0 +1,102 @@
+<%- include('../../partils/header') %>
+<%- include('../../partils/navbar') %>
+<div class="container-fluid mt-3">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="my-1 fs-6">Editar informações da venda realizada</h2>
+        </div>
+        <div class="card-body">
+            <form action="/admin/sales/update" method="POST"
+                onsubmit="verificarCampos(event, this)">
+                <div class="row">
+                    <div class="col-12 col-md-4 mb-3">
+                        <label for="data" class="form-label">Data:</label>
+                        <input type="date" class="form-control form-control-sm"
+                            id="data" name="data" placeholder=""
+                            value="<%= sale.data %>">
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <label for="cliente" class="form-label">Cliente:</label>
+                        <select name="cliente" id="cliente"
+                            class="form-select form-select-sm"
+                            onchange="filtrarCliente()">
+                            <option value="LQS">LQS</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <label for="" class="form-label">Descrição:</label>
+                        <input type="hidden" name="descricao" id="descricao">
+                        <select name="" id="selectProduto"
+                            class="form-select form-select-sm"
+                            onchange="atualizarValores()">
+                            <% prices.forEach(price => { %>
+                            <% if (price.descricao == sale.descricao) { %>
+                            <option value="<%= price.valor %>"
+                                selected>
+                                <%= price.descricao %>
+                            </option>
+                            <% } else { %>
+                            <option value="<%= price.valor %>">
+                                <%= price.descricao %>
+                            </option>
+                            <% } %>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3 mb-md-1">
+                        <label for="quantidade"
+                            class="form-label">Quantidade:</label>
+                        <input type="number"
+                            class="form-control form-control-sm" id="quantidade"
+                            name="quantidade" min="1"
+                            value="<%= sale.quantidade %>"
+                            onchange="atualizarValores()">
+                    </div>
+                    <div class="col-12 col-md-4 mb-3 mb-md-1">
+                        <label for="valor" class="form-label">Valor:</label>
+                        <input type="number" class="form-control form-control-sm"
+                            name="valor" id="valor" min="1"
+                            value="<%= sale.valor %>"
+                            onchange="atualizarValores()">
+                    </div>
+                    <div class="col-12 col-md-4 mb-2 mb-md-1">
+                        <label for="total" class="form-label">Total:</label>
+                        <input type="text" class="form-control form-control-sm"
+                            name="total" id="total" min="1"
+                            value="<%= sale.total %>"
+                            onchange="atualizarValores()">
+                    </div>
+                </div>
+        </div>
+        <div class="card-footer text-muted">
+            <input type="hidden" name="id" id=""
+                value="<%= sale.id %>">
+            <button type="submit"
+                class="btn btn-success btn-sm">Confirmar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        atualizarValores();
+    })
+    function atualizarValores() {
+        let quantidade = document.querySelector("#quantidade");
+        let selectProduto = document.querySelector("#selectProduto");
+        let descricao = document.querySelector("#descricao");
+        let valor = document.querySelector("#valor");
+        let total = document.querySelector("#total");
+        descricao.value = selectProduto.options[selectProduto.selectedIndex]
+            .text;
+        valor.value = selectProduto.value;
+        total.value = (quantidade.value * valor.value);
+        valor.value = (selectProduto.value);
+    }
+    function filtrarCliente() {
+        let cliente = document.querySelector("#cliente");
+        window.location.href =
+            `/admin/sales/new?cliente=${cliente.value}`;
+    }
+</script>
+<%- include('../../partils/footer') %>
