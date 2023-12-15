@@ -5,9 +5,20 @@ body {
         filter: grayscale(100%);
     } */
 }
+
 #bgLogin {
     background-image: radial-gradient(circle at -1% 57.5%, rgb(19, 170, 82) 0%, rgb(0, 102, 43) 90%);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+}
+
+@media print {
+    @page {
+        size: landscape;
+        margin: 0;
+    }
+    .ignore-print {
+        display: none;
+    }
 }
