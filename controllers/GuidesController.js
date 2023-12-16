@@ -10,7 +10,7 @@ async function showGuides(req, res) {
   
     let guides = await Guides.findAll({
       raw: true,
-      order: [["id", "DESC"]],
+      order: [["data", "ASC"]],
     });
     const totalGuiasCadastradas = guides.length;
     res.render("admin/guides/index", {
