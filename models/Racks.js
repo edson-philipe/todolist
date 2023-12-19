@@ -30,7 +30,7 @@ const Racks = connection.define("racks", {
         allowNull: true,
     },
     valorMensal: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
     informacao1: {

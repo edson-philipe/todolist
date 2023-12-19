@@ -110,8 +110,20 @@ async function saveEnterGuide(req, res) {
     res.redirect('/admin/guides/new/enter');
 }
 
+async function deleteGuide(req, res) {
+    req.session.mensagem = {
+        texto: "Movimentação excluída com sucesso!",
+    }
+    await Guides.destroy({
+        where: { id: req.body.id },
+    });
+    res.redirect("/admin/guides/index");
+}
+
+
 module.exports = {
     showGuides,
     enterGuide,
     saveEnterGuide,
+    deleteGuide,
 };

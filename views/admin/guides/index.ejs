@@ -49,6 +49,7 @@
                             <th class="px-2 text-nowrap">Hora de saída</th>
                             <th class="px-2 text-nowrap">Hora de saída</th>
                             <th class="px-2 text-nowrap">Responsável</th>
+                            <th class="px-2 text-nowrap">Ações</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
@@ -81,11 +82,11 @@
                             <td class="text-nowrap px-2">
                                 <%= guide.responsavel %>
                             </td>
-                            <!-- <td class="px-2">
+                            <td class="px-2">
                                 <div class="d-flex gap-2 p-0">
-                                    <a href="/admin/guides/edit/<%= guide.id %>"
+                                    <!-- <a href="/admin/guides/edit/<%= guide.id %>"
                                         class="btn btn-sm p-0 text-warning text-nowrap">
-                                        <i class="bi bi-pen"></i> Editar</a>
+                                        <i class="bi bi-pen"></i> Editar</a> -->
                                     <form action="/admin/guides/delete"
                                         method="post"
                                         onsubmit="confirmDelete(event, this)">
@@ -97,7 +98,7 @@
                                         </button>
                                     </form>
                                 </div>
-                            </td> -->
+                            </td>
                         </tr>
                         <% }); %>
                     </tbody>
@@ -148,15 +149,15 @@
             }
         });
     });
-    // function confirmDelete(event, form) {
-    //     event.preventDefault(); // Impede o comportamento padrão do formulário
-    //     var guideConfirmed = window.confirm(
-    //         "Deseja realmente excluir o usuário selecionado?"
-    //     );
-    //     if (guideConfirmed) {
-    //         // Se o usuário confirmar, envie o formulário usando o método POST
-    //         form.submit(); // Envie o formulário
-    //     }
-    // }
+    function confirmDelete(event, form) {
+        event.preventDefault(); // Impede o comportamento padrão do formulário
+        var guideConfirmed = window.confirm(
+            "Deseja realmente excluir o usuário selecionado?"
+        );
+        if (guideConfirmed) {
+            // Se o usuário confirmar, envie o formulário usando o método POST
+            form.submit(); // Envie o formulário
+        }
+    }
 </script>
 <%- include('../../partils/footer') %>
