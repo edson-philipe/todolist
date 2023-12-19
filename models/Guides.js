@@ -64,6 +64,6 @@ const Guides = connection.define("guides", {
     },
 });
 
-// Guides.sync({ force: true });
+//Guides.sync({ force: true });
 
 module.exports = Guides;

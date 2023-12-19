@@ -21,7 +21,10 @@ async function showRacks(req, res) {
 
   let racks = await Racks.findAll({
     raw: true,
-    order: [["id", "ASC"]],
+    order: [
+      ["predio", "ASC"],
+      ["numero", "ASC"]
+    ],
   });
 
   const totalRacksCadastrados = racks.length;

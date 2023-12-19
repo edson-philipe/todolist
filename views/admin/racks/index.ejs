@@ -5,13 +5,13 @@
         <div class="card-header">
             <div class="row">
                 <div
-                    class="col-12 d-flex justify-content-between align-items-center gap-3">
+                    class="col-12 d-flex justify-content-between align-items-center gap-1">
                     <div>
                         <h2 class="my-1 fs-6">Visualizar espaços de armazenagem cadastrados</h2>
                     </div>
-                    <div>
+                    <div class="d-flex justify-content-end align-items-end gap-2 flex-wrap">
                         <button id="download-to-pdf"
-                            class="btn btn-secondary btn-sm text-nowrap ignore-print mb-2 mb-md-0"><i
+                            class="btn btn-secondary btn-sm text-nowrap ignore-print"><i
                                 class="bi bi-printer-fill"></i>
                             Imprimir</button>
                         <% if (totalRacksCadastrados > 0) { %>
@@ -167,7 +167,7 @@
                             <th class="px-2">Ocupado</th>
                             <th class="px-2">Contrato</th>
                             <th class="px-2">Valor</th>
-                            <!-- <th class="px-2">Ações</th> -->
+                            <th class="px-2 ignore-print">Ações</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
@@ -200,11 +200,11 @@
                             <td class="px-2 text-nowrap precos">
                                 <%= rack.valorMensal %>
                             </td>
-                            <!-- <td class="px-2">
+                            <td class="px-2 ignore-print">
                                 <div class="d-flex gap-2 p-0">
-                                    <a href="/admin/racks/edit/<%= rack.id %>"
+                                    <!-- <a href="/admin/racks/edit/<%= rack.id %>"
                                         class="btn btn-sm p-0 text-warning text-nowrap">
-                                        <i class="bi bi-pen"></i> Editar</a>
+                                        <i class="bi bi-pen"></i> Editar</a> -->
                                     <% if (hierarquia == 'adm') { %>
                                     <form action="/admin/racks/delete"
                                         method="post"
@@ -218,7 +218,7 @@
                                     </form>
                                     <% } %>
                                 </div>
-                            </td> -->
+                            </td>
                         </tr>
                         <% }); %>
                     </tbody>
@@ -268,7 +268,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         var myInput = document.getElementById("myInput");
         myInput.addEventListener("keyup", function() {
-            var value = this.value.toLowerCase();
+            var value = (this.value.toLowerCase()).trim();
             var rows = document.querySelectorAll("#myTable tr");
             var count =
                 0; // Variável para contar os resultados encontrados

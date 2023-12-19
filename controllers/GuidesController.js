@@ -33,7 +33,10 @@ async function enterGuide(req, res) {
             ocupado: 'false'
         },
         raw: true,
-        order: [["id", "ASC"]],
+        order: [
+            ["predio", "ASC"],
+            ["numero", "ASC"]
+          ],
     });
     let totalRacksDisponiveis = racks.length;
     let prices = await Prices.findAll({
@@ -106,7 +109,6 @@ async function saveEnterGuide(req, res) {
     };
     res.redirect('/admin/guides/new/enter');
 }
-
 
 module.exports = {
     showGuides,

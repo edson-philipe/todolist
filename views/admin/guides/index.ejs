@@ -121,7 +121,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         var myInput = document.getElementById("myInput");
         myInput.addEventListener("keyup", function() {
-            var value = this.value.toLowerCase();
+            var value = (this.value.toLowerCase()).trim();
             var rows = document.querySelectorAll("#myTable tr");
             var count =
                 0; // Variável para contar os resultados encontrados

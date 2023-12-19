@@ -29,7 +29,8 @@ a .card img:hover {
 
 @media print {
     @page {
-        size: landscape;
+        /* size: landscape; */
+        size: A3;
         margin: 0;
     }
     .ignore-print {

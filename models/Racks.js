@@ -56,5 +56,5 @@ const Racks = connection.define("racks", {
 }, {
     timestamps: true,
 });
-// Racks.sync({force: true});
+//Racks.sync({force: true});
 module.exports = Racks;

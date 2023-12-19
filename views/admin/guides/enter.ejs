@@ -34,10 +34,11 @@
                     <div class="col-12 col-md-4 mb-3">
                         <label for="destinatario"
                             class="form-label">Destinatário:</label>
-                        <input type="hidden" class="form-control form-control-sm"
+                        <input type="hidden"
+                            class="form-control form-control-sm"
                             id="destinatario" name="destinatario" placeholder=""
                             value="REDA XXI">
-                            <p>REDA XXI</p>
+                        <p>REDA XXI</p>
                     </div>
                     <div class="col-12 col-md-4 mb-3">
                         <label for="matricula"
@@ -63,7 +64,8 @@
                             id="horaSaida" name="horaSaida" placeholder="">
                     </div>
                     <div class="col-12 mb-3">
-                        <h2 class="mb-0" style="font-size: 14px;">Informações sobre a mercadoria
+                        <h2 class="mb-0" style="font-size: 14px;">Informações
+                            sobre a mercadoria
                             transportada</h2>
                     </div>
                     <div class="col-4 mb-0">
@@ -113,7 +115,8 @@
                 </div>
         </div>
         <div class="card-footer text-muted">
-            <input type="hidden" name="" id="totalRacksDisponiveis" value="<%= totalRacksDisponiveis %>">
+            <input type="hidden" name="" id="totalRacksDisponiveis"
+                value="<%= totalRacksDisponiveis %>">
             <button type="submit"
                 class="btn btn-success btn-sm">Cadastrar</button>
             </form>
@@ -123,15 +126,23 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form .guiaEntrada');
-        const totalRacksDisponiveis = document.querySelector("#totalRacksDisponiveis");
+        const totalRacksDisponiveis = document.querySelector(
+            "#totalRacksDisponiveis");
         const totalPaletesInput = document.getElementById(
             'totalPaletes');
-            totalPaletesInput.max = totalRacksDisponiveis.value;
+        totalPaletesInput.max = totalRacksDisponiveis.value;
         const inputsDiv = document.getElementById('inputs');
 
         totalPaletesInput.addEventListener('change', function() {
-            const total = parseInt(this.value);
+            let total = parseInt(this.value);
             let inputsHTML = '';
+
+            if (totalPaletesInput.value > totalRacksDisponiveis
+                .value) {
+                totalPaletesInput.value = totalRacksDisponiveis
+                    .value;
+                total = totalRacksDisponiveis.value;
+            }
 
             for (let i = 0; i < total; i++) {
                 inputsHTML += `
@@ -141,16 +152,10 @@
                             id="referencia${i}" name="referencia${i}" placeholder="">
                         </div>
                         <div class="col-4 mt-1 mb-0">
-                            <select id="posicionamento${i}"
+                            <select id="posicionamento${i}" onchange="myFunction()"
                                     class="form-select form-select-sm"
-                                    name="posicionamento${i}">
-                                    <% racks.forEach(rack => { %>
-                                    <option
-                                        value="<%= rack.predio %><%= rack.numero %>">
-                                        <%= rack.predio %><%= rack.numero %>
-                                    </option>
-                                    <% }); %>
-                                </select>
+                                    name="posicionamento${i}"><% racks.forEach(rack => { %><option
+                                        value="<%= rack.predio %><%= rack.numero %>"><%= rack.predio %><%= rack.numero %></option><% }); %></select>
                         </div>
                         <div class="col-4 mt-1 mb-0">
                             <select id="contrato${i}" class="form-select form-select-sm" name="contrato${i}"><% prices.forEach(price => { %><option value="<%= price.descricao %>;<%= price.valor %>"><%= price.descricao %></option><% }); %></select>
@@ -160,6 +165,21 @@
             }
 
             inputsDiv.innerHTML = inputsHTML;
+
+            const idsInputsSelects = [];
+            for (let i = 0; i < totalRacksDisponiveis
+                .value; i++) {
+                idsInputsSelects.push(`posicionamento${i}`)
+            }
+
+            for (let i = 0; i < totalPaletesInput.value; i++) {
+                let element = document.querySelector(
+                    `#${idsInputsSelects[i]}`);
+                element.options[i].selected = true;
+            }
+
+            myFunction();
+
         });
 
         form.addEventListener('submit', function(event) {
@@ -198,32 +218,44 @@
                 }
             });
         });
+
     });
 
-    function removerOpcao(selectId) {
-    const select = document.getElementById(selectId);
-    if (select) {
-        const selects = document.querySelectorAll('.localizacao');
-        selects.forEach(outroSelect => {
-            if (outroSelect.id !== selectId) {
-                const opcaoSelecionada = select.value;
-                const index = Array.from(outroSelect.options).findIndex(option =>
-                    option.value === opcaoSelecionada);
-                if (index !== -1) {
-                    outroSelect.remove(index);
+    function myFunction() {
+        const totalPaletesInput = document.getElementById(
+            'totalPaletes');
+        const idsInputsSelects = [];
+        for (let i = 0; i < totalRacksDisponiveis.value; i++) {
+            idsInputsSelects.push(`posicionamento${i}`)
+        }
+
+        for (let i = 0; i < totalPaletesInput.value; i++) {
+            let element = document.querySelector(`#${idsInputsSelects[i]}`);
+            for (let j = 0; j < element.options.length; j++) {
+                let option = element.options[j];
+                option.style.display = "";
+            }
+        }
+
+        for (let i = 0; i < totalPaletesInput.value; i++) {
+            let element = document.querySelector(`#${idsInputsSelects[i]}`);
+            let elementSelected = element.value;
+            for (let j = 0; j < totalPaletesInput.value; j++) {
+                let test = document.querySelector(`#${idsInputsSelects[j]}`);
+                for (let k = 0; k < test.options.length; k++) {
+                    let option = test.options[k];
+                    if (j == i) {
+                        continue;
+                    } else {
+                        if (option.value == elementSelected) {
+                            option.style.display = "none";
+                        }
+                    }
+
                 }
             }
-        });
+            
+        }
     }
-}
-
-// Para acionar a função para todos os selects com classe "localizacao"
-const selectsLocalizacao = document.querySelectorAll('.localizacao');
-selectsLocalizacao.forEach(select => {
-    select.addEventListener('change', function() {
-        removerOpcao(select.id);
-    });
-});
-
 </script>
 <%- include('../../partils/footer') %>
