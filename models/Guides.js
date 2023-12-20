@@ -2,6 +2,11 @@ const DataTypes = require("sequelize");
 const connection = require("../database/database");
 
 const Guides = connection.define("guides", {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true // Adicione esta linha para configurar o autoincremento
+    },
     tipo: {
         type: DataTypes.STRING,
         allowNull: true,

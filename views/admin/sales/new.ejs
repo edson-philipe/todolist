@@ -6,6 +6,15 @@
             <h2 class="my-1 fs-6">Cadastrar venda</h2>
         </div>
         <div class="card-body">
+            <% if (prices.length <= 0) { %>
+                <p class="my-0">
+                    Não há nenhum contrato de preço da categoria "Suprimentos e processos" cadastrado para visualização.
+                    <a class="link-opacity-100" href="/admin/prices/new">Clique aqui
+                        para realizar o primeiro
+                        cadastro.</a>
+                </p>
+
+            <% } else { %>     
             <form action="/admin/sales/save" method="POST"
                         onsubmit="verificarCampos(event, this)">
             <div class="row">
@@ -54,6 +63,7 @@
                 class="btn btn-success btn-sm">Cadastrar</button>
             </form>
         </div>
+        <% } %>   
     </div>
 </div>
 </div>

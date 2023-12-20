@@ -183,7 +183,10 @@ async function selectRacksInversion(req, res) {
 
   const racks = await Racks.findAll({
     raw: true,
-    order: [["id", "ASC"]],
+    order: [
+      ["predio", "ASC"],
+      ["numero", "ASC"]
+    ],
   });
   const prediosNumerosConcatenados = racks.map(
     (rack) => `${rack.predio}${rack.numero}`

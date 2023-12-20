@@ -7,20 +7,20 @@ async function showGuides(req, res) {
     req.session.mensagem = null;
     let hierarquia = req.session.user.hierarquia || "";
     let theme = req.session.user.informacao1;
-  
+
     let guides = await Guides.findAll({
-      raw: true,
-      order: [["data", "ASC"]],
+        raw: true,
+        order: [["data", "ASC"]],
     });
     const totalGuiasCadastradas = guides.length;
     res.render("admin/guides/index", {
-      guides,
-      totalGuiasCadastradas,
-      mensagem,
-      hierarquia,
-      theme,
+        guides,
+        totalGuiasCadastradas,
+        mensagem,
+        hierarquia,
+        theme,
     });
-  }
+}
 
 async function enterGuide(req, res) {
     let mensagem = req.session.mensagem || "";
@@ -36,10 +36,13 @@ async function enterGuide(req, res) {
         order: [
             ["predio", "ASC"],
             ["numero", "ASC"]
-          ],
+        ],
     });
     let totalRacksDisponiveis = racks.length;
     let prices = await Prices.findAll({
+        where: {
+            categoria: "categoria1"
+        },
         raw: true,
         order: [["id", "DESC"]],
     });
@@ -55,24 +58,31 @@ async function enterGuide(req, res) {
 }
 
 async function saveEnterGuide(req, res) {
+    // Extrai informações do corpo da requisição
     const { tipo, totalPaletes, expedidor, destinatario, matricula, data, horaEntrada, horaSaida } = req.body;
+
+    // Arrays para armazenar informações
     const referencias = [];
     const posicionamentos = [];
     const contratos = [];
     const valores = [];
 
-    // Preencha referencias e posicionamentos a partir do req.body
+    // Preenche arrays com informações do req.body
     for (let i = 0; i < totalPaletes; i++) {
         referencias.push(req.body[`referencia${i}`]);
         posicionamentos.push(req.body[`posicionamento${i}`]);
-        let contratoValorConcatenado = (req.body[`contrato${i}`]).split(';');
+
+        // Divide a informação de contrato em contrato e valor
+        let contratoValorConcatenado = req.body[`contrato${i}`].split(';');
         contratos.push(contratoValorConcatenado[0].trim());
         valores.push(contratoValorConcatenado[1].trim());
 
-        let posicionamentosSeparado = posicionamentos[i].match(/^(.*[^\d])(\d+)$/).slice(1); // Separando texto e número
+        // Separa o texto do número no posicionamento
+        let posicionamentosSeparado = posicionamentos[i].match(/^(.*[^\d])(\d+)$/).slice(1);
+        let predioSeparado = posicionamentosSeparado[0];
+        let numeroSeparado = posicionamentosSeparado[1];
 
-        let predioSeparado = posicionamentosSeparado[0]; // String contendo o texto
-        let numeroSeparado = posicionamentosSeparado[1]; // String contendo o número
+        // Atualiza informações no banco de dados usando Racks
         let racks = await Racks.update(
             {
                 cliente: expedidor,
@@ -85,13 +95,49 @@ async function saveEnterGuide(req, res) {
         );
     }
 
-    // Converta os arrays em strings JSON
+    // Converte arrays em strings JSON
     const referenciasString = JSON.stringify(referencias);
     const posicionamentosString = JSON.stringify(posicionamentos);
     const contratosString = JSON.stringify(contratos);
     const valoresString = JSON.stringify(valores);
 
-    // Crie um novo guia com os dados formatados corretamente
+    // Conta a quantidade de contratos e atualiza informações de preço
+    const contratosArray = JSON.parse(contratosString);
+    const count = {};
+
+    contratosArray.forEach(contrato => {
+        if (count[contrato]) {
+            count[contrato] += 1;
+        } else {
+            count[contrato] = 1;
+        }
+    });
+
+    // Atualiza informações de preço no banco de dados usando Prices
+    for (const contrato in count) {
+        let price = await Prices.findOne({
+            where: { cliente: expedidor, descricao: contrato },
+        });
+
+        if (price) {
+            let informacao1 = JSON.parse(price.informacao1 || '[]');
+            let dataAtual = new Date(req.body.data);
+            dataAtual.setHours(0, 0, 0, 0);
+            let milissegundos = dataAtual.getTime();
+            let saldoAnterir = informacao1[informacao1.length - 1].saldo || 0;
+            let novoObjeto = { "data": milissegundos, "saldo": ((count[contrato]) + saldoAnterir) };
+            informacao1.push(novoObjeto);
+
+            await Prices.update(
+                {
+                    informacao1: JSON.stringify(informacao1),
+                },
+                { where: { cliente: expedidor, descricao: contrato } }
+            );
+        }
+    }
+
+    // Cria um novo guia no banco de dados usando Guides
     await Guides.create({
         tipo,
         totalPaletes,
@@ -101,14 +147,17 @@ async function saveEnterGuide(req, res) {
         data,
         horaEntrada,
         horaSaida,
-        mercadorias: `${referenciasString};${posicionamentosString};${contratosString};${valoresString}`,
+        mercadorias: `[${referenciasString},${posicionamentosString},${contratosString},${valoresString}]`,
         responsavel: req.session.user.nome,
     });
+
+    // Define uma mensagem de sucesso e redireciona para uma rota específica
     req.session.mensagem = {
         texto: "A guia de entrada foi criada com sucesso!",
     };
     res.redirect('/admin/guides/new/enter');
 }
+
 
 async function deleteGuide(req, res) {
     req.session.mensagem = {

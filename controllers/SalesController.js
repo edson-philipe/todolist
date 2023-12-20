@@ -46,6 +46,9 @@ async function createSale(req, res) {
     let theme = req.session.user.informacao1;
     const { cliente } = req.query;
     let prices = await Prices.findAll({
+        where: { 
+            categoria: "categoria2" 
+        },
         raw: true,
         order: [["id", "DESC"]],
     });
@@ -94,37 +97,37 @@ async function editSale(req, res) {
         }
         return true;
     });
-  
+
     const sale = await Sales.findOne({
-      where: { id: req.params.id },
+        where: { id: req.params.id },
     });
     res.render("admin/sales/edit", {
-      sale,
-      prices,
-      mensagem,
-      hierarquia,
-      theme,
+        sale,
+        prices,
+        mensagem,
+        hierarquia,
+        theme,
     });
-  }
-  
-  async function updateSale(req, res) {
+}
+
+async function updateSale(req, res) {
     req.session.mensagem = {
-      texto: "Informações da venda alteradas com sucesso!",
+        texto: "Informações da venda alteradas com sucesso!",
     }
     await Sales.update(
-      {
-        data: req.body.data,
-        cliente: req.body.cliente,
-        descricao: req.body.descricao,
-        quantidade: req.body.quantidade,
-        valor: req.body.valor,
-        total: req.body.total,
-        funcionarioResponsavel: req.body.funcionarioResponsavel,
-      },
-      { where: { id: req.body.id } }
+        {
+            data: req.body.data,
+            cliente: req.body.cliente,
+            descricao: req.body.descricao,
+            quantidade: req.body.quantidade,
+            valor: req.body.valor,
+            total: req.body.total,
+            funcionarioResponsavel: req.body.funcionarioResponsavel,
+        },
+        { where: { id: req.body.id } }
     );
     res.redirect("/admin/sales/index");
-  }
+}
 
 async function deleteSale(req, res) {
     req.session.mensagem = {

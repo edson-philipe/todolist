@@ -2,6 +2,11 @@ const DataTypes = require("sequelize");
 const connection = require("../database/database");
 
 const Prices = connection.define("prices", {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true // Adicione esta linha para configurar o autoincremento
+    },
     cliente: {
         type: DataTypes.STRING,
         allowNull: false
@@ -15,6 +20,10 @@ const Prices = connection.define("prices", {
         allowNull: false
     },
     observacao: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    categoria: {
         type: DataTypes.STRING,
         allowNull: false
     },

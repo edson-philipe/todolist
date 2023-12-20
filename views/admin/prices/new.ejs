@@ -9,27 +9,38 @@
             <form action="/admin/prices/save" method="POST"
                 onsubmit="verificarCampos(event, this)">
                 <div class="row">
-                    <div class="col-12 col-md-4 mb-3 mb-md-1">
+                    <div class="col-12 col-md-3 mb-3 mb-md-1">
                         <label for="cliente" class="form-label">Cliente:</label>
                         <input type="text" class="form-control form-control-sm"
                             id="cliente" name="cliente">
                     </div>
-                    <div class="col-12 col-md-4 mb-3 mb-md-1">
-                        <label for="descricao" class="form-label">Descrição:</label>
+                    <div class="col-12 col-md-3 mb-3 mb-md-1">
+                        <label for="descricao"
+                            class="form-label">Descrição:</label>
                         <input type="text" class="form-control form-control-sm"
                             id="descricao" name="descricao">
                     </div>
-                    <div class="col-12 col-md-4 mb-3">
-                        <label for="valor"
-                            class="form-label">Valor:</label>
+                    <div class="col-12 col-md-3 mb-3">
+                        <label for="valor" class="form-label">Valor:</label>
                         <input type="number"
                             class="form-control form-control-sm" id="valor"
                             name="valor" min="0.01" step=".01">
                     </div>
+                    <div class="col-12 col-md-3 mb-3">
+                        <label for="categoria"
+                            class="form-label">Categoria:</label>
+                        <select class="form-select form-select-sm" name="categoria"
+                            id="categoria">
+                            <option value="categoria1">Armazenagem</option>
+                            <option value="categoria2">Suprimentos e processos
+                            </option>
+                        </select>
+                    </div>
                     <div class="col-12 mb-2 mb-md-1">
-                        <label for="observacao" class="form-label">Observação:</label>
-                        <textarea class="form-control form-control-sm" id="observacao"
-                            rows="2" maxlength="255"
+                        <label for="observacao"
+                            class="form-label">Observação:</label>
+                        <textarea class="form-control form-control-sm"
+                            id="observacao" rows="2" maxlength="255"
                             name="observacao"></textarea>
                     </div>
                 </div>

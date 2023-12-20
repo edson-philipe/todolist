@@ -1,6 +1,11 @@
 const DataTypes = require("sequelize");
 const connection = require("../database/database");
 const Racks = connection.define("racks", {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true // Adicione esta linha para configurar o autoincremento
+    },
     cliente: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -56,5 +61,7 @@ const Racks = connection.define("racks", {
 }, {
     timestamps: true,
 });
+
 //Racks.sync({force: true});
+
 module.exports = Racks;

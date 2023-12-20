@@ -6,6 +6,21 @@
             <h2 class="my-1 fs-6">Cadastrar entrada de mercadoria</h2>
         </div>
         <div class="card-body">
+            <% if (racks.length <= 0) { %>
+            <p class="my-0">
+                Não há nenhuma rack cadastrada para visualização.
+                <a class="link-opacity-100" href="/admin/racks/new">Clique aqui
+                    para realizar o primeiro
+                    cadastro.</a>
+            </p>
+            <% } else if (prices.length <= 0) { %>
+            <p class="my-0">
+                Não há nenhum contrato de preço da categoria "Armazenagem" cadastrado para visualização.
+                <a class="link-opacity-100" href="/admin/prices/new">Clique aqui
+                    para realizar o primeiro
+                    cadastro.</a>
+            </p>
+            <% } else { %>
             <form action="/admin/guides/save" method="POST"
                 onsubmit="verificarCampos(event, this)">
                 <div class="row guiaEntrada">
@@ -111,7 +126,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
         </div>
         <div class="card-footer text-muted">
@@ -121,6 +135,7 @@
                 class="btn btn-success btn-sm">Cadastrar</button>
             </form>
         </div>
+        <% } %>
     </div>
 </div>
 <script>
@@ -254,7 +269,7 @@
 
                 }
             }
-            
+
         }
     }
 </script>

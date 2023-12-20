@@ -2,6 +2,11 @@ const DataTypes = require("sequelize");
 const connection = require("../database/database");
 
 const Sales = connection.define("sales", {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true // Adicione esta linha para configurar o autoincremento
+    },
     data: {
         type: DataTypes.DATEONLY,
         allowNull: false
@@ -52,6 +57,6 @@ const Sales = connection.define("sales", {
     },
 });
 
-// Sales.sync({ force: true });
+//Sales.sync({ force: true });
 
 module.exports = Sales;
