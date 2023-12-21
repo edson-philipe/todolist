@@ -34,38 +34,13 @@ async function createPrice(req, res) {
 }
 
 async function savePrice(req, res) {
-    // Obtendo a data atual
-    let dataAtual = new Date();
-
-    // Definindo as horas, minutos e segundos como 00:00:00.
-    dataAtual.setHours(0);
-    dataAtual.setMinutes(0);
-    dataAtual.setSeconds(0);
-    dataAtual.setMilliseconds(0);
-
-    let milissegundos = dataAtual.getTime();
-
-    if (req.body.categoria == "categoria1") {
-        await Prices.create({
-            cliente: req.body.cliente,
-            descricao: req.body.descricao,
-            valor: req.body.valor,
-            observacao: req.body.observacao,
-            categoria: req.body.categoria,
-            informacao1: JSON.stringify([{
-                "data": milissegundos,
-                "saldo": 0
-            }]),
-        });
-    } else {
-        await Prices.create({
-            cliente: req.body.cliente,
-            descricao: req.body.descricao,
-            valor: req.body.valor,
-            observacao: req.body.observacao,
-            categoria: req.body.categoria,
-        });
-    }
+    await Prices.create({
+        cliente: req.body.cliente,
+        descricao: req.body.descricao,
+        valor: req.body.valor,
+        observacao: req.body.observacao,
+        categoria: req.body.categoria,
+    });
     req.session.mensagem = {
         texto: "O preço foi cadastrado com sucesso!",
     }

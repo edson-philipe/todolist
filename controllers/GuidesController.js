@@ -1,6 +1,7 @@
 const Guides = require("../models/Guides");
 const Racks = require("../models/Racks");
 const Prices = require("../models/Prices");
+const Billings = require("../models/Billings");
 
 async function showGuides(req, res) {
     let mensagem = req.session.mensagem || "";
@@ -113,31 +114,29 @@ async function saveEnterGuide(req, res) {
         }
     });
 
-    // Atualiza informações de preço no banco de dados usando Prices
+    let dataMilissegundos = new Date(req.body.data);
+    dataMilissegundos.setHours(0, 0, 0, 0);
+    dataMilissegundos = dataMilissegundos.getTime();
+
     for (const contrato in count) {
         let price = await Prices.findOne({
-            where: { cliente: expedidor, descricao: contrato },
+            where: {
+                cliente: expedidor,
+                descricao: contrato,
+            },
+            raw: true,
         });
 
-        if (price) {
-            let informacao1 = JSON.parse(price.informacao1 || '[]');
-            let dataAtual = new Date(req.body.data);
-            dataAtual.setHours(0, 0, 0, 0);
-            let milissegundos = dataAtual.getTime();
-            let saldoAnterir = informacao1[informacao1.length - 1].saldo || 0;
-            let novoObjeto = { "data": milissegundos, "saldo": ((count[contrato]) + saldoAnterir) };
-            informacao1.push(novoObjeto);
-
-            await Prices.update(
-                {
-                    informacao1: JSON.stringify(informacao1),
-                },
-                { where: { cliente: expedidor, descricao: contrato } }
-            );
-        }
+        await Billings.create({
+            tipo: tipo,
+            cliente: expedidor,
+            descricao: contrato,
+            total: count[contrato],
+            data: dataMilissegundos,
+            valor: price.valor,
+        });
     }
 
-    // Cria um novo guia no banco de dados usando Guides
     await Guides.create({
         tipo,
         totalPaletes,
