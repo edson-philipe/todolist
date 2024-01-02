@@ -10,6 +10,29 @@ async function showBillings(req, res) {
         raw: true,
         order: [["data", "ASC"]],
     });
+    // const diasSelecionados = (new Date(datafinal).getDate() - new Date(datainicial).getDate()) + 1;
+    const diasSelecionados = ((new Date(datafinal) - new Date(datainicial)) / (1000 * 60 * 60 * 24)) + 1;
+    let obterDiasDoMes = new Date(datainicial).getMonth();
+    switch (obterDiasDoMes) {
+        case 0: // Janeiro
+        case 2: // Março
+        case 4: // Maio
+        case 6: // Julho
+        case 7: // Agosto
+        case 9: // Outubro
+        case 11: // Dezembro
+            obterDiasDoMes = 31;
+            break;
+        case 3: // Abril
+        case 5: // Junho
+        case 8: // Setembro
+        case 10: // Novembro
+            obterDiasDoMes = 30;
+            break;
+        case 1: // Fevereiro
+            obterDiasDoMes = 28;
+            break;
+    }
     const totalFaturacoesCadastradas = billings.length;
     billings = billings.filter((billings) => {
         if (datainicial && datafinal) {
@@ -45,6 +68,7 @@ async function showBillings(req, res) {
             cliente: 'LQS',
             descricao: descricao,
             total: 0,
+            saldo: 0,
             data: data,
             valor: valor,
         };
@@ -80,12 +104,26 @@ async function showBillings(req, res) {
         separatedByDescription[descricao].sort(compareDates);
     }
 
+    for (const item in separatedByDescription) {
+        const movimentacoes = separatedByDescription[item];
+        let saldo = 0;
+        for (let i = 0; i < movimentacoes.length; i++) {
+            if (movimentacoes[i].saldo > saldo) {
+                saldo = movimentacoes[i].saldo;
+            } else if (movimentacoes[i].saldo == 0 && saldo > 0) {
+                movimentacoes[i].saldo = saldo;
+            }
+        }
+    }
+
     res.render("admin/billings/index", {
         billings,
         separatedByDescription,
         totalFaturacoesCadastradas,
         datainicial,
         datafinal,
+        diasSelecionados,
+        obterDiasDoMes,
         mensagem,
         hierarquia,
         theme,

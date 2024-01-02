@@ -17,11 +17,21 @@
                     </div>
                     <div class="col-12 col-md-4 mb-3">
                         <label for="cliente" class="form-label">Cliente:</label>
-                        <select name="cliente" id="cliente"
+                        <!-- <select name="cliente" id="cliente"
                             class="form-select form-select-sm"
                             onchange="filtrarCliente()">
                             <option value="LQS">LQS</option>
-                        </select>
+                        </select> -->
+                        <% if (cliente) { %><input type="text"
+                            class="form-control form-control-sm"
+                            onchange="filtrarCliente()" id="cliente"
+                            name="cliente" value="<%= cliente %>">
+                        <% } else { %>
+                            <input type="text"
+                            class="form-control form-control-sm"
+                            onchange="filtrarCliente()" id="cliente"
+                            name="cliente">
+                        <% } %>
                     </div>
                     <div class="col-12 col-md-4 mb-3">
                         <label for="" class="form-label">Descrição:</label>

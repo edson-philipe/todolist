@@ -19,12 +19,11 @@
             </div>
         </div>
         <div class="card-body">
-            <% if (totalPrecosCadastrados > 0) { %>
+            <% if (totalRegisteredPrices > 0) { %>
             <div class="row">
                 <div class="col-12 mb-3 ignore-print">
                     <input class="form-control form-control-sm" id="myInput"
-                        type="text"
-                        placeholder="Pesquise por cliente, descrição ou valor..." />
+                        type="text" placeholder="Pesquise..." />
                 </div>
                 <div class="col-12 mb-0">
                     <p id="totalItensFiltrados" class="mb-3">
@@ -70,6 +69,8 @@
                                         onsubmit="confirmDelete(event, this)">
                                         <input type="hidden" name="id"
                                             value="<%= price.id %>" />
+                                        <input type="hidden" name="cliente"
+                                            value="<%= price.cliente %>" />
                                         <button type="submit"
                                             class="btn btn-sm p-0 text-danger text-nowrap">
                                             <i class="bi bi-trash3"></i> Deletar
@@ -82,7 +83,7 @@
                     </tbody>
                 </table>
             </div>
-            <% } else if (totalPrecosCadastrados <= 0) { %>
+            <% } else if (totalRegisteredPrices <= 0) { %>
             <p class="my-0">
                 Não há nenhum preço cadastrado para visualização.
                 <a class="link-opacity-100" href="/admin/prices/new">Clique aqui
@@ -101,14 +102,13 @@
         myInput.addEventListener("keyup", function() {
             var value = (this.value.toLowerCase()).trim();
             var rows = document.querySelectorAll("#myTable tr");
-            var count =
-                0; // Variável para contar os resultados encontrados
+            var count = 0;
             rows.forEach(function(row) {
                 var text = row.textContent
                     .toLowerCase();
                 if (text.indexOf(value) > -1) {
                     row.style.display = "";
-                    count++; // Incrementar o contador se o item for encontrado
+                    count++;
                 } else {
                     row.style.display = "none";
                 }
@@ -126,15 +126,5 @@
             }
         });
     });
-    function confirmDelete(event, form) {
-        event.preventDefault(); // Impede o comportamento padrão do formulário
-        var userConfirmed = window.confirm(
-            "Deseja realmente excluir o preço selecionado?"
-        );
-        if (userConfirmed) {
-            // Se o usuário confirmar, envie o formulário usando o método POST
-            form.submit(); // Envie o formulário
-        }
-    }
 </script>
 <%- include('../../partils/footer') %>

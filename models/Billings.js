@@ -23,6 +23,10 @@ const Billings = connection.define("billings", {
         type: DataTypes.INTEGER,
         allowNull: true,
     },
+    saldo: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
     data: {
         type: DataTypes.DATEONLY,
         allowNull: false

@@ -5,7 +5,8 @@ const UsersController = require("../controllers/UsersController");
 const PricesController = require("../controllers/PricesController");
 const SalesController = require("../controllers/SalesController");
 const GuidesController = require("../controllers/GuidesController");
-const BillingsController = require("../controllers/BillingsController")
+const BillingsController = require("../controllers/BillingsController");
+const HistorysController = require("../controllers/HistorysController");
 const checkLogin = require("../middleware/checkLogin");
 router.get("/", checkLogin("usuario"), WmsController.showHome);
 
@@ -49,5 +50,7 @@ router.post("/admin/guides/save", GuidesController.saveEnterGuide);
 router.post("/admin/guides/delete", GuidesController.deleteGuide);
 
 router.get("/admin/billings/index", checkLogin("adm"), BillingsController.showBillings);
+
+router.get("/admin/historys/index", checkLogin("adm"), HistorysController.showHistorys);
 
 module.exports = router;

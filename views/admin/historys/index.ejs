@@ -7,8 +7,7 @@
                 <div
                     class="col-12 d-flex justify-content-between align-items-center gap-3">
                     <div>
-                        <h2 class="my-1 fs-6">Visualizar histórico de vendas
-                            realizadas
+                        <h2 class="my-1 fs-6">Visualizar histórico geral
                         </h2>
                     </div>
                     <div>
@@ -21,24 +20,14 @@
             </div>
         </div>
         <div class="card-body">
-            <% if (totalVendasCadastrados > 0) { %>
+            <% if (totalHistorysCadastrados > 0) { %>
             <div class="row">
                 <div class="col-4 mb-3">
                     <label for="cliente" class="form-label">Cliente:</label>
-                    <!-- <select name="cliente" id="cliente"
+                    <select name="cliente" id="cliente"
                         class="form-select form-select-sm">
                         <option value="LQS">LQS</option>
-                    </select> -->
-                    <% if (cliente) { %><input type="text"
-                            class="form-control form-control-sm"
-                            onchange="filtrarData()" id="cliente"
-                            name="cliente" value="<%= cliente %>">
-                        <% } else { %>
-                            <input type="text"
-                            class="form-control form-control-sm"
-                            onchange="filtrarData()" id="cliente"
-                            name="cliente">
-                        <% } %>
+                    </select>
                 </div>
                 <div class="col-4 mb-3">
                     <label for="datainicial" class="form-label">Data
@@ -64,78 +53,71 @@
                 <div class="col-12 mb-0">
                     <p id="totalItensFiltrados" class="mb-0">
                         Total de vendas encontradas:
-                        <%= sales.length %>
+                        <%= historys.length %>
                     </p>
                 </div>
             </div>
-            <% if (sales.length > 0) { %>
+            <% if (historys.length > 0) { %>
             <div class="table-responsive mt-3" id="tabelaRacks">
                 <table
                     class="table table-sm table-striped table-bordered mb-2 mb-md-1">
                     <thead>
                         <tr>
                             <th class="px-2">Data</th>
+                            <th class="px-2">Ação</th>
+                            <th class="px-2">Resumo</th>
                             <th class="px-2">Cliente</th>
-                            <th class="px-2">Descrição</th>
-                            <th class="px-2">Quantidade</th>
-                            <th class="px-2">Valor</th>
-                            <th class="px-2">Total</th>
-                            <th class="px-2 ignore-print">Ações</th>
+                            <th class="px-2">Usuário</th>
+                            <!-- <th class="px-2 ignore-print">Ações</th> -->
                         </tr>
                     </thead>
                     <tbody id="myTable">
-                        <% sales.forEach(movement => { %>
+                        <% historys.forEach(history => { %>
                         <tr>
                             <td class="text-nowrap px-2 datas text-nowrap">
-                                <%= movement.data %>
+                                <%= history.createdAt %>
                             </td>
                             <td class="text-nowrap px-2 text-nowrap">
-                                <%= movement.cliente %>
+                                <%= history.acao %>
                             </td>
                             <td class="text-nowrap px-2 text-nowrap">
-                                <%= movement.descricao %>
+                                <%= history.resumo %>
                             </td>
                             <td class="text-nowrap px-2 text-nowrap">
-                                <%= movement.quantidade %>
+                                <%= history.cliente %>
                             </td>
-                            <td class="text-nowrap px-2 precos text-nowrap">
-                                <%= movement.valor %>
+                            <td class="text-nowrap px-2 text-nowrap">
+                                <%= history.usuario %>
                             </td>
-                            <td class="text-nowrap px-2 precos text-nowrap">
-                                <%= movement.total %>
-                            </td>
-                            <td class="px-2 ignore-print">
+                            <!-- <td class="px-2 ignore-print">
                                 <div class="d-flex gap-2 p-0">
-                                    <a href="/admin/sales/edit/<%= movement.id %>"
+                                    <a href="/admin/sales/edit/<%= history.id %>"
                                         class="btn btn-sm p-0 text-warning text-nowrap">
                                         <i class="bi bi-pen"></i> Editar</a>
                                     <form action="/admin/sales/delete"
                                         method="post"
                                         onsubmit="confirmDelete(event, this)">
                                         <input type="hidden" name="id"
-                                            value="<%= movement.id %>" />
+                                            value="<%= history.id %>" />
                                             <input type="hidden" name="cliente"
-                                            value="<%= movement.cliente %>" />
+                                            value="<%= history.cliente %>" />
                                         <button type="submit"
                                             class="btn btn-sm p-0 text-danger text-nowrap">
                                             <i class="bi bi-trash3"></i> Deletar
                                         </button>
                                     </form>
                                 </div>
-                            </td>
+                            </td> -->
                         </tr>
                         <% }); %>
                     </tbody>
                 </table>
             </div>
-            <div class="col-12">
-                <p class="mb-0 mt-2" id="totalGeral">Total geral: € 0</p>
-            </div>
             <% } %>
-            <% } else if (totalVendasCadastrados <= 0) { %>
+            <% } else if (totalHistorysCadastrados <= 0) { %>
             <p class="my-0">
                 Não há nenhuma venda cadastrada para visualização.
-                <a class="link-opacity-100" href="/admin/sales/new">Clique
+                <a class="link-opacity-100" href="/admin/historys/new">Clique
                     aqui
                     para realizar o primeiro
                     cadastro.</a>
@@ -146,24 +128,25 @@
 </div>
 <script>
     const totalGeral = document.querySelector("#totalGeral");
-    
     function filtrarData() {
-        let cliente = document.querySelector("#cliente");
         let datainicial = document.querySelector("#datainicial");
         let datafinal = document.querySelector("#datafinal");
         if (datafinal.value < datainicial.value) {
             datafinal.value = datainicial.value;
         }
-        if(!cliente.value) {
-            window.location.href =
-            `/admin/sales/index?datainicial=${datainicial.value}&datafinal=${datafinal.value}`;
-        } else {
-            window.location.href =
-            `/admin/sales/index?cliente=${cliente.value}&datainicial=${datainicial.value}&datafinal=${datafinal.value}`;
-        }
-        
+        window.location.href =
+            `/admin/historys/index?datainicial=${datainicial.value}&datafinal=${datafinal.value}`;
     }
-
+    function confirmDelete(event, form) {
+        event.preventDefault(); // Impede o comportamento padrão do formulário
+        var movementConfirmed = window.confirm(
+            "Deseja realmente excluir o usuário selecionado?"
+        );
+        if (movementConfirmed) {
+            // Se o usuário confirmar, envie o formulário usando o método POST
+            form.submit(); // Envie o formulário
+        }
+    }
     const totalItensFiltrados = document.querySelector("#totalItensFiltrados");
     const tabelaRacks = document.querySelector("#tabelaRacks");
     document.addEventListener("DOMContentLoaded", function() {
@@ -196,24 +179,7 @@
                     'margin-bottom', '');
                 totalGeral.style.display = "";
             }
-            calcularTotalFinal();
         });
-        calcularTotalFinal();
     });
-    function calcularTotalFinal() {
-        const tabelaRacks = document.querySelector("#myTable");
-        var total = 0;
-        var rows = tabelaRacks.querySelectorAll("tr");
-        rows.forEach(function(row) {
-            if (row.style.display !== "none") {
-                var preco = row.cells[5].innerText.replace('€', '')
-                    .replace(',', '.');
-                preco = parseFloat(preco);
-                total += preco;
-            }
-        });
-        totalGeral.innerHTML =
-            `Total geral: € ${total.toFixed(2).replace('.', ',')}`;
-    }
 </script>
 <%- include('../../partils/footer') %>

@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const History = require("../models/History");
 
 async function showUsers(req, res) {
   let mensagem = req.session.mensagem || "";
@@ -49,6 +50,28 @@ async function saveUser(req, res) {
     req.session.mensagem = {
       texto: "Usuário criado com sucesso!",
     }
+    if (req.body.hierarquia == "adm") {
+      await History.create({
+        usuario: req.session.user.nome,
+        acao: "Cadastrar usuário",
+        resumo: `"${(req.body.nome).trim()}" com o email "${(req.body.email).trim()}" e com a hierarquia de administrador`,
+        cliente: "REDA XXI",
+      });
+    } else if (req.body.hierarquia == "usuario") {
+      await History.create({
+        usuario: req.session.user.nome,
+        acao: "Cadastrar usuário",
+        resumo: `"${(req.body.nome).trim()}" com o email "${(req.body.email).trim()}" e com a hierarquia de usuário`,
+        cliente: "REDA XXI",
+      });
+    } else {
+      await History.create({
+        usuario: req.session.user.nome,
+        acao: "Cadastrar usuário",
+        resumo: `"${(req.body.nome).trim()}" com o email "${(req.body.email).trim()}" e com a hierarquia de cliente`,
+        cliente: "REDA XXI",
+      });
+    }
   } else {
     req.session.mensagem = {
       texto: "Não foi possível criar o usuário porque o email já está sendo usado!",
@@ -93,6 +116,32 @@ async function updateUser(req, res) {
 async function deleteUser(req, res) {
   req.session.mensagem = {
     texto: "Usuário excluído com sucesso!",
+  }
+  let user = await User.findOne({
+    where: { id: req.body.id }
+  });
+
+  if (user.hierarquia == "adm") {
+    await History.create({
+      usuario: req.session.user.nome,
+      acao: "Deletar usuário",
+      resumo: `"${user.nome}" com o email "${user.email}" e com a hierarquia de administrador`,
+      cliente: "REDA XXI",
+    });
+  } else if (user.hierarquia == "usuario") {
+    await History.create({
+      usuario: req.session.user.nome,
+      acao: "Deletar usuário",
+      resumo: `"${user.nome}" com o email "${user.email}" e com a hierarquia de usuário`,
+      cliente: "REDA XXI",
+    });
+  } else {
+    await History.create({
+      usuario: req.session.user.nome,
+      acao: "Deletar usuário",
+      resumo: `"${user.nome}" com o email "${user.email}" e com a hierarquia de cliente`,
+      cliente: "REDA XXI",
+    });
   }
   await User.destroy({
     where: { id: req.body.id },

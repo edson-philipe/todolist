@@ -6,64 +6,80 @@
             <h2 class="my-1 fs-6">Cadastrar venda</h2>
         </div>
         <div class="card-body">
-            <% if (prices.length <= 0) { %>
-                <p class="my-0">
-                    Não há nenhum contrato de preço da categoria "Suprimentos e processos" cadastrado para visualização.
-                    <a class="link-opacity-100" href="/admin/prices/new">Clique aqui
-                        para realizar o primeiro
-                        cadastro.</a>
-                </p>
-
-            <% } else { %>     
+            <% if (totalPrecosCadastrados.length <= 0) { %>
+            <p class="my-0">
+                Não há nenhum contrato de preço da categoria "Suprimentos e
+                processos" cadastrado para visualização.
+                <a class="link-opacity-100" href="/admin/prices/new">Clique aqui
+                    para realizar o primeiro
+                    cadastro.</a>
+            </p>
+            <% } else { %>
             <form action="/admin/sales/save" method="POST"
-                        onsubmit="verificarCampos(event, this)">
-            <div class="row">
-                <div class="col-12 col-md-4 mb-3">
+                onsubmit="verificarCampos(event, this)">
+                <div class="row">
+                    <div class="col-12 col-md-4 mb-3">
                         <label for="cliente" class="form-label">Cliente:</label>
-                        <select name="cliente" id="cliente" class="form-select form-select-sm" onchange="filtrarCliente()">
+                        <!-- <select name="cliente" id="cliente" class="form-select form-select-sm" onchange="filtrarCliente()">
                             <option value="LQS">LQS</option>
-                        </select>
-                </div>
-                <div class="col-12 col-md-4 mb-3">
+                        </select> -->
+                        <% if (cliente) { %><input type="text"
+                            class="form-control form-control-sm"
+                            onchange="filtrarCliente()" id="cliente"
+                            name="cliente" value="<%= cliente %>">
+                        <% } else { %>
+                            <input type="text"
+                            class="form-control form-control-sm"
+                            onchange="filtrarCliente()" id="cliente"
+                            name="cliente">
+                        <% } %>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
                         <label for="data" class="form-label">Data:</label>
                         <input type="date" class="form-control form-control-sm"
                             id="data" name="data">
+                    </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <label for="quantidade"
+                            class="form-label">Quantidade:</label>
+                        <input type="number"
+                            class="form-control form-control-sm" id="quantidade"
+                            name="quantidade" min="1" value="1"
+                            onchange="atualizarValores()">
+                    </div>
+                    <div class="col-12 col-md-4 mb-3 mb-md-1">
+                        <label for="" class="form-label">Descrição:</label>
+                        <input type="hidden" name="descricao" id="descricao">
+                        <select name="" id="selectProduto"
+                            class="form-select form-select-sm"
+                            onchange="atualizarValores()">
+                            <% prices.forEach(price => { %>
+                            <option value="<%= price.valor %>">
+                                <%= price.descricao %>
+                            </option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3 mb-md-1">
+                        <label for="valor" class="form-label">Valor:</label>
+                        <input type="text" class="form-control form-control-sm"
+                            name="valor" id="valor" min="1" value="1"
+                            onchange="atualizarValores()">
+                    </div>
+                    <div class="col-12 col-md-4 mb-2 mb-md-1">
+                        <label for="total" class="form-label">Total:</label>
+                        <input type="text" class="form-control form-control-sm"
+                            name="total" id="total" min="1" value="1"
+                            onchange="atualizarValores()">
+                    </div>
                 </div>
-                <div class="col-12 col-md-4 mb-3">
-                    <label for="quantidade"
-                        class="form-label">Quantidade:</label>
-                    <input type="number" class="form-control form-control-sm"
-                        id="quantidade" name="quantidade" min="1" value="1" onchange="atualizarValores()">
-                </div>
-                <div class="col-12 col-md-4 mb-3 mb-md-1">
-                    <label for="" class="form-label">Descrição:</label>
-                    <input type="hidden" name="descricao" id="descricao">
-                    <select name="" id="selectProduto" class="form-select form-select-sm" onchange="atualizarValores()">
-                        <% prices.forEach(price => { %>
-                        <option value="<%= price.valor %>">
-                            <%= price.descricao %>
-                        </option>
-                        <% }); %>
-                    </select>
-                </div>
-                <div class="col-12 col-md-4 mb-3 mb-md-1">
-                    <label for="valor" class="form-label">Valor:</label>
-                    <input type="text" class="form-control form-control-sm"
-                        name="valor" id="valor" min="1" value="1" onchange="atualizarValores()">
-                </div>
-                <div class="col-12 col-md-4 mb-2 mb-md-1">
-                    <label for="total" class="form-label">Total:</label>
-                    <input type="text" class="form-control form-control-sm"
-                        name="total" id="total" min="1" value="1" onchange="atualizarValores()">
-                </div>
-            </div>
         </div>
         <div class="card-footer text-muted">
             <button type="submit"
                 class="btn btn-success btn-sm">Cadastrar</button>
             </form>
         </div>
-        <% } %>   
+        <% } %>
     </div>
 </div>
 </div>
@@ -71,13 +87,13 @@
     document.addEventListener("DOMContentLoaded", function() {
         atualizarValores();
     })
-    function atualizarValores(){
+    function atualizarValores() {
         let quantidade = document.querySelector("#quantidade");
         let selectProduto = document.querySelector("#selectProduto");
         let descricao = document.querySelector("#descricao");
         let valor = document.querySelector("#valor");
         let total = document.querySelector("#total");
-        descricao.value =  selectProduto.options[selectProduto.selectedIndex].text;
+        descricao.value = selectProduto.options[selectProduto.selectedIndex].text;
         valor.value = selectProduto.value;
         total.value = (quantidade.value * valor.value);
         valor.value = (selectProduto.value);

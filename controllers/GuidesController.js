@@ -127,15 +127,77 @@ async function saveEnterGuide(req, res) {
             raw: true,
         });
 
-        await Billings.create({
-            tipo: tipo,
-            cliente: expedidor,
-            descricao: contrato,
-            total: count[contrato],
-            data: dataMilissegundos,
-            valor: price.valor,
+        let billing = await Billings.findOne({
+            where: {
+                cliente: expedidor,
+                descricao: contrato,
+            },
+            raw: true,
+            order: [["data", "DESC"]],
         });
+
+        let billingSaldo;
+        if (billing) {
+            billingSaldo = Number(billing.saldo);
+        }
+
+        if (billingSaldo) {
+            await Billings.create({
+                tipo: tipo,
+                cliente: expedidor,
+                descricao: contrato,
+                total: count[contrato],
+                saldo: billingSaldo + (count[contrato]),
+                data: dataMilissegundos,
+                valor: price.valor,
+            });
+        } else {
+            await Billings.create({
+                tipo: tipo,
+                cliente: expedidor,
+                descricao: contrato,
+                total: count[contrato],
+                saldo: count[contrato],
+                data: dataMilissegundos,
+                valor: price.valor,
+            });
+        }
+
+        let billings = await Billings.findAll({
+            raw: true,
+            where: {
+                // Adicione sua condição de filtro aqui
+                // Exemplo: filtrar por um campo chamado 'status' com valor 'paid'
+                descricao: contrato,
+            },
+            order: [["data", "ASC"]],
+        });
+    
+        let estoque = 0;
+        
+        for (let item = 0; item < billings.length; item++) {
+            let faturaAtual = billings[item];
+        
+            if (item === 0) {
+                estoque = faturaAtual.total;
+                await Billings.update(
+                    {
+                        saldo: faturaAtual.total,
+                    },
+                    { where: { id: faturaAtual.id } }
+                );
+            } else if (faturaAtual.tipo === "Entrada") {
+                await Billings.update(
+                    {
+                        saldo: estoque + faturaAtual.total,
+                    },
+                    { where: { id: faturaAtual.id } }
+                );
+                estoque = estoque + faturaAtual.total;
+            }
+        }
     }
+    
 
     await Guides.create({
         tipo,

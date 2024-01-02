@@ -69,33 +69,65 @@
                                     <th class="px-2">Tipo</th>
                                     <!-- <th class="px-2">Cliente</th>
                                 <th class="px-2">Descrição</th> -->
+                                    <th class="px-2">Valor por palete</th>
+                                    <!-- <th class="px-2">Quantidade</th>
+                                    <th class="px-2">Estoque</th> -->
+                                    <th class="px-2">Quantidade</th>
+                                    <th class="px-2">Estoque</th>
                                     <th class="px-2">Valor diário</th>
-                                    <th class="px-2">Total</th>
                                     <!-- <th class="px-2 ignore-print">Ações</th> -->
                                 </tr>
                             </thead>
                             <tbody id="myTable">
-                            <% separatedByDescription[descricao].forEach((item) => { %>
+                                <% separatedByDescription[descricao].forEach((item) => { %>
                                 <tr>
                                     <td
                                         class="text-nowrap px-2 datas text-nowrap">
                                         <%= item.data %>
                                     </td>
+                                    <% if (item.tipo == "Entrada") { %>
+                                        <td class="text-nowrap px-2 text-nowrap text-success">
+                                            <%= item.tipo %><i class="bi bi-arrow-up"></i> 
+                                        </td>
+                                        <td
+                                            class="text-nowrap px-2 precos text-nowrap">
+                                            <%= item.valor / obterDiasDoMes %>
+                                        </td>
+                                        <td class="text-nowrap px-2 text-nowrap text-success">
+                                            <%= item.total %><i class="bi bi-arrow-up"></i>
+                                        </td>
+                                    <% } else if (item.tipo == "Saida") { %>
+                                        <td class="text-nowrap px-2 text-nowrap text-danger">
+                                            <%= item.tipo %><i class="bi bi-arrow-down"></i>
+                                        </td>
+                                        <td
+                                            class="text-nowrap px-2 precos text-nowrap">
+                                            <%= item.valor / obterDiasDoMes %>
+                                        </td>
+                                        <td class="text-nowrap px-2 text-nowrap text-danger">
+                                            <%= item.total %><i class="bi bi-arrow-down"></i>
+                                        </td>
+                                    <% } else { %>
                                     <td class="text-nowrap px-2 text-nowrap">
                                         <%= item.tipo %>
                                     </td>
-                                    <!-- <td class="text-nowrap px-2 text-nowrap"><%= item.cliente %></td>
-                                <td class="text-nowrap px-2 text-nowrap"><%= item.descricao %></td> -->
                                     <td
                                         class="text-nowrap px-2 precos text-nowrap">
-                                        <%= item.valor %>
+                                        <%= item.valor / obterDiasDoMes %>
                                     </td>
                                     <td class="text-nowrap px-2 text-nowrap">
                                         <%= item.total %>
                                     </td>
+                                    <% } %>
+                                    <td class="text-nowrap px-2 text-nowrap"><%= item.saldo %>
+                                    </td>
+                                    <td
+                                        class="text-nowrap px-2 precos text-nowrap">
+                                        <%= item.valor / obterDiasDoMes * item.saldo %>
+                                    </td>
                                 </tr>
-                            <% }); %>
-                        </tbody>
+                                <% }); %>
+                            </tbody>
                         </table>
                     </div>
                 </div>

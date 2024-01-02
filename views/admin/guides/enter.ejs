@@ -153,7 +153,7 @@
             let inputsHTML = '';
 
             if (totalPaletesInput.value > totalRacksDisponiveis
-                .value) {
+                .value || totalPaletesInput.value < 0) {
                 totalPaletesInput.value = totalRacksDisponiveis
                     .value;
                 total = totalRacksDisponiveis.value;

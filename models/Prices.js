@@ -49,6 +49,6 @@ const Prices = connection.define("prices", {
     },
 });
 
-// Prices.sync({force: true});
+//Prices.sync({force: true});
 
 module.exports = Prices;
